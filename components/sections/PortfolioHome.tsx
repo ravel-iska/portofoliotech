@@ -49,7 +49,7 @@ export default function PortfolioHome() {
             <SponsorMarquee />
             <InfiniteMarquee />
 
-            <div className="w-full relative z-10 bg-gradient-to-b from-transparent via-black/20 to-black/95 backdrop-blur-[2px]">
+            <div className="w-full relative z-10 bg-gradient-to-b from-transparent via-black/20 to-black/95">
                 <About />
                 <div id="innovation">
                     <PremiumCryptoShowcase />

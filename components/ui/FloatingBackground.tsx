@@ -8,25 +8,23 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-// animejs required in useEffect
-import { motion } from "framer-motion";
+import { useIsMobile } from "@/hooks/useDeviceDetect";
 
 export default function FloatingBackground() {
     const containerRef = useRef<HTMLDivElement>(null);
+    const isMobile = useIsMobile();
 
     useEffect(() => {
-        if (!containerRef.current) return;
+        if (!containerRef.current || isMobile) return;
 
-        // Create particles
-        const particleCount = 20;
+        const particleCount = 8; // Reduced from 20
         const container = containerRef.current;
 
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement("div");
-            particle.className = "absolute rounded-full opacity-20 blur-xl pointer-events-none";
+            particle.className = "absolute rounded-full opacity-10 pointer-events-none";
 
-            // Random properties
-            const size = Math.random() * 300 + 100;
+            const size = Math.random() * 200 + 80;
             const x = Math.random() * 100;
             const y = Math.random() * 100;
             const color = Math.random() > 0.5 ? "#00ff87" : "#0070f3";
@@ -37,6 +35,7 @@ export default function FloatingBackground() {
                 left: `${x}%`,
                 top: `${y}%`,
                 backgroundColor: color,
+                willChange: "transform",
             });
 
             container.appendChild(particle);
@@ -44,14 +43,13 @@ export default function FloatingBackground() {
             const animeModule = require("animejs");
             const anime = animeModule.default || animeModule;
 
-            // Animate with Anime.js
             anime({
                 targets: particle,
-                translateX: () => Math.random() * 200 - 100,
-                translateY: () => Math.random() * 200 - 100,
-                scale: [1, Math.random() * 0.4 + 0.8],
-                opacity: [0.1, 0.3],
-                duration: Math.random() * 5000 + 5000,
+                translateX: () => Math.random() * 100 - 50,
+                translateY: () => Math.random() * 100 - 50,
+                scale: [1, Math.random() * 0.3 + 0.9],
+                opacity: [0.05, 0.15],
+                duration: Math.random() * 8000 + 8000,
                 direction: "alternate",
                 easing: "easeInOutSine",
                 loop: true,
@@ -61,7 +59,10 @@ export default function FloatingBackground() {
         return () => {
             if (container) container.innerHTML = "";
         };
-    }, []);
+    }, [isMobile]);
+
+    // On mobile: render nothing (MeshBackground already provides ambient)
+    if (isMobile) return null;
 
     return (
         <div

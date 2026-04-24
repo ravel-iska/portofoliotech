@@ -10,43 +10,46 @@ if (typeof window !== "undefined") {
 
 export const useGsapScroll = () => {
     useEffect(() => {
-        // Subtle entrance for standard sections
+        const isMobile = window.innerWidth < 768;
+
         const sections = document.querySelectorAll("section:not(#home)");
 
         sections.forEach((section) => {
             gsap.fromTo(section,
                 {
                     opacity: 0,
-                    y: 40,
-                    filter: "blur(10px)"
+                    y: isMobile ? 20 : 40,
+                    // REMOVED filter:blur on mobile — it's extremely expensive
+                    ...(isMobile ? {} : { filter: "blur(10px)" })
                 },
                 {
                     opacity: 1,
                     y: 0,
-                    filter: "blur(0px)",
-                    duration: 1.2,
+                    ...(isMobile ? {} : { filter: "blur(0px)" }),
+                    duration: isMobile ? 0.6 : 1.2,
                     ease: "power2.out",
                     scrollTrigger: {
                         trigger: section,
                         start: "top 90%",
-                        toggleActions: "play none none reverse",
+                        toggleActions: "play none none none", // Don't reverse on mobile
                     }
                 }
             );
         });
 
-        // Global stagger for items with .gsap-reveal class
-        gsap.from(".gsap-reveal", {
-            opacity: 0,
-            y: 30,
-            stagger: 0.1,
-            duration: 0.8,
-            ease: "expo.out",
-            scrollTrigger: {
-                trigger: ".gsap-reveal",
-                start: "top 85%"
-            }
-        });
+        if (!isMobile) {
+            gsap.from(".gsap-reveal", {
+                opacity: 0,
+                y: 30,
+                stagger: 0.1,
+                duration: 0.8,
+                ease: "expo.out",
+                scrollTrigger: {
+                    trigger: ".gsap-reveal",
+                    start: "top 85%"
+                }
+            });
+        }
 
         return () => {
             ScrollTrigger.getAll().forEach(t => t.kill());
