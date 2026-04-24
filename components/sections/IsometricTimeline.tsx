@@ -31,12 +31,12 @@ export default function IsometricTimeline() {
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
                         className="absolute bottom-4 left-4 right-4 md:bottom-10 md:right-20 md:left-auto z-50 p-4 md:p-8 glass-card border border-white/10 rounded-xl md:rounded-[2rem] max-w-sm shadow-2xl"
                     >
-                        <button onClick={() => setSelectedNode(null)} className="absolute top-6 right-6 text-white/20 hover:text-white">
+                        <button onClick={() => setSelectedNode(null)} className="absolute top-3 right-3 md:top-6 md:right-6 text-white/20 hover:text-white p-1">
                             <X size={18} />
                         </button>
-                        <h4 className="text-orange-400 font-display font-bold text-base md:text-xl uppercase tracking-tighter mb-1 md:mb-2 italic">{selectedNode.title}</h4>
-                        <p className="text-white/80 text-xs md:text-sm leading-relaxed mb-3 md:mb-4 font-light">{selectedNode.desc}</p>
-                        <div className="flex items-center gap-3 pt-4 border-t border-white/5">
+                        <h4 className="text-orange-400 font-display font-bold text-base md:text-xl uppercase tracking-tighter mb-1 md:mb-2 italic pr-8">{selectedNode.title}</h4>
+                        <p className="text-white/80 text-xs md:text-sm leading-relaxed mb-3 md:mb-4 font-light pr-4">{selectedNode.desc}</p>
+                        <div className="flex flex-wrap items-center gap-2 md:gap-3 pt-3 md:pt-4 border-t border-white/5">
                             <span className="text-[10px] font-mono text-white/30 uppercase tracking-widest">Stack:</span>
                             <span className="text-[10px] font-mono text-orange-400/80 uppercase tracking-widest">{selectedNode.tech}</span>
                         </div>

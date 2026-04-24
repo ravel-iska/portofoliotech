@@ -55,13 +55,13 @@ export default function Projects({ setSelectedProject }: ProjectsProps) {
                 </div>
 
                 {/* Bento Grid */}
-                <motion.div layout className="grid grid-cols-1 md:grid-cols-12 auto-rows-[280px] md:auto-rows-[450px] gap-4 md:gap-8">
+                <motion.div layout className="grid grid-cols-2 md:grid-cols-12 auto-rows-[200px] md:auto-rows-[450px] gap-3 md:gap-8">
                     <AnimatePresence mode="popLayout">
                         {filteredProjects.map((project, i) => {
                             let bentoClasses = "md:col-span-4";
-                            if (i === 0) bentoClasses = "md:col-span-8 md:row-span-2"; // Feature
-                            else if (i === 3) bentoClasses = "md:col-span-12"; // Wide
-                            else if (i === 4) bentoClasses = "md:col-span-8";
+                            if (i === 0) bentoClasses = "col-span-2 md:col-span-8 md:row-span-2"; // Feature
+                            else if (i === 3) bentoClasses = "col-span-2 md:col-span-12"; // Wide
+                            else if (i === 4) bentoClasses = "col-span-2 md:col-span-8";
 
                             return (
                                 <ProjectCard

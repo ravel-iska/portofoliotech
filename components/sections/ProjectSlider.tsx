@@ -84,11 +84,20 @@ export default function ProjectSlider({ selectedProject, setSelectedProject }: P
                             initial={{ scale: 0.9, opacity: 0, y: 100 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.9, opacity: 0, y: 100 }}
-                            className="relative w-full max-w-7xl h-[95vh] md:h-[92vh] bg-[#0c0c0c]/90 rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden flex flex-col shadow-2xl border border-white/5"
+                            className="relative w-full max-w-7xl h-[100vh] md:h-[92vh] bg-[#0c0c0c] md:bg-[#0c0c0c]/90 rounded-none md:rounded-[2.5rem] overflow-hidden flex flex-col shadow-2xl border-0 md:border border-white/5"
                         >
-                            {/* Window Header */}
+                            {/* Window Header — iOS pill on mobile, macOS traffic lights on desktop */}
                             <div className="h-12 md:h-14 w-full bg-white/[0.03] border-b border-white/5 flex items-center px-4 md:px-8 justify-between shrink-0">
-                                <div className="flex gap-2.5">
+                                {/* Mobile: drag pill + back text */}
+                                <div className="flex md:hidden items-center gap-3 w-full">
+                                    <button onClick={() => { playSwoosh(); setSelectedProject(null); }} className="text-accent font-mono text-xs uppercase tracking-wider">✕ Close</button>
+                                    <div className="flex-1 flex justify-center">
+                                        <div className="w-8 h-1 bg-white/20 rounded-full" />
+                                    </div>
+                                    <span className="text-white/20 font-mono text-[9px]">v5.4</span>
+                                </div>
+                                {/* Desktop: macOS traffic lights */}
+                                <div className="hidden md:flex gap-2.5">
                                     <div onClick={() => { playSwoosh(); setSelectedProject(null); }} className="w-3.5 h-3.5 rounded-full bg-[#ff5f56] cursor-pointer hover:scale-110 active:scale-95 transition-all shadow-[0_0_10px_rgba(255,95,86,0.3)]" />
                                     <div className="w-3.5 h-3.5 rounded-full bg-[#ffbd2e]" />
                                     <div className="w-3.5 h-3.5 rounded-full bg-[#27c93f]" />
@@ -100,7 +109,7 @@ export default function ProjectSlider({ selectedProject, setSelectedProject }: P
                                     <span className="flex items-center gap-2.5 opacity-50"><Grid3X3 size={14} /> Gallery</span>
                                     <span className="flex items-center gap-2.5 opacity-50"><Camera size={14} /> Assets</span>
                                 </div>
-                                <div className="w-16 h-8 bg-white/5 rounded-lg flex items-center justify-center text-white/20 font-mono text-[9px] tracking-widest border border-white/5">
+                                <div className="hidden md:flex w-16 h-8 bg-white/5 rounded-lg items-center justify-center text-white/20 font-mono text-[9px] tracking-widest border border-white/5">
                                     v5.4.1
                                 </div>
                             </div>
