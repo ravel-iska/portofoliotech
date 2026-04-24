@@ -3,15 +3,15 @@ import postgres from "postgres";
 import * as schema from "./schema";
 
 // Construct connection string from env vars
-// Supports both a single POSTGRES_URL or individual AWS RDS variables
-const connectionString = process.env.POSTGRES_URL ||
+// Supports Railway (DATABASE_URL), Vercel (POSTGRES_URL), or individual variables
+const connectionString = process.env.DATABASE_URL || process.env.POSTGRES_URL ||
     (process.env.PGHOST ? `postgres://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}:${process.env.PGPORT}/${process.env.PGDATABASE}` : "");
 
 if (!connectionString) {
-    console.warn("No database connection string provided (POSTGRES_URL or PG* vars missing)");
+    console.warn("No database connection string provided (DATABASE_URL, POSTGRES_URL or PG* vars missing)");
 }
 
-// Disable prefetch as some providers like Prisma/Supabase/RDS pooling don't support it well
+// Disable prefetch for better compatibility with serverless and poolers
 export const client = postgres(connectionString, {
     prepare: false,
     ssl: process.env.PGSSLMODE === 'require' ? 'require' : false
