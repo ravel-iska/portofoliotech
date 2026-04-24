@@ -96,9 +96,14 @@ export default function VCardModal({ isOpen, onClose }: VCardModalProps) {
                         >
                             {/* Front Side */}
                             <div
-                                className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#1a1a1a] border border-white/10 shadow-2xl overflow-hidden flex flex-col justify-between p-6 md:p-8"
-                                style={{ backfaceVisibility: "hidden" }}
+                                className="absolute inset-0 rounded-[2rem] bg-[#111111] border border-white/10 shadow-2xl overflow-hidden flex flex-col justify-between p-6 md:p-8"
+                                style={{
+                                    backfaceVisibility: "hidden",
+                                    WebkitBackfaceVisibility: "hidden",
+                                    transform: "rotateY(0deg)"
+                                }}
                             >
+                                <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#1a1a1a]" />
                                 <div className="relative z-10">
                                     <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center text-accent mb-4 md:mb-6 border border-accent/30">
                                         <LayoutDashboard size={24} />
@@ -132,8 +137,12 @@ export default function VCardModal({ isOpen, onClose }: VCardModalProps) {
 
                             {/* Back Side */}
                             <div
-                                className="absolute inset-0 rounded-[2rem] bg-gradient-to-bl from-[#0f172a] via-[#020617] to-[#000000] border border-blue-500/20 shadow-2xl overflow-hidden flex flex-col items-center justify-center p-6 md:p-8"
-                                style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
+                                className="absolute inset-0 rounded-[2rem] bg-[#020617] border border-blue-500/20 shadow-2xl overflow-hidden flex flex-col items-center justify-center p-6 md:p-8"
+                                style={{
+                                    backfaceVisibility: "hidden",
+                                    WebkitBackfaceVisibility: "hidden",
+                                    transform: "rotateY(180deg)"
+                                }}
                             >
                                 <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-blue-500 to-accent flex items-center justify-center mb-6 md:mb-8 relative z-10">
                                     <Code size={28} className="text-white relative z-10" />
