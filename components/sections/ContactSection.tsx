@@ -5,15 +5,41 @@ import { motion } from "framer-motion";
 import { Send, MessageSquare, User, AtSign } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useGlobal } from "@/components/core/GlobalProvider";
+import { submitContactMessage } from "@/actions/contact";
+
 
 export default function ContactSection() {
     const { t } = useGlobal();
     const [shouldMount, setShouldMount] = useState(false);
 
+    // Form States
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [content, setContent] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [result, setResult] = useState<{ success: boolean; message: string } | null>(null);
+
     useEffect(() => {
         const timer = setTimeout(() => setShouldMount(true), 2000);
         return () => clearTimeout(timer);
     }, []);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setResult(null);
+
+        const res = await submitContactMessage({ name, email, content });
+        setResult(res);
+        setIsSubmitting(false);
+
+        if (res.success) {
+            setName("");
+            setEmail("");
+            setContent("");
+        }
+    };
+
 
     return (
         <section id="contact" className="relative py-20 bg-[#0A1128] overflow-hidden">
@@ -77,13 +103,22 @@ export default function ContactSection() {
                         {/* Form Glow */}
                         <div className="absolute -top-20 -right-20 w-80 h-80 bg-blue-500/10 rounded-full blur-[100px] pointer-events-none" />
 
-                        <form className="space-y-8 relative z-10">
+                        <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
+                            {result && (
+                                <div className={`p-4 rounded-2xl text-sm font-mono tracking-wide ${result.success ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
+                                    {result.message}
+                                </div>
+                            )}
+
                             <div className="space-y-2">
                                 <label className="text-white/40 font-mono text-[10px] uppercase tracking-[0.4em] ml-2">Full Identity</label>
                                 <div className="relative">
                                     <User className="absolute left-6 top-1/2 -translate-y-1/2 text-white/20" size={18} />
                                     <input
                                         type="text"
+                                        required
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
                                         placeholder="Cipher Name"
                                         className="w-full h-16 pl-16 pr-8 bg-black/40 border border-white/10 rounded-2xl text-white font-mono text-sm focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 transition-all"
                                     />
@@ -95,6 +130,9 @@ export default function ContactSection() {
                                     <AtSign className="absolute left-6 top-1/2 -translate-y-1/2 text-white/20" size={18} />
                                     <input
                                         type="email"
+                                        required
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
                                         placeholder="name@domain.com"
                                         className="w-full h-16 pl-16 pr-8 bg-black/40 border border-white/10 rounded-2xl text-white font-mono text-sm focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 transition-all"
                                     />
@@ -106,15 +144,22 @@ export default function ContactSection() {
                                     <MessageSquare className="absolute left-6 top-8 text-white/20" size={18} />
                                     <textarea
                                         rows={4}
+                                        required
+                                        value={content}
+                                        onChange={(e) => setContent(e.target.value)}
                                         placeholder="Details of the transmission..."
                                         className="w-full pl-16 pr-8 py-6 bg-black/40 border border-white/10 rounded-2xl text-white font-mono text-sm focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 transition-all resize-none"
                                     />
                                 </div>
                             </div>
 
-                            <button className="w-full h-16 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-display font-bold text-lg rounded-2xl shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] hover:shadow-[0_25px_50px_-10px_rgba(37,99,235,0.6)] hover:-translate-y-1 transition-all active:scale-95 flex items-center justify-center gap-3">
-                                <Send size={20} />
-                                BROADCAST SIGNAL
+                            <button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className="w-full h-16 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-display font-bold text-lg rounded-2xl shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] hover:shadow-[0_25px_50px_-10px_rgba(37,99,235,0.6)] hover:-translate-y-1 transition-all active:scale-95 flex items-center justify-center gap-3 disabled:opacity-50 disabled:pointer-events-none"
+                            >
+                                <Send size={20} className={isSubmitting ? "animate-pulse" : ""} />
+                                {isSubmitting ? "TRANSMITTING..." : "BROADCAST SIGNAL"}
                             </button>
                         </form>
                     </motion.div>

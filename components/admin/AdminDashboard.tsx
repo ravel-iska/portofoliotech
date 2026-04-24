@@ -17,22 +17,28 @@ import {
     Zap
 } from "lucide-react";
 import { useGlobal } from "@/components/core/GlobalProvider";
+import { fetchAdminLogs, clearAllLogs } from "@/actions/admin";
 
 export default function AdminDashboard() {
     const { t } = useGlobal();
     const [activeTab, setActiveTab] = useState<"overview" | "content" | "media">("overview");
     const [isSaving, setIsSaving] = useState(false);
+    const [logs, setLogs] = useState<any[]>([]);
 
     // Form states
+
     const [heroRole, setHeroRole] = useState("");
     const [aboutDesc, setAboutDesc] = useState("");
 
     useEffect(() => {
         setHeroRole(localStorage.getItem("vibe_hero_role") || t("hero.role"));
         setAboutDesc(localStorage.getItem("vibe_about_desc") || t("about.desc") || t("about.desc1"));
+
+        fetchAdminLogs().then(data => setLogs(data));
     }, [t]);
 
     const handleSave = () => {
+
         setIsSaving(true);
         localStorage.setItem("vibe_hero_role", heroRole);
         localStorage.setItem("vibe_about_desc", aboutDesc);
@@ -108,13 +114,22 @@ export default function AdminDashboard() {
                                         </div>
 
                                         <div className="p-8 border border-white/5 bg-white/[0.02] rounded-3xl">
-                                            <h3 className="text-xl font-display font-bold text-white mb-6">Recent Activity</h3>
-                                            <div className="space-y-4">
-                                                <ActivityItem label="Updated Hero Section" date="2 hours ago" />
-                                                <ActivityItem label="Uploaded 12 new memories" date="Yesterday" />
-                                                <ActivityItem label="Deployed core v2.4" date="3 days ago" />
+                                            <div className="flex justify-between items-center mb-6">
+                                                <h3 className="text-xl font-display font-bold text-white">Security & Activity Logs</h3>
+                                                <button onClick={() => clearAllLogs().then(() => setLogs([]))} className="text-[10px] uppercase font-bold text-red-500/80 hover:text-red-500 transition-colors">Clear All</button>
+                                            </div>
+                                            <div className="space-y-4 max-h-[300px] overflow-y-auto pr-4 custom-scrollbar">
+                                                {logs.length > 0 ? logs.map(log => (
+                                                    <ActivityItem key={log.id} label={log.action} date={new Date(log.createdAt).toLocaleString()} />
+                                                )) : (
+                                                    <div className="flex flex-col items-center justify-center py-10 opacity-40">
+                                                        <Activity size={24} className="mb-3" />
+                                                        <span className="text-xs uppercase tracking-widest font-mono">No database logs</span>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
+
                                     </motion.div>
                                 )}
 
