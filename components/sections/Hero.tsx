@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { Image as ImageIcon } from "lucide-react";
 import MagneticButton from "@/components/ui/MagneticButton";
 import { TextReveal } from "@/components/ui/TextReveal";
 import { useGlobal } from "@/components/core/GlobalProvider";
@@ -68,13 +69,22 @@ export default function Hero() {
                     <strong className="text-white font-medium">{t("hero.role")}</strong> {t("hero.desc")}
                 </p>
 
-                <div className="hero-fade-in opacity-0 flex flex-col md:flex-row justify-center items-center gap-4 w-full">
+                <div className="hero-fade-in opacity-0 flex flex-wrap justify-center items-center gap-4 w-full">
                     <MagneticButton
                         onClick={handleExplore}
-                        className="text-base md:text-lg px-10 md:px-12 py-4 md:py-5 cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-300 border border-white/20 bg-white/5"
+                        className="text-base md:text-lg px-8 md:px-10 py-4 md:py-5 cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-300 border border-white/20 bg-white/5"
                     >
                         {t("hero.cta")}
                     </MagneticButton>
+                    <button
+                        onClick={() => {
+                            const memories = document.getElementById('memories');
+                            if (memories) memories.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        className="flex items-center gap-2 text-accent/80 hover:text-accent font-mono text-xs uppercase tracking-widest px-8 py-4 transition-all hover:bg-white/5 rounded-2xl cursor-pointer border border-accent/20"
+                    >
+                        <ImageIcon size={16} /> Vibe Photos
+                    </button>
                     <button
                         onClick={() => {
                             const contact = document.getElementById('contact');

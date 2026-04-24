@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, User, MessageSquare, Mail, Cpu, LayoutDashboard, Menu, X, ChevronLeft, ChevronRight, TrendingUp, Sun, Moon, Globe, Shield } from "lucide-react";
+import { Home, User, MessageSquare, Mail, Cpu, LayoutDashboard, Menu, X, ChevronLeft, ChevronRight, TrendingUp, Sun, Moon, Globe, Shield, Image as ImageIcon } from "lucide-react";
 import { useState } from "react";
 import { useLenis } from "@studio-freight/react-lenis";
 import { useGlobal } from "@/components/core/GlobalProvider";
@@ -13,7 +13,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
         { name: t("nav.about"), icon: <User size={20} />, href: "#about" },
         { name: t("dashboard.title"), icon: <LayoutDashboard size={20} />, href: "#trading" },
         { name: t("nav.projects"), icon: <Cpu size={20} />, href: "#projects" },
-        { name: t("nav.memories"), icon: <MessageSquare size={20} />, href: "#memories" },
+        { name: "Vibe Gallery", icon: <ImageIcon size={20} />, href: "#memories" },
         { name: t("nav.contact"), icon: <Mail size={20} />, href: "#contact" },
     ];
 

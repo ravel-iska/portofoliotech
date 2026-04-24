@@ -196,9 +196,8 @@ canvas {
     transition-delay: 0s !important;
   }
 
-  /* Kill ALL blur filters on mobile */
+  /* Kill ALL blur filters on mobile - DO NOT USE display: none as it hides the element */
   [class*="blur-"] {
-    display: none !important;
     filter: none !important;
     -webkit-filter: none !important;
   }
