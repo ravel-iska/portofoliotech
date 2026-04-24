@@ -25,6 +25,8 @@ const MeshBackground = dynamic(() => import("@/components/ui/MeshBackground"), {
 const MemoryGallery = dynamic(() => import("@/components/sections/MemoryGallery"), { ssr: false });
 const AdminDashboard = dynamic(() => import("@/components/admin/AdminDashboard"), { ssr: false });
 const SponsorMarquee = dynamic(() => import("@/components/sections/SponsorMarquee"), { ssr: false });
+const WeatherWidget = dynamic(() => import("@/components/ui/WeatherWidget"), { ssr: false });
+
 
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -88,7 +90,9 @@ export default function Home() {
 
         <Footer />
         <WelcomeRobot />
+        <WeatherWidget />
       </div>
+
     </div>
   );
 }
