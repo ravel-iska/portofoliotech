@@ -40,39 +40,129 @@ export default function SmartChat() {
         }
     }, [history]);
 
+    const getAIResponse = (input: string): string => {
+        const q = input.toLowerCase().trim();
+
+        // --- Music controls ---
+        if (q === "play" || q === "play music" || q === "musik" || q === "putar" || q === "putar musik") {
+            setIsPlaying(true);
+            return "🎵 Music started! Enjoy the vibes. Type \"stop\" to pause.";
+        }
+        if (q === "stop" || q === "stop music" || q === "pause" || q === "berhenti") {
+            setIsPlaying(false);
+            return "⏹️ Music stopped. Type \"play\" to start again.";
+        }
+
+        // --- Greetings ---
+        if (/^(hi|halo|hello|hey|hai|selamat|assalam|salam|yo|oi)/.test(q)) {
+            return "👋 Halo! Selamat datang di Vibe Studio. Saya adalah Vibe AI Agent, asisten virtual Bagus Priambudi. Ketik \"help\" untuk melihat apa saja yang bisa saya bantu!";
+        }
+
+        // --- Help / Menu ---
+        if (/^(help|menu|bantuan|tolong|commands|perintah|\?)/.test(q)) {
+            return "📋 Berikut topik yang bisa kamu tanyakan:\n\n• \"siapa bagus\" — Profil lengkap\n• \"skill\" — Keahlian teknis\n• \"project\" — Daftar proyek\n• \"email\" / \"wa\" — Info kontak\n• \"sosmed\" — Link media sosial\n• \"pengalaman\" — Riwayat karir\n• \"pendidikan\" — Riwayat pendidikan\n• \"tech stack\" — Teknologi yang digunakan\n• \"cv\" — Download CV\n• \"play\" — Putar musik\n• \"stop\" — Hentikan musik";
+        }
+
+        // --- Identity / About ---
+        if (/siapa|who|tentang|about|profil|profile|background|latar/.test(q)) {
+            return "🧑‍💻 Bagus Priambudi, S.Kom — IT Data Analyst, Web3 Programmer, Vibe AI Specialist & Trader. Lulusan S1 Teknik Informatika dengan konsentrasi Data Analisis. Spesialisasi dalam arsitektur Web3, perdagangan algoritmik, dan membangun dashboard analytics berperforma tinggi.";
+        }
+
+        // --- Skills ---
+        if (/skill|keahlian|kemampuan|bisa apa|abilities|expertise/.test(q)) {
+            return "⚡ Keahlian Utama:\n\n• Frontend: React, Next.js, TypeScript, TailwindCSS\n• Backend: Node.js, Go, REST API, GraphQL\n• Data: Python, Pandas, SQL, Data Pipeline\n• Web3: Solidity, Smart Contracts, DeFi Protocols\n• Trading: Algorithmic Trading, Quantitative Analysis\n• DevOps: Docker, Vercel, CI/CD\n• Design: Figma, GSAP Animations, UI/UX";
+        }
+
+        // --- Tech Stack ---
+        if (/tech|stack|teknologi|framework|tools|alat/.test(q)) {
+            return "🛠️ Tech Stack:\n\n• Next.js 15 + TypeScript\n• TailwindCSS v4 + Framer Motion\n• Drizzle ORM + Vercel Postgres\n• GSAP + Anime.js Animations\n• Vercel Edge Deployment\n• Lucide Icons + Custom Design System";
+        }
+
+        // --- Projects ---
+        if (/project|proyek|karya|portfolio|portofolio|kerja/.test(q)) {
+            return "🚀 Proyek Unggulan:\n\n1. Vibe Commerce — E-commerce engine dengan inventaris real-time & glassmorphism UI\n2. Nebula Dashboard — Analitik cloud monitoring dengan grafik interaktif\n3. Aura Design System — Sistem desain premium untuk aplikasi web modern\n\nScroll ke bagian \"Karya Pilihan\" untuk melihat lebih detail!";
+        }
+
+        // --- Contact: WhatsApp ---
+        if (/wa|whatsapp|chat|hubungi/.test(q)) {
+            return `📱 Hubungi Bagus via WhatsApp: ${t("contact.wa")}\n\nSilakan langsung chat untuk diskusi proyek atau kolaborasi!`;
+        }
+
+        // --- Contact: Email ---
+        if (/email|mail|surat|kirim/.test(q)) {
+            return `📧 Email resmi: ${t("contact.email")}\n\nAtau scroll ke bagian \"Kontak\" di bawah untuk langsung mengirim pesan dari website ini!`;
+        }
+
+        // --- Social Media ---
+        if (/sosmed|social|instagram|github|ig|link|media/.test(q)) {
+            return `🌐 Media Sosial:\n\n• GitHub: ${t("contact.github")}\n• Instagram: ${t("contact.instagram")}\n\nFollow untuk update proyek terbaru!`;
+        }
+
+        // --- Experience ---
+        if (/pengalaman|experience|karir|career|kerja|job|pekerjaan/.test(q)) {
+            return "💼 Riwayat Profesional:\n\nBagus telah terjun ke industri perangkat lunak, mengembangkan sistem berskala besar. Spesialisasi di bidang Fullstack Development, Data Analytics, dan Algorithmic Trading di pasar Crypto & Forex.";
+        }
+
+        // --- Education ---
+        if (/pendidikan|education|kuliah|sekolah|universitas|kampus|belajar/.test(q)) {
+            return "🎓 Pendidikan:\n\n• S1 Teknik Informatika — Konsentrasi Data Analisis\n• Bootcamp & Sertifikasi — Spesialisasi Web3 & AI\n• Self-learning — Algorithmic Trading, Quantitative Finance";
+        }
+
+        // --- CV / Resume ---
+        if (/cv|resume|curriculum|download|unduh/.test(q)) {
+            return "📄 CV tersedia untuk di-download! Scroll ke bagian terminal \"CV Extraction Protocol\" di bawah, atau klik tombol DOWNLOAD CV setelah animasi terminal selesai.";
+        }
+
+        // --- Trading ---
+        if (/trading|trader|crypto|forex|bitcoin|btc|eth|binance|futures/.test(q)) {
+            return "📈 Trading Profile:\n\nBagus adalah Algorithmic Trader aktif di pasar Crypto Futures & Forex. Spesialisasi:\n• Quantitative Analysis & Signal Generation\n• Automated execution strategies\n• Risk management & portfolio optimization\n\nLihat dashboard trading di bagian \"Analisis Kuantitatif\"!";
+        }
+
+        // --- Web3 ---
+        if (/web3|blockchain|smart contract|solidity|defi|nft|decentralized/.test(q)) {
+            return "🔗 Web3 Expertise:\n\nBagus membangun kontrak pintar performa tinggi, protokol DeFi, dan arsitektur terdesentralisasi. Lihat bagian \"Arsitektur Terdesentralisasi\" untuk detail lebih lanjut!";
+        }
+
+        // --- AI ---
+        if (/ai|artificial|intelligence|machine learning|ml|deep learning/.test(q)) {
+            return "🤖 Saya adalah Vibe AI Agent — asisten virtual yang berjalan secara lokal di browser kamu. Saat ini saya bekerja dengan knowledge base offline. Di masa depan, Bagus berencana menghubungkan saya ke LLM backend untuk respons yang lebih cerdas!";
+        }
+
+        // --- Thanks ---
+        if (/terima kasih|thanks|thank you|makasih|thx/.test(q)) {
+            return "😊 Sama-sama! Senang bisa membantu. Jangan ragu untuk bertanya lagi kapan saja!";
+        }
+
+        // --- Location ---
+        if (/lokasi|location|dimana|where|alamat|address|kota|city/.test(q)) {
+            return "📍 Bagus berbasis di Indonesia. Terbuka untuk kolaborasi remote maupun on-site di wilayah Asia Tenggara.";
+        }
+
+        // --- Hire ---
+        if (/hire|rekrut|available|tersedia|freelance|collab|kolaborasi/.test(q)) {
+            return "✅ Bagus terbuka untuk peluang kolaborasi dan freelance! Silakan hubungi via:\n\n• WhatsApp: " + t("contact.wa") + "\n• Email: " + t("contact.email") + "\n\nAtau kirim pesan langsung dari form kontak di bawah!";
+        }
+
+        // --- Fallback: helpful suggestion ---
+        return "🤔 Hmm, saya belum punya info spesifik untuk pertanyaan itu. Coba tanyakan salah satu topik berikut:\n\n• \"siapa bagus\" — Profil\n• \"skill\" — Keahlian\n• \"project\" — Proyek\n• \"email\" / \"wa\" — Kontak\n• \"help\" — Semua perintah\n\nAtau ketik \"help\" untuk daftar lengkap! 😊";
+    };
+
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
         if (!query.trim()) return;
 
         const userMsg = { role: 'user', text: query };
         setHistory(prev => [...prev, userMsg]);
+        const currentQuery = query;
         setQuery("");
         setIsTyping(true);
 
         setTimeout(() => {
-            let response = `${t("chat.sim")} ("${userMsg.text}")`;
-            const lowerQuery = query.toLowerCase();
-
-            if (lowerQuery.includes("wa") || lowerQuery.includes("whatsapp")) {
-                response = `You can reach Bagus via WhatsApp here: ${t("contact.wa")}`;
-            } else if (lowerQuery.includes("email") || lowerQuery.includes("mail")) {
-                response = `Bagus's official email is ${t("contact.email")}. Feel free to reach out!`;
-            } else if (lowerQuery.includes("link") || lowerQuery.includes("sosmed") || lowerQuery.includes("social")) {
-                response = `Here are the links: GitHub (${t("contact.github")}), Instagram (${t("contact.instagram")})`;
-            } else if (lowerQuery.includes("siapa") || lowerQuery.includes("who") || lowerQuery.includes("background")) {
-                response = t("about.desc");
-            } else if (lowerQuery === "play" || lowerQuery === "play music" || lowerQuery === "musik") {
-                setIsPlaying(true);
-                response = "🎵 Music started! Enjoy the vibes. Type \"stop\" to pause the music.";
-            } else if (lowerQuery === "stop" || lowerQuery === "stop music" || lowerQuery === "pause") {
-                setIsPlaying(false);
-                response = "⏹️ Music stopped. Type \"play\" to start again.";
-            }
-
+            const response = getAIResponse(currentQuery);
             const aiMsg = { role: 'ai', text: response };
             setHistory(prev => [...prev, aiMsg]);
             setIsTyping(false);
-        }, 1200);
+        }, 800 + Math.random() * 600);
     };
 
     return (
@@ -112,7 +202,7 @@ export default function SmartChat() {
                                         {msg.role === 'ai' ? <Cpu size={14} className="text-white" /> : <User size={14} />}
                                     </div>
                                     <div className={`p-5 rounded-2xl border border-white/10 shadow-lg max-w-[80%] ${msg.role === 'ai' ? 'bg-white/10 backdrop-blur-3xl text-white font-sans text-sm leading-relaxed border-l-accent border-l-4' : 'bg-white/5 text-white/80 text-base'}`}>
-                                        <p className="font-medium">{msg.text}</p>
+                                        <p className="font-medium whitespace-pre-line">{msg.text}</p>
                                     </div>
                                 </div>
                             ))}
