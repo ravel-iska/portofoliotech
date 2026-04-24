@@ -42,7 +42,7 @@ export default function About() {
 
                 <div
                     onClick={() => setIsVCardOpen(true)}
-                    className="relative aspect-square h-[280px] md:h-[450px] lg:h-auto glass rounded-[2rem] md:rounded-[2.5rem] p-1 overflow-hidden group shadow-2xl cursor-pointer hover:scale-[1.02] active:scale-95 transition-transform duration-300 transform-gpu"
+                    className="relative w-full max-w-[280px] md:max-w-none md:aspect-square h-[320px] md:h-[450px] lg:h-auto mx-auto glass rounded-[2rem] md:rounded-[2.5rem] p-1 overflow-hidden group shadow-2xl cursor-pointer hover:scale-[1.02] active:scale-95 transition-transform duration-300 transform-gpu"
                     title="Click to Download Contact (vCard)"
                 >
                     {/* Inner highlight to simulate thickness */}
