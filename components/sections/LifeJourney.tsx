@@ -87,18 +87,18 @@ export default function LifeJourney() {
                     viewport={{ once: true }}
                     className="flex gap-4 shrink-0"
                 >
-                    <button onClick={() => slide('left')} className="p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-white backdrop-blur-md">
-                        <ChevronLeft size={28} />
+                    <button onClick={() => slide('left')} className="p-3 md:p-5 rounded-xl md:rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-white">
+                        <ChevronLeft size={20} />
                     </button>
-                    <button onClick={() => slide('right')} className="p-5 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-white backdrop-blur-md">
-                        <ChevronRight size={28} />
+                    <button onClick={() => slide('right')} className="p-3 md:p-5 rounded-xl md:rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors text-white">
+                        <ChevronRight size={20} />
                     </button>
                 </motion.div>
             </div>
 
             {/* Manual Horizontal Container */}
             <div className="w-full relative z-10">
-                <div ref={scrollRef} className="flex gap-16 md:gap-24 overflow-x-auto snap-x snap-proximity hide-scrollbar px-10 md:px-[15vw] py-20 pb-40 min-w-full">
+                <div ref={scrollRef} className="flex gap-8 md:gap-24 overflow-x-auto snap-x snap-proximity hide-scrollbar px-6 md:px-[15vw] py-10 md:py-20 pb-20 md:pb-40 min-w-full">
 
                     {milestones.map((node) => (
                         <div key={node.id} className="relative shrink-0 flex items-center justify-center snap-center">
@@ -113,7 +113,7 @@ export default function LifeJourney() {
                                 }}
                                 whileHover={{ scale: 1.05, rotateY: 10 }}
                                 whileTap={{ scale: 0.95 }}
-                                className={`relative w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-[4rem] bg-gradient-to-br from-white/[0.08] to-white/[0.02] border-t border-l border-white/30 border-r border-b border-white/10 backdrop-blur-3xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.9),inset_0_2px_30px_rgba(255,255,255,0.1)] flex items-center justify-center group overflow-visible z-[100] cursor-pointer transition-all duration-300 ${selectedCard === node.id ? 'ring-4 ring-blue-500/50 scale-105 shadow-[0_0_50px_rgba(59,130,246,0.3)]' : ''}`}
+                                className={`relative w-[200px] h-[200px] md:w-[400px] md:h-[400px] rounded-[2rem] md:rounded-[4rem] bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/10 flex items-center justify-center group overflow-hidden z-[100] cursor-pointer transition-all duration-300 ${selectedCard === node.id ? 'ring-2 md:ring-4 ring-blue-500/50 scale-105' : ''}`}
                             >
                                 {/* Inner Glass reflection */}
                                 <div className="absolute inset-4 rounded-[3.5rem] border border-white/[0.05] pointer-events-none" />
@@ -124,9 +124,9 @@ export default function LifeJourney() {
                                 </div>
 
                                 {/* Floating Labels */}
-                                <div className={`absolute ${node.bubblePos} bg-black/80 border border-white/10 rounded-2xl px-8 py-5 shadow-2xl z-[60] min-w-[280px] pointer-events-none backdrop-blur-xl transform transition-all duration-500 ${selectedCard === node.id ? 'scale-110 -translate-y-4' : ''}`}>
-                                    <h4 className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2">{node.title}</h4>
-                                    <p className="text-[10px] font-mono text-white/50 uppercase tracking-[0.3em]">{node.label}</p>
+                                <div className={`absolute ${node.bubblePos} bg-black/90 border border-white/10 rounded-xl md:rounded-2xl px-4 py-3 md:px-8 md:py-5 shadow-xl z-[60] min-w-[160px] md:min-w-[280px] pointer-events-none transition-all duration-500 ${selectedCard === node.id ? 'scale-105 -translate-y-2' : ''}`}>
+                                    <h4 className="text-[10px] md:text-xs font-bold text-blue-400 uppercase tracking-widest mb-1 md:mb-2">{node.title}</h4>
+                                    <p className="text-[8px] md:text-[10px] font-mono text-white/50 uppercase tracking-[0.2em] md:tracking-[0.3em]">{node.label}</p>
                                 </div>
 
                                 {/* Expansion Details */}
@@ -136,9 +136,9 @@ export default function LifeJourney() {
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             exit={{ opacity: 0, y: 20 }}
-                                            className="absolute inset-0 bg-blue-600/10 backdrop-blur-2xl rounded-[4rem] flex flex-col items-center justify-center p-12 text-center"
+                                            className="absolute inset-0 bg-black/90 rounded-[2rem] md:rounded-[4rem] flex flex-col items-center justify-center p-6 md:p-12 text-center z-[200]"
                                         >
-                                            <p className="text-white text-lg font-display font-medium leading-relaxed">
+                                            <p className="text-white text-sm md:text-lg font-display font-medium leading-relaxed">
                                                 {node.details}
                                             </p>
                                             <div className="mt-8 w-12 h-1 bg-white/30 rounded-full" />
@@ -147,7 +147,7 @@ export default function LifeJourney() {
                                 </AnimatePresence>
 
                                 {/* Decoration Shards */}
-                                <div className="absolute -bottom-10 right-10 w-20 h-20 bg-white/[0.05] border border-white/20 rounded-2xl backdrop-blur-lg transform rotate-12 pointer-events-none group-hover:rotate-45 transition-transform duration-700" />
+                                <div className="hidden md:block absolute -bottom-10 right-10 w-20 h-20 bg-white/[0.05] border border-white/20 rounded-2xl transform rotate-12 pointer-events-none group-hover:rotate-45 transition-transform duration-700" />
                             </motion.button>
                         </div>
                     ))}
