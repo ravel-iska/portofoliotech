@@ -1,13 +1,22 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useIsMobile } from "@/hooks/useDeviceDetect";
 
 export default function MeshBackground() {
-    const isMobile = useIsMobile();
+    const [isMobile, setIsMobile] = useState(false);
+    const [mounted, setMounted] = useState(false);
 
-    // On mobile: static gradient only, no animations, no blur
-    if (isMobile) {
+    useEffect(() => {
+        setMounted(true);
+        setIsMobile(window.innerWidth < 768);
+        const handler = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener("resize", handler);
+        return () => window.removeEventListener("resize", handler);
+    }, []);
+
+    // Always render the simple version first (SSR-safe), then upgrade on desktop after mount
+    if (!mounted || isMobile) {
         return (
             <div className="fixed inset-0 z-[-1] overflow-hidden bg-bg pointer-events-none">
                 <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full bg-accent/10" />

@@ -3,22 +3,26 @@
 import { useState, useEffect, useRef } from "react";
 import createGlobe from "cobe";
 import { motion, AnimatePresence } from "framer-motion";
-import { useIsMobile } from "@/hooks/useDeviceDetect";
 
 export default function GlobeHeatmap() {
-    const [activeRegion, setActiveRegion] = useState<{ name: string, status: string, latency: string } | null>(null);
+    const [activeRegion, setActiveRegion] = useState<{ name: string; status: string; latency: string } | null>(null);
+    const [isMobile, setIsMobile] = useState(false);
+    const [mounted, setMounted] = useState(false);
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const isMobile = useIsMobile();
 
     useEffect(() => {
-        // Don't mount WebGL globe on mobile at all
-        if (isMobile || !canvasRef.current) return;
+        setMounted(true);
+        setIsMobile(window.innerWidth < 768);
+    }, []);
+
+    useEffect(() => {
+        if (!mounted || isMobile || !canvasRef.current) return;
 
         let phi = 0;
         let width = 0;
 
         const onResize = () => canvasRef.current && (width = canvasRef.current.offsetWidth);
-        window.addEventListener('resize', onResize);
+        window.addEventListener("resize", onResize);
         onResize();
 
         const globe = createGlobe(canvasRef.current, {
@@ -27,7 +31,7 @@ export default function GlobeHeatmap() {
                 phi += 0.005;
                 state.width = width * 2;
                 state.height = width * 2;
-            }
+            },
         } as any);
 
         const regions = [
@@ -44,14 +48,14 @@ export default function GlobeHeatmap() {
         }, 3000);
 
         return () => {
-            window.removeEventListener('resize', onResize);
+            window.removeEventListener("resize", onResize);
             clearInterval(regionInterval);
             globe.destroy();
         };
-    }, [isMobile]);
+    }, [mounted, isMobile]);
 
-    // Mobile: show a simple static globe placeholder
-    if (isMobile) {
+    // Mobile: lightweight placeholder (always rendered first for SSR safety)
+    if (!mounted || isMobile) {
         return (
             <div className="relative w-full aspect-square flex items-center justify-center max-w-[250px] mx-auto">
                 <div className="w-full h-full rounded-full bg-gradient-to-br from-accent/20 via-blue-900/30 to-transparent border border-white/10" />

@@ -4,15 +4,19 @@ import { useState, useEffect } from "react";
 
 export function useIsMobile(breakpoint = 768) {
     const [isMobile, setIsMobile] = useState(false);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
+        setIsClient(true);
         const check = () => setIsMobile(window.innerWidth < breakpoint);
         check();
         window.addEventListener("resize", check);
         return () => window.removeEventListener("resize", check);
     }, [breakpoint]);
 
-    return isMobile;
+    // Return false during SSR to avoid hydration mismatch
+    // Components should use isClient to gate conditional rendering
+    return isClient ? isMobile : false;
 }
 
 export function usePrefersReducedMotion() {

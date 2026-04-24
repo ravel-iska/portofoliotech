@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useIsMobile } from "@/hooks/useDeviceDetect";
+import { useState, useEffect } from "react";
 
 const tokens = [
     { name: "Bitcoin", src: "https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=029" },
@@ -19,9 +19,16 @@ const tokens = [
 ];
 
 export default function TokenGrid3D() {
-    const isMobile = useIsMobile();
-    const cols = isMobile ? 3 : 6;
-    const totalItems = isMobile ? 6 : 24;
+    const [isMobile, setIsMobile] = useState(false);
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+        setIsMobile(window.innerWidth < 768);
+    }, []);
+
+    const cols = isMobile && mounted ? 3 : 6;
+    const totalItems = isMobile && mounted ? 6 : 24;
 
     const gridItems = Array.from({ length: totalItems }).map((_, i) => ({
         id: i,
@@ -30,10 +37,9 @@ export default function TokenGrid3D() {
     }));
 
     return (
-        <div className={`relative w-full overflow-hidden rounded-[2rem] md:rounded-[3rem] border border-white/10 glass-card bg-[#0A1128] mt-8 md:mt-12 flex items-center justify-center ${isMobile ? 'h-[300px]' : 'h-[500px] perspective-[1500px]'}`}>
-            {/* Background Ambience */}
+        <div className={`relative w-full overflow-hidden rounded-[2rem] md:rounded-[3rem] border border-white/10 glass-card bg-[#0A1128] mt-8 md:mt-12 flex items-center justify-center ${mounted && isMobile ? 'h-[300px]' : 'h-[500px] perspective-[1500px]'}`}>
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-[#0A1128] to-[#0A1128] pointer-events-none" />
-            {!isMobile && (
+            {!(mounted && isMobile) && (
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/10 blur-[150px] rounded-full pointer-events-none" />
             )}
 
@@ -42,12 +48,11 @@ export default function TokenGrid3D() {
                 <p className="text-purple-400 font-mono text-[8px] md:text-[10px] uppercase tracking-widest">Wall_v3.0</p>
             </div>
 
-            {/* Token Grid */}
             <motion.div
                 className="relative grid gap-4 md:gap-8 p-6 md:p-10 transform-gpu"
                 style={{
                     gridTemplateColumns: `repeat(${cols}, 1fr)`,
-                    ...(isMobile ? {} : { rotateX: 25, rotateY: -15, rotateZ: 5 }),
+                    ...(mounted && isMobile ? {} : { rotateX: 25, rotateY: -15, rotateZ: 5 }),
                 }}
             >
                 {gridItems.map((item) => (
@@ -59,7 +64,7 @@ export default function TokenGrid3D() {
                             opacity: { duration: 0.5, delay: item.delay },
                             scale: { duration: 0.5, delay: item.delay },
                         }}
-                        className={`relative w-12 h-12 md:w-20 md:h-20 rounded-full bg-white/[0.03] border border-white/20 shadow-lg flex items-center justify-center ${isMobile ? '' : 'backdrop-blur-md'}`}
+                        className="relative w-12 h-12 md:w-20 md:h-20 rounded-full bg-white/[0.03] border border-white/20 shadow-lg flex items-center justify-center"
                     >
                         <div className="absolute inset-2">
                             <img src={item.token.src} alt={item.token.name} className="w-full h-full object-contain" loading="lazy" />
