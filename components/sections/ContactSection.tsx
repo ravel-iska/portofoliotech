@@ -1,0 +1,125 @@
+// @ts-nocheck
+"use client";
+
+import { motion } from "framer-motion";
+import { Send, MessageSquare, User, AtSign } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useGlobal } from "@/components/core/GlobalProvider";
+
+export default function ContactSection() {
+    const { t } = useGlobal();
+    const [shouldMount, setShouldMount] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setShouldMount(true), 2000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    return (
+        <section id="contact" className="relative py-20 bg-[#0A1128] overflow-hidden">
+            {/* Background 3D Accent */}
+            <div className="absolute top-0 right-0 w-full h-full pointer-events-none opacity-40">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-blue-600/10 to-indigo-600/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen animate-pulse" />
+            </div>
+
+            <div className="container max-w-7xl mx-auto px-6 relative z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+                    {/* Left Side: Copy */}
+                    <div className="space-y-12">
+                        <motion.div
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            className="space-y-6"
+                        >
+                            <h2 className="text-6xl md:text-8xl font-display font-black text-white tracking-tighter leading-none">
+                                LET'S <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-600">COLLABORATE.</span>
+                            </h2>
+                            <p className="text-white/40 font-mono text-lg max-w-md leading-relaxed">
+                                Ready to bring high-fidelity 3D experiences and advanced data architecture to your next project?
+                                <br /><br />
+                                Drop a message below and let's build the future together.
+                            </p>
+                        </motion.div>
+
+                        <div className="flex flex-wrap gap-4 pt-4 relative z-20 pointer-events-auto">
+                            {/* X / Twitter */}
+                            <a href="#contact" className="relative w-28 h-28 md:w-32 md:h-32 rounded-[2rem] bg-white/[0.03] border border-white/10 backdrop-blur-xl hover:bg-white/[0.08] flex items-center justify-center group transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+                                <img src="https://cdn.simpleicons.org/x/white" alt="X" className="w-12 h-12 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+                                <div className="absolute inset-0 rounded-[2rem] bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+
+                            {/* Instagram */}
+                            <a href={t("contact.instagram")} target="_blank" rel="noopener noreferrer" className="relative w-28 h-28 md:w-32 md:h-32 rounded-[2rem] bg-white/[0.03] border border-white/10 backdrop-blur-xl hover:bg-white/[0.08] flex items-center justify-center group transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+                                <img src="https://cdn.simpleicons.org/instagram/white" alt="Instagram" className="w-12 h-12 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+                                <div className="absolute inset-0 rounded-[2rem] bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+
+                            {/* GitHub */}
+                            <a href={t("contact.github")} target="_blank" rel="noopener noreferrer" className="relative w-28 h-28 md:w-32 md:h-32 rounded-[2rem] bg-white/[0.03] border border-white/10 backdrop-blur-xl hover:bg-white/[0.08] flex items-center justify-center group transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+                                <img src="https://cdn.simpleicons.org/github/white" alt="GitHub" className="w-12 h-12 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+                                <div className="absolute inset-0 rounded-[2rem] bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                        </div>
+
+                        <div className="mt-8 p-6 rounded-3xl bg-blue-900/20 border border-blue-500/20 backdrop-blur-md relative z-20 pointer-events-auto">
+                            <p className="text-blue-200/60 font-mono text-sm tracking-widest text-center">DIRECT EMAIL: <span className="text-white font-bold ml-2">{t("contact.email")}</span></p>
+                        </div>
+                    </div>
+
+                    {/* Right Side: Form */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        className="p-10 md:p-16 rounded-[4rem] bg-white/[0.03] border border-white/10 backdrop-blur-3xl shadow-2xl relative"
+                    >
+                        {/* Form Glow */}
+                        <div className="absolute -top-20 -right-20 w-80 h-80 bg-blue-500/10 rounded-full blur-[100px] pointer-events-none" />
+
+                        <form className="space-y-8 relative z-10">
+                            <div className="space-y-2">
+                                <label className="text-white/40 font-mono text-[10px] uppercase tracking-[0.4em] ml-2">Full Identity</label>
+                                <div className="relative">
+                                    <User className="absolute left-6 top-1/2 -translate-y-1/2 text-white/20" size={18} />
+                                    <input
+                                        type="text"
+                                        placeholder="Cipher Name"
+                                        className="w-full h-16 pl-16 pr-8 bg-black/40 border border-white/10 rounded-2xl text-white font-mono text-sm focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 transition-all"
+                                    />
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-white/40 font-mono text-[10px] uppercase tracking-[0.4em] ml-2">Digital Endpoint</label>
+                                <div className="relative">
+                                    <AtSign className="absolute left-6 top-1/2 -translate-y-1/2 text-white/20" size={18} />
+                                    <input
+                                        type="email"
+                                        placeholder="name@domain.com"
+                                        className="w-full h-16 pl-16 pr-8 bg-black/40 border border-white/10 rounded-2xl text-white font-mono text-sm focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 transition-all"
+                                    />
+                                </div>
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-white/40 font-mono text-[10px] uppercase tracking-[0.4em] ml-2">Encrypted Payload</label>
+                                <div className="relative">
+                                    <MessageSquare className="absolute left-6 top-8 text-white/20" size={18} />
+                                    <textarea
+                                        rows={4}
+                                        placeholder="Details of the transmission..."
+                                        className="w-full pl-16 pr-8 py-6 bg-black/40 border border-white/10 rounded-2xl text-white font-mono text-sm focus:outline-none focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10 transition-all resize-none"
+                                    />
+                                </div>
+                            </div>
+
+                            <button className="w-full h-16 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-display font-bold text-lg rounded-2xl shadow-[0_20px_40px_-10px_rgba(37,99,235,0.4)] hover:shadow-[0_25px_50px_-10px_rgba(37,99,235,0.6)] hover:-translate-y-1 transition-all active:scale-95 flex items-center justify-center gap-3">
+                                <Send size={20} />
+                                BROADCAST SIGNAL
+                            </button>
+                        </form>
+                    </motion.div>
+                </div>
+            </div>
+        </section>
+    );
+}
