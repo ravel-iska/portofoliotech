@@ -42,7 +42,7 @@ export default function Hero() {
     }, []);
 
     return (
-        <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden w-full pt-8 md:pt-20 pb-10">
+        <section id="home" className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center overflow-hidden w-full pt-4 md:pt-20 pb-6 md:pb-10">
             {/* Apple iOS Glassmorphism Glow Highlights */}
             <div className="absolute top-[20%] right-[10%] w-[200px] h-[200px] md:w-[500px] md:h-[500px] bg-accent/20 rounded-full blur-[60px] md:blur-[140px] pointer-events-none" />
             <div className="absolute bottom-[10%] left-[20%] w-[150px] h-[150px] md:w-[400px] md:h-[400px] bg-blue-500/10 rounded-full blur-[50px] md:blur-[120px] pointer-events-none" />
@@ -56,14 +56,14 @@ export default function Hero() {
                 </div>
 
                 <motion.h1
-                    whileTap={{ scale: 0.9, rotateX: 20, filter: "blur(5px)" }}
-                    transition={{ type: "spring", stiffness: 300, damping: 10 }}
-                    className="text-5xl md:text-7xl lg:text-[6rem] font-display font-bold tracking-tight mb-6 text-glow leading-tight select-none drop-shadow-2xl cursor-pointer flex justify-center"
+                    whileTap={{ scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                    className="text-3xl md:text-7xl lg:text-[6rem] font-display font-bold tracking-tight mb-4 md:mb-6 text-glow leading-tight select-none drop-shadow-2xl cursor-pointer flex justify-center"
                 >
                     <TextReveal text="Bagus Priambudi, S.Kom." delay={0.3} />
                 </motion.h1>
 
-                <p className="text-lg md:text-2xl text-blue-100/70 font-sans max-w-3xl mx-auto mb-14 font-light tracking-wide leading-relaxed hero-fade-in opacity-0 drop-shadow-md">
+                <p className="text-sm md:text-2xl text-blue-100/70 font-sans max-w-3xl mx-auto mb-8 md:mb-14 font-light tracking-wide leading-relaxed hero-fade-in opacity-0 drop-shadow-md">
                     <strong className="text-white font-medium">{t("hero.role")}</strong> {t("hero.desc")}
                 </p>
 

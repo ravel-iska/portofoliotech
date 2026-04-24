@@ -173,3 +173,46 @@
 canvas {
   @apply w-full h-full object-cover;
 }
+
+/* === MOBILE PERFORMANCE OPTIMIZATION === */
+/* Disable ALL heavy GPU effects on mobile to prevent overheating */
+@media (max-width: 767px) {
+
+  /* Kill all backdrop-blur — single biggest GPU drain */
+  *,
+  *::before,
+  *::after {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  /* Reduce blur radius on background decorative elements */
+  .blur-\[120px\],
+  .blur-\[140px\],
+  .blur-\[100px\],
+  .blur-\[110px\] {
+    filter: none !important;
+    opacity: 0.3;
+  }
+
+  /* Disable heavy box-shadow glows */
+  .shadow-glow-sm,
+  .text-glow {
+    text-shadow: none !important;
+  }
+
+  /* Reduce animation complexity */
+  .animate-pulse {
+    animation-duration: 3s !important;
+  }
+}
+
+/* Hide scrollbar utility */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
