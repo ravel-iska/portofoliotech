@@ -1,28 +1,40 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Activity, Zap, Cpu, ArrowRightLeft, ShieldCheck } from "lucide-react";
 import { useGlobal } from "@/components/core/GlobalProvider";
+
+const nodes = [
+    { id: 1, label: "MemPool Scanner", icon: Activity, activeColor: "border-accent bg-accent/20", glowColor: "shadow-[0_0_30px_rgba(0,255,135,0.4)]", textColor: "text-accent" },
+    { id: 2, label: "AAVE Flash Loan", icon: Zap, activeColor: "border-yellow-400 bg-yellow-400/20", glowColor: "shadow-[0_0_30px_rgba(250,204,21,0.4)]", textColor: "text-yellow-400" },
+    { id: 3, label: "Uni/Sushi Execution", icon: ArrowRightLeft, activeColor: "border-purple-500 bg-purple-500/20", glowColor: "shadow-[0_0_30px_rgba(168,85,247,0.4)]", textColor: "text-purple-500" },
+    { id: 4, label: "Return + Profit", icon: ShieldCheck, activeColor: "border-emerald-400 bg-emerald-400/20", glowColor: "shadow-[0_0_30px_rgba(52,211,153,0.4)]", textColor: "text-emerald-400" },
+];
 
 export default function QuantumArbitrageVisualizer() {
     const { t } = useGlobal();
     const [isSimulating, setIsSimulating] = useState(false);
     const [activeNode, setActiveNode] = useState<number | null>(null);
     const [profit, setProfit] = useState(0.00);
+    const [expandedNode, setExpandedNode] = useState<number | null>(null);
+
+    const nodeDetails: Record<number, string> = {
+        1: "Memindai Mempool blockchain secara real-time untuk mendeteksi transaksi besar yang tertunda. Menggunakan WebSocket direct ke node RPC untuk latensi sub-milisecond.",
+        2: "Memanfaatkan Flash Loan dari AAVE untuk meminjam jutaan dolar tanpa agunan dalam satu transaksi atomik. Dana dikembalikan dalam blok yang sama.",
+        3: "Mengeksekusi arbitrase harga antara DEX (Uniswap, SushiSwap, dll) dengan routing optimal melalui smart contract kustom untuk profit maksimal.",
+        4: "Mengembalikan pinjaman flash loan + fee, lalu menyimpan profit bersih. Seluruh operasi terjadi dalam satu transaksi atomik yang aman.",
+    };
 
     const triggerSimulation = () => {
         if (isSimulating) return;
         setIsSimulating(true);
         setProfit(0);
 
-        const nodes = [1, 2, 3, 4];
         let currentStep = 0;
-
         const interval = setInterval(() => {
-            setActiveNode(nodes[currentStep]);
-            setProfit(prev => prev + (Math.random() * 24.5)); // Accumulate fake profit
-
+            setActiveNode(nodes[currentStep].id);
+            setProfit(prev => prev + (Math.random() * 24.5));
             currentStep++;
             if (currentStep >= nodes.length) {
                 clearInterval(interval);
@@ -31,96 +43,93 @@ export default function QuantumArbitrageVisualizer() {
                     setActiveNode(null);
                 }, 1000);
             }
-        }, 800); // Step duration
+        }, 800);
     };
 
     return (
-        <section className="relative w-full py-24 px-6 overflow-hidden bg-black border-t border-white/5">
-            {/* Ambient Background */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-accent/10 to-emerald-500/10 blur-[150px] rounded-full pointer-events-none" />
+        <section className="relative w-full py-16 md:py-24 px-4 md:px-6 overflow-hidden bg-black border-t border-white/5">
+            {/* Ambient Background - smaller on mobile */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] md:w-[600px] md:h-[600px] bg-gradient-to-tr from-accent/10 to-emerald-500/10 blur-[80px] md:blur-[150px] rounded-full pointer-events-none" />
 
-            <div className="max-w-7xl mx-auto relative z-10 flex flex-col lg:flex-row gap-16 items-center">
+            <div className="max-w-7xl mx-auto relative z-10 flex flex-col lg:flex-row gap-10 lg:gap-16 items-center">
 
                 {/* Left Content */}
-                <div className="flex-1 space-y-8">
+                <div className="flex-1 space-y-6 md:space-y-8">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold font-mono tracking-widest uppercase">
                         <Zap size={14} /> Web3 Innovation
                     </div>
-                    <h2 className="text-4xl md:text-6xl font-display font-bold text-white leading-tight">
+                    <h2 className="text-3xl md:text-6xl font-display font-bold text-white leading-tight">
                         {t("quantum.subtitle")} <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-400">{t("quantum.title")}</span>
                     </h2>
-                    <p className="text-white/60 font-light leading-relaxed max-w-lg text-lg">
+                    <p className="text-white/60 font-light leading-relaxed max-w-lg text-base md:text-lg">
                         {t("quantum.desc")}
                     </p>
 
-                    <div className="flex items-center gap-4 pt-4">
+                    <div className="flex flex-wrap items-center gap-4 pt-2 md:pt-4">
                         <button
                             onClick={triggerSimulation}
                             disabled={isSimulating}
-                            className={`px-8 py-4 rounded-xl font-bold tracking-widest uppercase text-sm transition-all duration-300 flex items-center gap-3 ${isSimulating
+                            className={`px-6 md:px-8 py-3 md:py-4 rounded-xl font-bold tracking-widest uppercase text-xs md:text-sm transition-all duration-300 flex items-center gap-2 md:gap-3 ${isSimulating
                                 ? 'bg-white/5 border border-white/10 text-white/40 cursor-not-allowed'
                                 : 'bg-gradient-to-r from-accent to-emerald-500 hover:scale-105 text-white shadow-[0_0_30px_rgba(0,255,135,0.3)]'
                                 }`}
                         >
-                            {isSimulating ? <Activity className="animate-spin" /> : <Cpu />}
+                            {isSimulating ? <Activity className="animate-spin" size={18} /> : <Cpu size={18} />}
                             {isSimulating ? t("quantum.simulating") : t("quantum.execute")}
                         </button>
 
-                        <div className="glass-card px-6 py-3 rounded-xl border border-white/10 flex flex-col">
-                            <span className="text-[10px] text-white/40 font-mono tracking-widest uppercase">{t("quantum.est_profit")}</span>
-                            <span className="text-2xl font-mono font-bold text-emerald-400">
+                        <div className="glass-card px-4 md:px-6 py-2 md:py-3 rounded-xl border border-white/10 flex flex-col">
+                            <span className="text-[9px] md:text-[10px] text-white/40 font-mono tracking-widest uppercase">{t("quantum.est_profit")}</span>
+                            <span className="text-xl md:text-2xl font-mono font-bold text-emerald-400">
                                 +${profit.toFixed(2)}
                             </span>
                         </div>
                     </div>
                 </div>
 
-                {/* Right 3D Visualizer Canvas */}
-                <div className="flex-1 w-full aspect-square relative perspective-[1000px]">
-                    <div className="absolute inset-0 glass-card rounded-[3rem] border border-white/10 shadow-2xl flexItems transition-transform duration-1000 transform-style-3d hover:rotate-y-[-10deg] hover:rotate-x-[5deg]">
+                {/* Right - System Infrastructure (responsive card layout on mobile) */}
+                <div className="flex-1 w-full">
+                    <h3 className="text-[10px] md:text-xs font-mono font-bold uppercase tracking-[0.3em] text-white/30 mb-4 md:mb-6">System Infrastructure</h3>
+                    <div className="grid grid-cols-2 gap-3 md:gap-4">
+                        {nodes.map((node) => {
+                            const Icon = node.icon;
+                            const isActive = activeNode === node.id;
+                            const isExpanded = expandedNode === node.id;
+                            return (
+                                <motion.div
+                                    key={node.id}
+                                    onClick={() => setExpandedNode(isExpanded ? null : node.id)}
+                                    className={`relative p-4 md:p-6 rounded-2xl md:rounded-[2rem] glass border-2 cursor-pointer transition-all duration-500 ${isActive ? `${node.activeColor} ${node.glowColor} scale-[1.02]` : 'border-white/10 bg-black/40 hover:bg-white/5'} ${isExpanded ? 'col-span-2' : ''}`}
+                                    layout
+                                >
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <div className={`p-2 rounded-xl ${isActive ? 'bg-white/10' : 'bg-white/5'}`}>
+                                            <Icon strokeWidth={1.5} className={isActive ? `${node.textColor} animate-pulse` : 'text-white/40'} size={20} />
+                                        </div>
+                                        <span className="text-[10px] md:text-xs font-mono text-white/60 font-bold">{node.id}.</span>
+                                    </div>
+                                    <p className="text-[10px] md:text-xs font-mono text-white/70 font-bold tracking-wide">{node.label}</p>
 
-                        {/* 3D Isometric Viewport */}
-                        <div className="w-full h-full relative rotate-x-[45deg] scale-75 rotate-z-[-45deg] transform-style-3d">
+                                    {/* Expandable detail on click */}
+                                    {isExpanded && (
+                                        <motion.div
+                                            initial={{ opacity: 0, height: 0 }}
+                                            animate={{ opacity: 1, height: "auto" }}
+                                            exit={{ opacity: 0, height: 0 }}
+                                            className="mt-3 pt-3 border-t border-white/10"
+                                        >
+                                            <p className="text-[11px] md:text-xs text-white/50 leading-relaxed">{nodeDetails[node.id]}</p>
+                                        </motion.div>
+                                    )}
 
-                            {/* Base Grid Board */}
-                            <div className="absolute inset-0 border-2 border-white/5 rounded-2xl bg-white/[0.02] shadow-[0_0_50px_rgba(255,255,255,0.05)]" />
-                            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" />
-
-                            {/* Node 1: Mempool Detection */}
-                            <div className={`absolute top-[10%] left-[10%] w-24 h-24 rounded-2xl glass flex items-center justify-center border-2 transition-all duration-500 transform translate-z-[40px] shadow-2xl ${activeNode === 1 ? 'border-accent bg-accent/20 scale-110 shadow-[0_0_50px_rgba(0,255,135,0.5)]' : 'border-white/10 bg-black/40'}`}>
-                                <Activity strokeWidth={1} className={activeNode === 1 ? 'text-accent animate-pulse' : 'text-white/40'} size={32} />
-                                <span className="absolute -bottom-8 text-[10px] font-mono text-white/60 tracking-widest whitespace-nowrap">1. MemPool Scanner</span>
-                            </div>
-
-                            {/* Node 2: Flash Loan Engine */}
-                            <div className={`absolute top-[20%] right-[10%] w-24 h-24 rounded-2xl glass flex items-center justify-center border-2 transition-all duration-500 transform translate-z-[80px] shadow-2xl ${activeNode === 2 ? 'border-yellow-400 bg-yellow-400/20 scale-110 shadow-[0_0_50px_rgba(250,204,21,0.5)]' : 'border-white/10 bg-black/40'}`}>
-                                <Zap strokeWidth={1} className={activeNode === 2 ? 'text-yellow-400 animate-pulse' : 'text-white/40'} size={32} />
-                                <span className="absolute -bottom-8 text-[10px] font-mono text-white/60 tracking-widest whitespace-nowrap">2. AAVE Flash Loan</span>
-                            </div>
-
-                            {/* Node 3: DEX Arbitrage Execution */}
-                            <div className={`absolute bottom-[20%] right-[20%] w-32 h-32 rounded-[2rem] glass flex items-center justify-center border-2 transition-all duration-500 transform translate-z-[60px] shadow-2xl ${activeNode === 3 ? 'border-purple-500 bg-purple-500/20 scale-110 shadow-[0_0_50px_rgba(168,85,247,0.5)]' : 'border-white/10 bg-black/40'}`}>
-                                <ArrowRightLeft strokeWidth={1} className={activeNode === 3 ? 'text-purple-500 animate-spin-slow' : 'text-white/40'} size={40} />
-                                <span className="absolute -bottom-8 text-[10px] font-mono text-white/60 tracking-widest whitespace-nowrap">3. Uni/Sushi Execution</span>
-                            </div>
-
-                            {/* Node 4: Secure Profit */}
-                            <div className={`absolute bottom-[10%] left-[20%] w-20 h-20 rounded-2xl glass flex items-center justify-center border-2 transition-all duration-500 transform translate-z-[30px] shadow-2xl ${activeNode === 4 ? 'border-emerald-400 bg-emerald-400/20 scale-110 shadow-[0_0_50px_rgba(52,211,153,0.5)]' : 'border-white/10 bg-black/40'}`}>
-                                <ShieldCheck strokeWidth={1} className={activeNode === 4 ? 'text-emerald-400 animate-pulse' : 'text-white/40'} size={28} />
-                                <span className="absolute -bottom-8 text-[10px] font-mono whitespace-nowrap tracking-widest text-emerald-400">4. Return + Profit</span>
-                            </div>
-
-                            {/* Animated SVG Laser Beams */}
-                            <svg className="absolute inset-0 w-full h-full pointer-events-none transform translate-z-[20px]">
-                                {/* Path 1 to 2 */}
-                                <path d="M 80 80 Q 250 80 320 120" fill="transparent" stroke={activeNode === 1 || activeNode === 2 ? '#00ff87' : 'rgba(255,255,255,0.1)'} strokeWidth="3" className={`transition-all duration-500 ${activeNode === 1 ? 'animate-pulse' : ''}`} strokeDasharray="5,5" />
-                                {/* Path 2 to 3 */}
-                                <path d="M 320 160 Q 320 250 280 280" fill="transparent" stroke={activeNode === 2 || activeNode === 3 ? '#eab308' : 'rgba(255,255,255,0.1)'} strokeWidth="3" className={`transition-all duration-500 ${activeNode === 2 ? 'animate-pulse' : ''}`} strokeDasharray="5,5" />
-                                {/* Path 3 to 4 */}
-                                <path d="M 220 300 Q 150 300 120 280" fill="transparent" stroke={activeNode === 3 || activeNode === 4 ? '#a855f7' : 'rgba(255,255,255,0.1)'} strokeWidth="3" className={`transition-all duration-500 ${activeNode === 3 ? 'animate-pulse' : ''}`} strokeDasharray="5,5" />
-                            </svg>
-                        </div>
+                                    {/* Connection indicator */}
+                                    {isActive && node.id < 4 && (
+                                        <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-0.5 h-3 bg-white/20 hidden md:block" />
+                                    )}
+                                </motion.div>
+                            );
+                        })}
                     </div>
                 </div>
 

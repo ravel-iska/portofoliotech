@@ -181,7 +181,7 @@ export default function TraderDashboard() {
                                         className="px-5 py-3 glass rounded-2xl border border-white/10 flex items-center justify-between gap-6 hover:bg-white/5 cursor-pointer transition-all"
                                     >
                                         <div className="flex items-center gap-3">
-                                            <img src="https://cryptologos.cc/logos/binance-coin-bnb-logo.svg?v=029" className="w-5 h-5" />
+                                            <img src="https://cdn.simpleicons.org/binance/F0B90B" alt="Binance" className="w-5 h-5" />
                                             <span className="text-white/60 font-mono text-xs">Binance</span>
                                         </div>
                                         <div className="w-2 h-2 rounded-full bg-[#00ff87] shadow-[0_0_8px_#00ff87]" />
@@ -191,7 +191,7 @@ export default function TraderDashboard() {
                                         className="px-5 py-3 glass rounded-2xl border border-white/10 flex items-center justify-between gap-6 hover:bg-white/5 cursor-pointer transition-all"
                                     >
                                         <div className="flex items-center gap-3">
-                                            <img src="https://storage.googleapis.com/subflow-prod/uploads/ckq01k81g00v3p8tmg5t8722h/w2806-h2806.svg" className="w-5 h-5" />
+                                            <img src="https://cdn.simpleicons.org/bybit/white" alt="Bybit" className="w-5 h-5" />
                                             <span className="text-white/60 font-mono text-xs">Bybit</span>
                                         </div>
                                         <div className="w-2 h-2 rounded-full bg-[#00ff87] shadow-[0_0_8px_#00ff87]" />
@@ -201,7 +201,7 @@ export default function TraderDashboard() {
                                         className="px-5 py-3 glass rounded-2xl border border-white/10 flex items-center justify-between gap-6 hover:bg-white/5 cursor-pointer transition-all gap-8"
                                     >
                                         <div className="flex items-center gap-3">
-                                            <img src="https://cryptologos.cc/logos/bitget-token-bgb-logo.svg?v=029" className="w-5 h-5 grayscale opacity-50" />
+                                            <img src="https://cdn.simpleicons.org/bitget/00F0FF" alt="Bitget" className="w-5 h-5" />
                                             <span className="text-white/60 font-mono text-xs">Bitget</span>
                                         </div>
                                         <RefreshCcw size={12} className="text-white/20 animate-spin" />

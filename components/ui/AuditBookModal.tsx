@@ -222,7 +222,7 @@ export default function AuditBookModal({ isOpen, onClose }: AuditBookModalProps)
                             mass: 1.2
                         }}
                         style={{ transformOrigin: "left center", perspective: "1500px" }}
-                        className="relative z-10 w-full max-w-6xl h-[90vh] md:h-[700px] bg-[#fdfbf7] rounded-r-3xl rounded-l-xl shadow-[20px_20px_60px_rgba(0,0,0,0.8),inset_0_0_40px_rgba(0,0,0,0.05)] border-l-[16px] border-[#1e293b] flex flex-col md:flex-row overflow-hidden"
+                        className="relative z-10 w-full max-w-6xl h-[95vh] md:h-[700px] bg-[#fdfbf7] rounded-2xl md:rounded-r-3xl md:rounded-l-xl shadow-[10px_10px_30px_rgba(0,0,0,0.6)] md:shadow-[20px_20px_60px_rgba(0,0,0,0.8),inset_0_0_40px_rgba(0,0,0,0.05)] border-l-[8px] md:border-l-[16px] border-[#1e293b] flex flex-col overflow-hidden"
                     >
                         {/* Book Spine Highlight Overlay */}
                         <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-black/20 via-black/5 to-transparent pointer-events-none z-50" />
@@ -237,21 +237,21 @@ export default function AuditBookModal({ isOpen, onClose }: AuditBookModalProps)
 
                         <div className="flex flex-col md:flex-row w-full h-full relative z-10">
                             {/* Left Panel (Header & Context Info) */}
-                            <div className="w-full md:w-1/3 bg-[#f3f0e8] border-b md:border-b-0 md:border-r border-black/10 p-8 md:p-12 flex flex-col justify-between relative shadow-inner shrink-0 overflow-y-auto custom-scrollbar">
+                            <div className="w-full md:w-1/3 bg-[#f3f0e8] border-b md:border-b-0 md:border-r border-black/10 p-4 md:p-12 flex flex-col md:justify-between relative shadow-inner shrink-0 md:overflow-y-auto custom-scrollbar">
                                 <div>
                                     <h4 className="text-[10px] font-black tracking-[0.3em] uppercase text-black/40 mb-8 border-b border-black/10 pb-4">
                                         Web3 Security Division
                                     </h4>
 
-                                    <h2 className="text-3xl md:text-4xl font-display font-black text-[#1e293b] mb-4 leading-tight">
+                                    <h2 className="text-xl md:text-4xl font-display font-black text-[#1e293b] mb-2 md:mb-4 leading-tight">
                                         The Institutional Audit Book
                                     </h2>
-                                    <p className="text-black/50 font-serif text-sm leading-relaxed mb-8">
+                                    <p className="text-black/50 font-serif text-xs md:text-sm leading-relaxed mb-4 md:mb-8 hidden md:block">
                                         Materi eksklusif seputar audit kerentanan Smart Contract, standar pengamanan tingkat dewa, dan eksekusi pertahanan lapis ganda.
                                     </p>
 
-                                    {/* Chapter Indicators */}
-                                    <div className="space-y-2 mt-8">
+                                    {/* Chapter Indicators - horizontal scroll on mobile */}
+                                    <div className="flex md:flex-col gap-2 mt-2 md:mt-8 overflow-x-auto md:overflow-x-visible pb-2 md:pb-0 hide-scrollbar">
                                         {chapters.map((ch, idx) => (
                                             <div
                                                 key={idx}
@@ -261,19 +261,19 @@ export default function AuditBookModal({ isOpen, onClose }: AuditBookModalProps)
                                                 <div className={`w-6 h-6 rounded-md flex items-center justify-center flex-shrink-0 ${page === idx ? 'bg-blue-600 text-white' : 'bg-black/10 text-black/50'}`}>
                                                     <span className="text-[10px] font-bold">{idx + 1}</span>
                                                 </div>
-                                                <span className={`text-xs font-bold leading-tight ${page === idx ? 'text-blue-900' : 'text-black/60'}`}>{ch.title}</span>
+                                                <span className={`text-[9px] md:text-xs font-bold leading-tight whitespace-nowrap ${page === idx ? 'text-blue-900' : 'text-black/60'}`}>{ch.title.replace('Chapter ', 'Ch.')}</span>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
 
-                                <div className="mt-8 text-[9px] font-mono text-black/30 uppercase tracking-widest text-center shrink-0">
+                                <div className="mt-4 md:mt-8 text-[9px] font-mono text-black/30 uppercase tracking-widest text-center shrink-0 hidden md:block">
                                     CONFIDENTIAL - AUTHORIZED PERSONNEL ONLY
                                 </div>
                             </div>
 
                             {/* Right Panel (Content Pages) */}
-                            <div className="w-full md:w-2/3 p-8 md:p-14 relative bg-[#fdfbf7] flex flex-col h-full">
+                            <div className="w-full md:w-2/3 p-4 md:p-14 relative bg-[#fdfbf7] flex flex-col flex-1 min-h-0">
                                 <div className="flex-1 overflow-y-auto pr-4 custom-scrollbar">
                                     <AnimatePresence mode="wait">
                                         <motion.div
@@ -293,7 +293,7 @@ export default function AuditBookModal({ isOpen, onClose }: AuditBookModalProps)
                                                 </div>
                                             </div>
 
-                                            <h4 className="text-3xl md:text-5xl font-display font-black text-black mb-10 leading-tight">
+                                            <h4 className="text-xl md:text-5xl font-display font-black text-black mb-6 md:mb-10 leading-tight">
                                                 {chapters[page].heading}
                                             </h4>
 
@@ -307,7 +307,7 @@ export default function AuditBookModal({ isOpen, onClose }: AuditBookModalProps)
                                     <button
                                         onClick={prevPage}
                                         disabled={page === 0}
-                                        className={`flex items-center gap-2 px-5 py-3 rounded-full font-bold text-xs tracking-widest uppercase transition-all ${page === 0 ? 'opacity-30 cursor-not-allowed' : 'bg-black/5 hover:bg-black/10 text-black'}`}
+                                        className={`flex items-center gap-1 md:gap-2 px-3 md:px-5 py-2 md:py-3 rounded-full font-bold text-[10px] md:text-xs tracking-widest uppercase transition-all ${page === 0 ? 'opacity-30 cursor-not-allowed' : 'bg-black/5 hover:bg-black/10 text-black'}`}
                                     >
                                         <ChevronLeft size={16} /> Prev
                                     </button>
@@ -321,7 +321,7 @@ export default function AuditBookModal({ isOpen, onClose }: AuditBookModalProps)
                                     <button
                                         onClick={nextPage}
                                         disabled={page === chapters.length - 1}
-                                        className={`flex items-center gap-2 px-5 py-3 rounded-full font-bold text-xs tracking-widest uppercase transition-all ${page === chapters.length - 1 ? 'opacity-30 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-600/30'}`}
+                                        className={`flex items-center gap-1 md:gap-2 px-3 md:px-5 py-2 md:py-3 rounded-full font-bold text-[10px] md:text-xs tracking-widest uppercase transition-all ${page === chapters.length - 1 ? 'opacity-30 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-600/30'}`}
                                     >
                                         Next <ChevronRight size={16} />
                                     </button>
