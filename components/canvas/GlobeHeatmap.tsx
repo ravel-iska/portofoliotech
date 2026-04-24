@@ -36,9 +36,10 @@ export default function GlobeHeatmap() {
 
         const regions = [
             { name: "New York (NY4)", status: "Active", latency: "8ms", trigger: 300 },
-            { name: "Singapore (SG1)", status: "Active", latency: "14ms", trigger: 800 },
-            { name: "Tokyo (TY3)", status: "Active", latency: "11ms", trigger: 1200 },
-            { name: "London (LD4)", status: "Active", latency: "22ms", trigger: 1800 },
+            { name: "Singapore (SG1)", status: "Active", latency: "14ms", trigger: 700 },
+            { name: "Jakarta, Indonesia (JKT1)", status: "Active", latency: "18ms", trigger: 1100 },
+            { name: "Tokyo (TY3)", status: "Active", latency: "11ms", trigger: 1500 },
+            { name: "London (LD4)", status: "Active", latency: "22ms", trigger: 1900 },
         ];
 
         let regionCounter = 0;
@@ -57,10 +58,14 @@ export default function GlobeHeatmap() {
     // Mobile: lightweight placeholder (always rendered first for SSR safety)
     if (!mounted || isMobile) {
         return (
-            <div className="relative w-full aspect-square flex items-center justify-center max-w-[250px] mx-auto">
-                <div className="w-full h-full rounded-full bg-gradient-to-br from-accent/20 via-blue-900/30 to-transparent border border-white/10" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-white/30 font-mono text-[9px] uppercase tracking-widest">Global Network</span>
+            <div className="relative w-full aspect-square flex items-center justify-center max-w-[200px] mx-auto">
+                <div className="w-full h-full rounded-full bg-gradient-to-br from-accent/20 via-blue-900/30 to-transparent border-2 border-white/10 shadow-[0_0_30px_rgba(129,140,248,0.1)]" />
+                <div className="absolute w-[70%] h-[70%] rounded-full border border-white/5" />
+                <div className="absolute w-[40%] h-[40%] rounded-full border border-white/5" />
+                <div className="absolute inset-0 flex items-center justify-center flex-col gap-1">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-white/30 font-mono text-[8px] uppercase tracking-widest">Global Network</span>
+                    <span className="text-emerald-400/50 font-mono text-[7px]">5 Regions Active</span>
                 </div>
             </div>
         );

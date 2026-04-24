@@ -24,13 +24,13 @@ export default function Projects({ setSelectedProject }: ProjectsProps) {
     return (
         <section id="projects" className="relative py-16 px-6 bg-transparent">
             <div className="max-w-7xl mx-auto relative z-10">
-                <div className="flex flex-col lg:flex-row items-end justify-between mb-24 gap-12">
+                <div className="flex flex-col lg:flex-row items-end justify-between mb-12 md:mb-24 gap-6 md:gap-12">
                     <div className="max-w-2xl">
                         <motion.h2
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
-                            className="text-5xl md:text-8xl font-display font-bold text-white mb-8 tracking-tighter leading-none"
+                            className="text-3xl md:text-8xl font-display font-bold text-white mb-4 md:mb-8 tracking-tighter leading-none"
                         >
                             {t("projects.title").split(" ")[0]} <span className="text-accent text-glow text-edge">{t("projects.title").split(" ").slice(1).join(" ")}</span>
                         </motion.h2>
@@ -40,12 +40,12 @@ export default function Projects({ setSelectedProject }: ProjectsProps) {
                     </div>
 
                     {/* Filter Tabs - Premium Glass Pill */}
-                    <div className="flex glass-card p-1.5 rounded-2xl shrink-0 shadow-2xl border border-white/5">
+                    <div className="flex glass-card p-1 md:p-1.5 rounded-xl md:rounded-2xl shrink-0 shadow-2xl border border-white/5 overflow-x-auto hide-scrollbar">
                         {categories.map((cat) => (
                             <button
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
-                                className={`px-8 py-3 rounded-xl text-[10px] font-bold uppercase tracking-[0.3em] transition-all duration-300 ${activeCategory === cat ? "bg-accent text-white shadow-lg scale-105" : "text-white/40 hover:text-white"
+                                className={`px-4 md:px-8 py-2 md:py-3 rounded-lg md:rounded-xl text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] transition-all duration-300 whitespace-nowrap ${activeCategory === cat ? "bg-accent text-white shadow-lg scale-105" : "text-white/40 hover:text-white"
                                     }`}
                             >
                                 {t(`projects.${cat}`)}
@@ -55,7 +55,7 @@ export default function Projects({ setSelectedProject }: ProjectsProps) {
                 </div>
 
                 {/* Bento Grid */}
-                <motion.div layout className="grid grid-cols-1 md:grid-cols-12 auto-rows-[450px] gap-8">
+                <motion.div layout className="grid grid-cols-1 md:grid-cols-12 auto-rows-[280px] md:auto-rows-[450px] gap-4 md:gap-8">
                     <AnimatePresence mode="popLayout">
                         {filteredProjects.map((project, i) => {
                             let bentoClasses = "md:col-span-4";
@@ -89,7 +89,7 @@ function ProjectCard({ project, className = "", onClick }: { project: Project, c
             exit={{ opacity: 0, scale: 0.98 }}
             whileHover={{ y: -10 }}
             onClick={onClick}
-            className={`group relative glass-card p-3 overflow-hidden flex flex-col cursor-pointer border border-white/5 rounded-[3rem] ${className}`}
+            className={`group relative glass-card p-2 md:p-3 overflow-hidden flex flex-col cursor-pointer border border-white/5 rounded-[1.5rem] md:rounded-[3rem] ${className}`}
         >
             <div className="relative w-full h-full rounded-[2.2rem] overflow-hidden bg-black shadow-inner">
                 <ParallaxImage
@@ -113,10 +113,10 @@ function ProjectCard({ project, className = "", onClick }: { project: Project, c
                 </div>
             </div>
 
-            <div className="absolute bottom-10 left-10 right-10 p-8 glass-card border border-white/10 rounded-[2rem] bg-black/40 backdrop-blur-xl transition-all duration-500 translate-y-4 group-hover:translate-y-0 shadow-2xl">
+            <div className="absolute bottom-4 left-4 right-4 md:bottom-10 md:left-10 md:right-10 p-4 md:p-8 glass-card border border-white/10 rounded-xl md:rounded-[2rem] bg-black/40 backdrop-blur-xl transition-all duration-500 translate-y-4 group-hover:translate-y-0 shadow-2xl">
                 <span className="text-[10px] font-mono text-accent uppercase tracking-[0.5em] mb-4 block">{project.category}</span>
-                <h3 className="text-3xl font-display font-bold text-white mb-2 leading-none uppercase tracking-tighter group-hover:text-glow transition-all">{t(`project.${project.id}.title`)}</h3>
-                <p className="text-white/40 text-sm font-light leading-relaxed mb-6 line-clamp-1">{t(`project.${project.id}.desc`)}</p>
+                <h3 className="text-lg md:text-3xl font-display font-bold text-white mb-1 md:mb-2 leading-none uppercase tracking-tighter group-hover:text-glow transition-all line-clamp-1">{t(`project.${project.id}.title`)}</h3>
+                <p className="text-white/40 text-xs md:text-sm font-light leading-relaxed mb-3 md:mb-6 line-clamp-1 hidden md:block">{t(`project.${project.id}.desc`)}</p>
                 <div className="flex items-center justify-between pt-6 border-t border-white/5">
                     <div className="flex gap-2">
                         {project.tags.slice(0, 2).map(tag => (

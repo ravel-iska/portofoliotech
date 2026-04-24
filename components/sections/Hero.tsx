@@ -42,7 +42,7 @@ export default function Hero() {
     }, []);
 
     return (
-        <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden w-full pt-20 pb-10">
+        <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden w-full pt-8 md:pt-20 pb-10">
             {/* Apple iOS Glassmorphism Glow Highlights */}
             <div className="absolute top-[20%] right-[10%] w-[200px] h-[200px] md:w-[500px] md:h-[500px] bg-accent/20 rounded-full blur-[60px] md:blur-[140px] pointer-events-none" />
             <div className="absolute bottom-[10%] left-[20%] w-[150px] h-[150px] md:w-[400px] md:h-[400px] bg-blue-500/10 rounded-full blur-[50px] md:blur-[120px] pointer-events-none" />

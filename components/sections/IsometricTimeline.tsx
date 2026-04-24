@@ -12,7 +12,7 @@ export default function IsometricTimeline() {
 
             <div className="absolute top-20 left-10 md:left-20 z-20">
                 <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 1 }} viewport={{ once: true, margin: "-50px" }}>
-                    <h2 className="text-5xl md:text-8xl font-display font-black text-white tracking-tighter mb-4">
+                    <h2 className="text-2xl md:text-8xl font-display font-black text-white tracking-tighter mb-2 md:mb-4">
                         SYSTEM <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-rose-500">INFRASTRUCTURE</span>
                     </h2>
                     <div className="flex items-center gap-4">
@@ -29,13 +29,13 @@ export default function IsometricTimeline() {
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        className="absolute bottom-10 right-10 md:right-20 z-50 p-8 glass-card border border-white/10 rounded-[2rem] max-w-sm shadow-2xl"
+                        className="absolute bottom-4 left-4 right-4 md:bottom-10 md:right-20 md:left-auto z-50 p-4 md:p-8 glass-card border border-white/10 rounded-xl md:rounded-[2rem] max-w-sm shadow-2xl"
                     >
                         <button onClick={() => setSelectedNode(null)} className="absolute top-6 right-6 text-white/20 hover:text-white">
                             <X size={18} />
                         </button>
-                        <h4 className="text-orange-400 font-display font-bold text-xl uppercase tracking-tighter mb-2 italic">{selectedNode.title}</h4>
-                        <p className="text-white/80 text-sm leading-relaxed mb-4 font-light">{selectedNode.desc}</p>
+                        <h4 className="text-orange-400 font-display font-bold text-base md:text-xl uppercase tracking-tighter mb-1 md:mb-2 italic">{selectedNode.title}</h4>
+                        <p className="text-white/80 text-xs md:text-sm leading-relaxed mb-3 md:mb-4 font-light">{selectedNode.desc}</p>
                         <div className="flex items-center gap-3 pt-4 border-t border-white/5">
                             <span className="text-[10px] font-mono text-white/30 uppercase tracking-widest">Stack:</span>
                             <span className="text-[10px] font-mono text-orange-400/80 uppercase tracking-widest">{selectedNode.tech}</span>
@@ -45,12 +45,12 @@ export default function IsometricTimeline() {
             </AnimatePresence>
 
             {/* Native CSS 3D Pipeline replacing broken Spline */}
-            <div className="relative z-10 w-full max-w-5xl mx-auto mt-32 h-[600px] flex items-center justify-center">
+            <div className="relative z-10 w-full max-w-5xl mx-auto mt-20 md:mt-32 h-auto md:h-[600px] flex items-center justify-center px-4 md:px-0">
 
                 {/* Visual Connector Line */}
                 <div className="absolute top-1/2 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-orange-500/50 to-transparent -translate-y-1/2 z-0" />
 
-                <div className="flex flex-col md:flex-row items-center justify-between w-full px-6 md:px-0 gap-16 md:gap-0 z-10">
+                <div className="flex flex-col md:flex-row items-center justify-between w-full gap-8 md:gap-0 z-10 py-8 md:py-0">
                     {/* Node 1: Edge Computing */}
                     <motion.div
                         whileHover={{ scale: 1.1, y: -10 }}
@@ -61,12 +61,13 @@ export default function IsometricTimeline() {
                         })}
                         className="relative group cursor-pointer"
                     >
-                        <div className="w-32 h-32 md:w-40 md:h-40 rounded-3xl bg-black/60 border border-orange-500/30 backdrop-blur-xl flex items-center justify-center shadow-[0_0_50px_rgba(249,115,22,0.15)] group-hover:border-orange-400 group-hover:shadow-[0_0_80px_rgba(249,115,22,0.3)] transition-all">
-                            <Cpu size={48} className="text-orange-500/80 group-hover:text-orange-400" />
+                        <div className="w-24 h-24 md:w-40 md:h-40 rounded-2xl md:rounded-3xl bg-black/60 border border-orange-500/30 flex items-center justify-center shadow-[0_0_30px_rgba(249,115,22,0.15)] group-hover:border-orange-400 group-hover:shadow-[0_0_50px_rgba(249,115,22,0.3)] transition-all">
+                            <Cpu size={32} className="text-orange-500/80 group-hover:text-orange-400 md:hidden" />
+                            <Cpu size={48} className="text-orange-500/80 group-hover:text-orange-400 hidden md:block" />
                         </div>
-                        <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 text-center w-max">
-                            <p className="text-white font-mono font-bold">EDGE NETWORK</p>
-                            <p className="text-white/30 text-xs font-mono">React / Next.js</p>
+                        <div className="mt-3 md:absolute md:-bottom-16 md:left-1/2 md:-translate-x-1/2 text-center">
+                            <p className="text-white font-mono font-bold text-xs md:text-base">EDGE NETWORK</p>
+                            <p className="text-white/30 text-[10px] md:text-xs font-mono">React / Next.js</p>
                         </div>
                     </motion.div>
 
@@ -85,14 +86,15 @@ export default function IsometricTimeline() {
                         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                         className="relative group cursor-pointer"
                     >
-                        <div className="w-40 h-40 md:w-56 md:h-56 rounded-full bg-black/60 border border-rose-500/30 backdrop-blur-xl flex items-center justify-center shadow-[0_0_50px_rgba(244,63,94,0.15)] group-hover:border-rose-400 group-hover:shadow-[0_0_80px_rgba(244,63,94,0.3)] transition-all z-10 relative">
-                            <Database size={64} className="text-rose-500/80 group-hover:text-rose-400" />
+                        <div className="w-28 h-28 md:w-56 md:h-56 rounded-full bg-black/60 border border-rose-500/30 flex items-center justify-center shadow-[0_0_30px_rgba(244,63,94,0.15)] group-hover:border-rose-400 group-hover:shadow-[0_0_50px_rgba(244,63,94,0.3)] transition-all z-10 relative">
+                            <Database size={36} className="text-rose-500/80 group-hover:text-rose-400 md:hidden" />
+                            <Database size={64} className="text-rose-500/80 group-hover:text-rose-400 hidden md:block" />
                             {/* Glowing Core */}
                             <div className="absolute inset-0 bg-rose-500/10 rounded-full blur-2xl group-hover:bg-rose-500/20" />
                         </div>
-                        <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 text-center w-max">
-                            <p className="text-white font-mono font-bold">DATA WAREHOUSE</p>
-                            <p className="text-white/30 text-xs font-mono">PostgreSQL / Redis</p>
+                        <div className="mt-3 md:absolute md:-bottom-16 md:left-1/2 md:-translate-x-1/2 text-center">
+                            <p className="text-white font-mono font-bold text-xs md:text-base">DATA WAREHOUSE</p>
+                            <p className="text-white/30 text-[10px] md:text-xs font-mono">PostgreSQL / Redis</p>
                         </div>
                     </motion.div>
 
@@ -108,12 +110,13 @@ export default function IsometricTimeline() {
                         })}
                         className="relative group cursor-pointer"
                     >
-                        <div className="w-32 h-32 md:w-40 md:h-40 rounded-3xl bg-black/60 border border-purple-500/30 backdrop-blur-xl flex items-center justify-center shadow-[0_0_50px_rgba(168,85,247,0.15)] group-hover:border-purple-400 group-hover:shadow-[0_0_80px_rgba(168,85,247,0.3)] transition-all hover:rotate-3">
-                            <Server size={48} className="text-purple-500/80 group-hover:text-purple-400" />
+                        <div className="w-24 h-24 md:w-40 md:h-40 rounded-2xl md:rounded-3xl bg-black/60 border border-purple-500/30 flex items-center justify-center shadow-[0_0_30px_rgba(168,85,247,0.15)] group-hover:border-purple-400 group-hover:shadow-[0_0_50px_rgba(168,85,247,0.3)] transition-all hover:rotate-3">
+                            <Server size={32} className="text-purple-500/80 group-hover:text-purple-400 md:hidden" />
+                            <Server size={48} className="text-purple-500/80 group-hover:text-purple-400 hidden md:block" />
                         </div>
-                        <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 text-center w-max">
-                            <p className="text-white font-mono font-bold">CLOUD SERVERS</p>
-                            <p className="text-white/30 text-xs font-mono">AWS / Docker / K8s</p>
+                        <div className="mt-3 md:absolute md:-bottom-16 md:left-1/2 md:-translate-x-1/2 text-center">
+                            <p className="text-white font-mono font-bold text-xs md:text-base">CLOUD SERVERS</p>
+                            <p className="text-white/30 text-[10px] md:text-xs font-mono">Docker / K8s</p>
                         </div>
                     </motion.div>
                 </div>

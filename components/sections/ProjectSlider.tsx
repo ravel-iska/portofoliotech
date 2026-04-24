@@ -27,9 +27,9 @@ export default function ProjectSlider({ selectedProject, setSelectedProject }: P
     }, [selectedProject]);
 
     return (
-        <section id="gallery-showcase" className="relative w-full py-48 bg-transparent px-6 overflow-hidden">
+        <section id="gallery-showcase" className="relative w-full py-16 md:py-48 bg-transparent px-4 md:px-6 overflow-hidden">
             <div className="max-w-4xl mx-auto mb-24 text-center">
-                <h2 className="text-5xl md:text-8xl font-display font-bold text-white mb-8 tracking-tighter leading-none">
+                <h2 className="text-3xl md:text-8xl font-display font-bold text-white mb-4 md:mb-8 tracking-tighter leading-none">
                     FEATURED <span className="text-accent text-glow">{t("nav.projects")}</span>
                 </h2>
                 <p className="text-white/20 font-mono text-[10px] uppercase tracking-[0.5em]">PREMIUM ARTIFACTS SHOWCASE</p>
@@ -49,16 +49,16 @@ export default function ProjectSlider({ selectedProject, setSelectedProject }: P
                             key={`${project.id}-${idx}`}
                             onClick={() => setSelectedProject(project)}
                             whileHover={{ y: -10, scale: 1.02 }}
-                            className="relative w-[300px] md:w-[450px] aspect-[4/5] shrink-0 rounded-[2.5rem] overflow-hidden glass-card border border-white/5 cursor-pointer shadow-3xl group"
+                            className="relative w-[200px] md:w-[450px] aspect-[4/5] shrink-0 rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden glass-card border border-white/5 cursor-pointer shadow-3xl group"
                         >
                             <img
                                 src={project.image}
                                 alt={project.title}
                                 className="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-all duration-700 group-hover:scale-105"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent p-10 flex flex-col justify-end">
-                                <span className="text-accent font-mono text-[9px] tracking-widest uppercase mb-4">{project.category}</span>
-                                <h3 className="text-3xl font-display font-bold text-white tracking-tight leading-none">{t(`project.${project.id}.title`)}</h3>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent p-4 md:p-10 flex flex-col justify-end">
+                                <span className="text-accent font-mono text-[8px] md:text-[9px] tracking-widest uppercase mb-2 md:mb-4">{project.category}</span>
+                                <h3 className="text-base md:text-3xl font-display font-bold text-white tracking-tight leading-none">{t(`project.${project.id}.title`)}</h3>
                             </div>
                         </motion.div>
                     ))}
@@ -68,14 +68,14 @@ export default function ProjectSlider({ selectedProject, setSelectedProject }: P
             {/* macOS Tahoe Style Dashboard Modal */}
             <AnimatePresence>
                 {selectedProject && (
-                    <div className="fixed inset-0 z-[10000] flex items-center justify-center p-4 md:p-12 overflow-hidden">
+                    <div className="fixed inset-0 z-[10000] flex items-center justify-center p-2 md:p-12 overflow-hidden">
                         {/* Backdrop */}
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setSelectedProject(null)}
-                            className="absolute inset-0 bg-black/95 backdrop-blur-[80px]"
+                            className="absolute inset-0 bg-black/95"
                         />
 
                         {/* macOS Window */}
@@ -84,16 +84,16 @@ export default function ProjectSlider({ selectedProject, setSelectedProject }: P
                             initial={{ scale: 0.9, opacity: 0, y: 100 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.9, opacity: 0, y: 100 }}
-                            className="relative w-full max-w-7xl h-[92vh] bg-[#0c0c0c]/90 backdrop-blur-3xl rounded-[2.5rem] overflow-hidden flex flex-col shadow-2xl border border-white/5"
+                            className="relative w-full max-w-7xl h-[95vh] md:h-[92vh] bg-[#0c0c0c]/90 rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden flex flex-col shadow-2xl border border-white/5"
                         >
                             {/* Window Header */}
-                            <div className="h-14 w-full bg-white/[0.03] border-b border-white/5 flex items-center px-8 justify-between shrink-0">
+                            <div className="h-12 md:h-14 w-full bg-white/[0.03] border-b border-white/5 flex items-center px-4 md:px-8 justify-between shrink-0">
                                 <div className="flex gap-2.5">
                                     <div onClick={() => { playSwoosh(); setSelectedProject(null); }} className="w-3.5 h-3.5 rounded-full bg-[#ff5f56] cursor-pointer hover:scale-110 active:scale-95 transition-all shadow-[0_0_10px_rgba(255,95,86,0.3)]" />
                                     <div className="w-3.5 h-3.5 rounded-full bg-[#ffbd2e]" />
                                     <div className="w-3.5 h-3.5 rounded-full bg-[#27c93f]" />
                                 </div>
-                                <div className="flex items-center gap-10 text-[10px] font-mono text-white/30 uppercase tracking-[0.3em]">
+                                <div className="hidden md:flex items-center gap-10 text-[10px] font-mono text-white/30 uppercase tracking-[0.3em]">
                                     <button onClick={() => setShowSidebar(!showSidebar)} className={`flex items-center gap-2.5 transition-colors ${showSidebar ? "text-accent" : "hover:text-white"}`}>
                                         <Sidebar size={14} /> Sidebar
                                     </button>
@@ -130,19 +130,19 @@ export default function ProjectSlider({ selectedProject, setSelectedProject }: P
                                 {/* Main Area Container */}
                                 <div className="flex-1 flex flex-col min-w-0 overflow-hidden bg-gradient-radial from-[#111] to-black">
                                     <div className="flex-1 overflow-y-auto custom-scrollbar">
-                                        <div className="p-8 md:p-20 max-w-7xl mx-auto w-full">
+                                        <div className="p-4 md:p-20 max-w-7xl mx-auto w-full">
 
                                             {/* Hero Grid Section */}
-                                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 mb-32 items-center">
+                                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-20 mb-16 md:mb-32 items-center">
                                                 <div className="lg:col-span-6">
                                                     <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
                                                         <div className="inline-flex items-center gap-3 px-5 py-2 bg-accent/5 border border-accent/20 rounded-full text-[10px] font-black text-accent uppercase tracking-[0.5em] mb-10 shadow-glow-sm">
                                                             Project Identifier // 0x48{selectedProject.id.split('-')[1] || 'C'}
                                                         </div>
-                                                        <h2 className="text-4xl md:text-7xl lg:text-9xl font-display font-black text-white mb-6 md:mb-10 tracking-tighter leading-[0.8] uppercase italic drop-shadow-lg">
+                                                        <h2 className="text-2xl md:text-7xl lg:text-9xl font-display font-black text-white mb-4 md:mb-10 tracking-tighter leading-[0.85] uppercase italic drop-shadow-lg">
                                                             {t(`project.${selectedProject.id}.title`)}
                                                         </h2>
-                                                        <p className="text-white/60 text-lg md:text-2xl font-light leading-relaxed mb-10 md:mb-12 max-w-2xl">
+                                                        <p className="text-white/60 text-sm md:text-2xl font-light leading-relaxed mb-6 md:mb-12 max-w-2xl">
                                                             {t(`project.${selectedProject.id}.desc`)}
                                                         </p>
                                                         <div className="flex flex-wrap gap-3 mb-16">
@@ -184,9 +184,9 @@ export default function ProjectSlider({ selectedProject, setSelectedProject }: P
                                                             />
                                                         </AnimatePresence>
                                                         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80 pointer-events-none" />
-                                                        <div className="absolute bottom-12 left-12 right-12 flex justify-between items-end text-white/50 font-mono text-[9px] uppercase tracking-widest pointer-events-none">
-                                                            <div>Resolution: 3840x2160</div>
-                                                            <div className="px-5 py-2 glass-card rounded-xl border border-white/10">Build ID: 884-XQ</div>
+                                                        <div className="absolute bottom-4 left-4 right-4 md:bottom-12 md:left-12 md:right-12 flex justify-between items-end text-white/50 font-mono text-[8px] md:text-[9px] uppercase tracking-widest pointer-events-none">
+                                                            <div className="hidden md:block">Resolution: 3840x2160</div>
+                                                            <div className="px-3 py-1 md:px-5 md:py-2 glass-card rounded-lg md:rounded-xl border border-white/10">Build ID: 884-XQ</div>
                                                         </div>
                                                     </motion.div>
                                                 </div>
@@ -196,7 +196,7 @@ export default function ProjectSlider({ selectedProject, setSelectedProject }: P
                                             <div className="space-y-12">
                                                 <div className="flex justify-between items-end border-b border-white/5 pb-10">
                                                     <div>
-                                                        <h4 className="text-4xl font-display font-black text-white tracking-tight uppercase italic">{t("projects.gallery")}</h4>
+                                                        <h4 className="text-xl md:text-4xl font-display font-black text-white tracking-tight uppercase italic">{t("projects.gallery")}</h4>
                                                         <p className="text-white/20 font-mono text-[10px] uppercase mt-3 tracking-[0.6em]">System Asset Management v2.0</p>
                                                     </div>
                                                     <div className="hidden md:flex gap-4">
@@ -229,12 +229,12 @@ export default function ProjectSlider({ selectedProject, setSelectedProject }: P
                             </div>
 
                             {/* Modal Footer (Dynamic Dock) */}
-                            <div className="h-28 w-full bg-black/80 border-t border-white/5 flex items-center justify-center p-10 shrink-0 relative z-20 gap-10 backdrop-blur-3xl">
-                                <button onClick={() => setSelectedProject(null)} className="h-14 px-12 bg-white/[0.03] border border-white/10 hover:bg-red-500/10 hover:border-red-500/30 rounded-2xl text-white/30 text-[10px] font-black uppercase tracking-[0.5em] transition-all shadow-xl">
+                            <div className="h-16 md:h-28 w-full bg-black/80 border-t border-white/5 flex items-center justify-center px-4 md:p-10 shrink-0 relative z-20 gap-4 md:gap-10">
+                                <button onClick={() => setSelectedProject(null)} className="h-10 md:h-14 px-6 md:px-12 bg-white/[0.03] border border-white/10 hover:bg-red-500/10 hover:border-red-500/30 rounded-xl md:rounded-2xl text-white/30 text-[9px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.5em] transition-all shadow-xl">
                                     {t("projects.close")}
                                 </button>
-                                <a href={selectedProject.live || "#"} target="_blank" className="h-14 px-16 bg-accent rounded-2xl text-white text-[11px] font-black uppercase tracking-[0.6em] flex items-center gap-5 shadow-[0_0_60px_rgba(124,58,237,0.5)] hover:scale-105 active:scale-95 transition-all border border-white/30 border-opacity-50">
-                                    {t("projects.launch")} <ExternalLink size={18} />
+                                <a href={selectedProject.live || "#"} target="_blank" className="h-10 md:h-14 px-8 md:px-16 bg-accent rounded-xl md:rounded-2xl text-white text-[9px] md:text-[11px] font-black uppercase tracking-[0.3em] md:tracking-[0.6em] flex items-center gap-2 md:gap-5 shadow-[0_0_30px_rgba(124,58,237,0.3)] hover:scale-105 active:scale-95 transition-all border border-white/30 border-opacity-50">
+                                    {t("projects.launch")} <ExternalLink size={14} />
                                 </a>
                             </div>
                         </motion.div>

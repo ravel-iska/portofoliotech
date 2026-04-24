@@ -57,11 +57,11 @@ export default function ContactSection() {
                             viewport={{ once: true, margin: "-50px" }}
                             className="space-y-6"
                         >
-                            <h2 className="text-6xl md:text-8xl font-display font-black text-white tracking-tighter leading-none">
+                            <h2 className="text-3xl md:text-8xl font-display font-black text-white tracking-tighter leading-none">
                                 LET'S <br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-600">COLLABORATE.</span>
                             </h2>
-                            <p className="text-white/40 font-mono text-lg max-w-md leading-relaxed">
+                            <p className="text-white/40 font-mono text-sm md:text-lg max-w-md leading-relaxed">
                                 Ready to bring high-fidelity 3D experiences and advanced data architecture to your next project?
                                 <br /><br />
                                 Drop a message below and let's build the future together.
@@ -70,26 +70,26 @@ export default function ContactSection() {
 
                         <div className="flex flex-wrap gap-4 pt-4 relative z-20 pointer-events-auto">
                             {/* X / Twitter */}
-                            <a href="#contact" className="relative w-28 h-28 md:w-32 md:h-32 rounded-[2rem] bg-white/[0.03] border border-white/10 backdrop-blur-xl hover:bg-white/[0.08] flex items-center justify-center group transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
-                                <img src="https://cdn.simpleicons.org/x/white" alt="X" className="w-12 h-12 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
-                                <div className="absolute inset-0 rounded-[2rem] bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <a href="#contact" className="relative w-20 h-20 md:w-32 md:h-32 rounded-[1.5rem] md:rounded-[2rem] bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] flex items-center justify-center group transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+                                <img src="https://cdn.simpleicons.org/x/white" alt="X" className="w-8 h-8 md:w-12 md:h-12 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+                                <div className="absolute inset-0 rounded-[1.5rem] md:rounded-[2rem] bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                             </a>
 
                             {/* Instagram */}
-                            <a href={t("contact.instagram")} target="_blank" rel="noopener noreferrer" className="relative w-28 h-28 md:w-32 md:h-32 rounded-[2rem] bg-white/[0.03] border border-white/10 backdrop-blur-xl hover:bg-white/[0.08] flex items-center justify-center group transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
-                                <img src="https://cdn.simpleicons.org/instagram/white" alt="Instagram" className="w-12 h-12 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
-                                <div className="absolute inset-0 rounded-[2rem] bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <a href={t("contact.instagram")} target="_blank" rel="noopener noreferrer" className="relative w-20 h-20 md:w-32 md:h-32 rounded-[1.5rem] md:rounded-[2rem] bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] flex items-center justify-center group transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+                                <img src="https://cdn.simpleicons.org/instagram/white" alt="Instagram" className="w-8 h-8 md:w-12 md:h-12 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+                                <div className="absolute inset-0 rounded-[1.5rem] md:rounded-[2rem] bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                             </a>
 
                             {/* GitHub */}
-                            <a href={t("contact.github")} target="_blank" rel="noopener noreferrer" className="relative w-28 h-28 md:w-32 md:h-32 rounded-[2rem] bg-white/[0.03] border border-white/10 backdrop-blur-xl hover:bg-white/[0.08] flex items-center justify-center group transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
-                                <img src="https://cdn.simpleicons.org/github/white" alt="GitHub" className="w-12 h-12 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
-                                <div className="absolute inset-0 rounded-[2rem] bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <a href={t("contact.github")} target="_blank" rel="noopener noreferrer" className="relative w-20 h-20 md:w-32 md:h-32 rounded-[1.5rem] md:rounded-[2rem] bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] flex items-center justify-center group transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+                                <img src="https://cdn.simpleicons.org/github/white" alt="GitHub" className="w-8 h-8 md:w-12 md:h-12 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+                                <div className="absolute inset-0 rounded-[1.5rem] md:rounded-[2rem] bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                             </a>
                         </div>
 
                         <div className="mt-8 p-6 rounded-3xl bg-blue-900/20 border border-blue-500/20 backdrop-blur-md relative z-20 pointer-events-auto">
-                            <p className="text-blue-200/60 font-mono text-sm tracking-widest text-center">DIRECT EMAIL: <span className="text-white font-bold ml-2">{t("contact.email")}</span></p>
+                            <p className="text-blue-200/60 font-mono text-[10px] md:text-sm tracking-widest text-center break-all md:break-normal">DIRECT EMAIL: <span className="text-white font-bold ml-1 md:ml-2">{t("contact.email")}</span></p>
                         </div>
                     </div>
 
