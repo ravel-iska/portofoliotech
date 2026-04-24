@@ -42,14 +42,14 @@ export default function Hero() {
     }, []);
 
     return (
-        <section id="home" className="relative min-h-[80vh] md:min-h-screen flex items-center justify-center overflow-hidden w-full pt-4 md:pt-20 pb-6 md:pb-10">
-            {/* Apple iOS Glassmorphism Glow Highlights */}
-            <div className="absolute top-[20%] right-[10%] w-[200px] h-[200px] md:w-[500px] md:h-[500px] bg-accent/20 rounded-full blur-[60px] md:blur-[140px] pointer-events-none" />
-            <div className="absolute bottom-[10%] left-[20%] w-[150px] h-[150px] md:w-[400px] md:h-[400px] bg-blue-500/10 rounded-full blur-[50px] md:blur-[120px] pointer-events-none" />
+        <section id="home" className="relative min-h-[60vh] md:min-h-screen flex items-start md:items-center justify-center overflow-hidden w-full pt-20 md:pt-20 pb-6 md:pb-10">
+            {/* Glow Highlights — desktop only */}
+            <div className="hidden md:block absolute top-[20%] right-[10%] w-[500px] h-[500px] bg-accent/20 rounded-full blur-[140px] pointer-events-none" />
+            <div className="hidden md:block absolute bottom-[10%] left-[20%] w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
 
-            <div ref={elementsRef} className="container mx-auto px-6 md:px-12 flex flex-col items-center justify-center z-10 text-center relative">
-                <div className="mb-8 flex justify-center hero-fade-in opacity-0">
-                    <div className="px-6 py-2.5 rounded-full border border-white/10 glass-card text-xs md:text-sm text-white/90 tracking-[0.2em] font-mono uppercase shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+            <div ref={elementsRef} className="container mx-auto px-6 md:px-12 flex flex-col items-start md:items-center md:justify-center z-10 text-left md:text-center relative">
+                <div className="mb-4 md:mb-8 flex justify-start md:justify-center hero-fade-in opacity-0">
+                    <div className="px-4 md:px-6 py-2 md:py-2.5 rounded-full border border-white/10 glass-card text-[10px] md:text-sm text-white/90 tracking-[0.15em] md:tracking-[0.2em] font-mono uppercase">
                         <span className="inline-block w-2 h-2 rounded-full bg-green-400 mr-3 animate-pulse shadow-[0_0_10px_#4ade80]" />
                         Welcome to the V2 Experience
                     </div>
@@ -58,7 +58,7 @@ export default function Hero() {
                 <motion.h1
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                    className="text-3xl md:text-7xl lg:text-[6rem] font-display font-bold tracking-tight mb-4 md:mb-6 text-glow leading-tight select-none drop-shadow-2xl cursor-pointer flex justify-center"
+                    className="text-3xl md:text-7xl lg:text-[6rem] font-display font-bold tracking-tight mb-3 md:mb-6 leading-tight select-none cursor-pointer flex justify-start md:justify-center"
                 >
                     <TextReveal text="Bagus Priambudi, S.Kom." delay={0.3} />
                 </motion.h1>

@@ -24,17 +24,17 @@ export default function Projects({ setSelectedProject }: ProjectsProps) {
     return (
         <section id="projects" className="relative py-16 px-6 bg-transparent">
             <div className="max-w-7xl mx-auto relative z-10">
-                <div className="flex flex-col lg:flex-row items-end justify-between mb-12 md:mb-24 gap-6 md:gap-12">
+                <div className="flex flex-col items-center lg:flex-row lg:items-end justify-between mb-8 md:mb-24 gap-4 md:gap-12">
                     <div className="max-w-2xl">
                         <motion.h2
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
-                            className="text-3xl md:text-8xl font-display font-bold text-white mb-4 md:mb-8 tracking-tighter leading-none"
+                            className="text-3xl md:text-8xl font-display font-bold text-white mb-2 md:mb-8 tracking-tighter leading-none text-center lg:text-left"
                         >
                             {t("projects.title").split(" ")[0]} <span className="text-accent text-glow text-edge">{t("projects.title").split(" ").slice(1).join(" ")}</span>
                         </motion.h2>
-                        <div className="flex items-center gap-4 text-white/30 font-mono text-xs uppercase tracking-[0.4em]">
+                        <div className="flex items-center justify-center lg:justify-start gap-4 text-white/30 font-mono text-xs uppercase tracking-[0.4em]">
                             <Layers size={14} /> Total Artifacts: {projects.length}
                         </div>
                     </div>

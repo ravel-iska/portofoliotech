@@ -175,7 +175,7 @@ canvas {
 }
 
 /* === MOBILE PERFORMANCE OPTIMIZATION === */
-/* Disable ALL heavy GPU effects on mobile to prevent overheating */
+/* AGGRESSIVE: Disable ALL heavy GPU effects on mobile to prevent overheating */
 @media (max-width: 767px) {
 
   /* Kill all backdrop-blur — single biggest GPU drain */
@@ -186,24 +186,46 @@ canvas {
     backdrop-filter: none !important;
   }
 
-  /* Reduce blur radius on background decorative elements */
-  .blur-\[120px\],
-  .blur-\[140px\],
-  .blur-\[100px\],
-  .blur-\[110px\] {
+  /* Kill ALL blur filters on mobile */
+  [class*="blur-"] {
     filter: none !important;
-    opacity: 0.3;
+    -webkit-filter: none !important;
   }
 
   /* Disable heavy box-shadow glows */
   .shadow-glow-sm,
   .text-glow {
     text-shadow: none !important;
+    box-shadow: none !important;
   }
 
-  /* Reduce animation complexity */
+  /* Kill complex box-shadows globally */
+  [class*="shadow-[0_0_"] {
+    box-shadow: none !important;
+  }
+
+  /* Reduce ALL animations to bare minimum */
   .animate-pulse {
-    animation-duration: 3s !important;
+    animation: none !important;
+  }
+
+  .animate-bounce {
+    animation: none !important;
+  }
+
+  .animate-spin {
+    animation: none !important;
+  }
+
+  /* Disable framer-motion hover/tap effects by reducing will-change */
+  [style*="will-change"] {
+    will-change: auto !important;
+  }
+
+  /* Force compositing layer optimization */
+  .glass,
+  .glass-card {
+    background: rgba(15, 17, 26, 0.8) !important;
   }
 }
 
