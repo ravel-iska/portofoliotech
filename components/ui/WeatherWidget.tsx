@@ -15,7 +15,7 @@ export default function WeatherWidget() {
     const [weather, setWeather] = useState<WeatherData | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [retryCount, setRetryCount] = useState(0);
+    const [isOpen, setIsOpen] = useState(false);
 
     const fetchWeather = async () => {
         setLoading(true);
@@ -31,33 +31,30 @@ export default function WeatherWidget() {
             const { latitude, longitude } = position.coords;
 
             try {
-                // 1. Get Village Name via Reverse Geocoding (Nominatim)
                 const geoRes = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`, {
                     headers: { 'Accept-Language': 'id' }
                 });
                 const geoData = await geoRes.json();
 
-                // Village names in ID can be in 'village', 'suburb', or 'neighbourhood'
                 const village = geoData.address.village ||
                     geoData.address.suburb ||
                     geoData.address.neighbourhood ||
                     geoData.address.city_district ||
                     "Unknown Sector";
 
-                // 2. Get Weather Data (Open-Meteo)
                 const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
                 const weatherData = await weatherRes.json();
 
                 const temp = Math.round(weatherData.current_weather.temperature);
                 const code = weatherData.current_weather.weathercode;
 
-                let icon = <Sun className="text-yellow-400" size={18} />;
+                let icon = <Sun className="text-yellow-400" size={16} />;
                 let desc = "Cerah";
 
-                if (code >= 1 && code <= 3) { desc = "Berawan"; icon = <Cloud className="text-blue-300" size={18} />; }
-                else if (code >= 51 && code <= 67) { desc = "Hujan Ringan"; icon = <CloudRain className="text-blue-400" size={18} />; }
-                else if (code >= 71 && code <= 86) { desc = "Salju/Dingin"; icon = <Wind className="text-blue-100" size={18} />; }
-                else if (code >= 95) { desc = "Badai"; icon = <CloudLightning className="text-purple-400" size={18} />; }
+                if (code >= 1 && code <= 3) { desc = "Berawan"; icon = <Cloud className="text-blue-300" size={16} />; }
+                else if (code >= 51 && code <= 67) { desc = "Hujan Ringan"; icon = <CloudRain className="text-blue-400" size={16} />; }
+                else if (code >= 71 && code <= 86) { desc = "Salju/Dingin"; icon = <Wind className="text-blue-100" size={16} />; }
+                else if (code >= 95) { desc = "Badai"; icon = <CloudLightning className="text-purple-400" size={16} />; }
 
                 setWeather({ temp, description: desc, village, icon });
             } catch (err) {
@@ -66,7 +63,7 @@ export default function WeatherWidget() {
             } finally {
                 setLoading(false);
             }
-        }, (err) => {
+        }, () => {
             setError("GPS Permission Denied");
             setLoading(false);
         });
@@ -77,49 +74,41 @@ export default function WeatherWidget() {
     }, []);
 
     return (
-        <div className="fixed bottom-8 left-8 z-[100] group">
-            <AnimatePresence mode="wait">
-                {loading ? (
+        <div className="fixed bottom-6 left-6 z-[100]">
+            {/* Small toggle icon — less intrusive */}
+            <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="w-9 h-9 bg-white/5 border border-white/10 rounded-full flex items-center justify-center text-white/30 hover:text-white hover:bg-white/10 transition-all"
+            >
+                {weather?.icon || <Cloud size={14} />}
+            </button>
+
+            {/* Expandable panel on click */}
+            <AnimatePresence>
+                {isOpen && weather && (
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.8 }}
-                        className="flex items-center gap-3 px-4 py-2 bg-white/5 backdrop-blur-xl border border-white/10 rounded-full text-white/40 font-mono text-[10px] tracking-widest uppercase"
+                        initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.9 }}
+                        className="absolute bottom-12 left-0 p-3 bg-black/90 border border-white/10 rounded-xl shadow-2xl min-w-[180px]"
                     >
-                        <Loader2 size={14} className="animate-spin text-blue-400" />
-                        Scanning Signal...
-                    </motion.div>
-                ) : weather ? (
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="flex items-center gap-4 p-1 pl-4 pr-6 bg-black/40 backdrop-blur-2xl border border-white/10 rounded-full hover:border-blue-500/50 transition-all cursor-pointer group shadow-[0_0_40px_rgba(37,99,235,0.1)]"
-                        onClick={fetchWeather}
-                    >
-                        <div className="flex flex-col">
-                            <div className="flex items-center gap-2">
-                                <MapPin size={10} className="text-blue-400 animate-pulse" />
-                                <span className="text-white/40 font-mono text-[9px] uppercase tracking-tighter">Locals: {weather.village}</span>
+                        <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 bg-white/5 rounded-full flex items-center justify-center border border-white/5">
+                                {weather.icon}
                             </div>
-                            <div className="flex items-center gap-2">
-                                <span className="text-white font-display font-medium text-sm">{weather.temp}°C</span>
-                                <span className="text-white/30 font-mono text-[10px] uppercase">{weather.description}</span>
+                            <div>
+                                <div className="flex items-center gap-1">
+                                    <MapPin size={8} className="text-blue-400" />
+                                    <span className="text-white/40 font-mono text-[8px] uppercase">{weather.village}</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-white font-display font-medium text-sm">{weather.temp}°C</span>
+                                    <span className="text-white/30 font-mono text-[9px]">{weather.description}</span>
+                                </div>
                             </div>
                         </div>
-                        <div className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center border border-white/5 group-hover:scale-110 transition-transform">
-                            {weather.icon}
-                        </div>
                     </motion.div>
-                ) : error ? (
-                    <motion.button
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        onClick={fetchWeather}
-                        className="px-4 py-2 bg-red-500/10 border border-red-500/20 rounded-full text-red-400 font-mono text-[10px] uppercase hover:bg-red-500/20 transition-all"
-                    >
-                        {error} (Retry)
-                    </motion.button>
-                ) : null}
+                )}
             </AnimatePresence>
         </div>
     );

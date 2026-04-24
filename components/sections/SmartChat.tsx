@@ -173,13 +173,13 @@ export default function SmartChat() {
                     </form>
                 </div>
 
-                {/* Hidden YouTube Audio Player */}
+                {/* YouTube Audio Player — offscreen, NOT display:none (which blocks audio) */}
                 {isPlaying && (
                     <iframe
                         ref={iframeRef}
                         src="https://www.youtube.com/embed/6vNnB4oLZNo?autoplay=1&loop=1&playlist=6vNnB4oLZNo"
-                        allow="autoplay"
-                        className="hidden"
+                        allow="autoplay; encrypted-media"
+                        style={{ position: 'absolute', width: 0, height: 0, border: 0, overflow: 'hidden' }}
                         title="Background Music"
                     />
                 )}
