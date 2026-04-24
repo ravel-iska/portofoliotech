@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Cpu, Zap, Search, CornerDownLeft, User } from "lucide-react";
+import { Cpu, Zap, Search, CornerDownLeft, User, Music, Square } from "lucide-react";
 import { useGlobal } from "@/components/core/GlobalProvider";
 // animejs required in useEffect
 
@@ -14,6 +14,8 @@ export default function SmartChat() {
     const [query, setQuery] = useState("");
     const scrollRef = useRef<HTMLDivElement>(null);
     const historyRef = useRef<HTMLDivElement>(null);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const iframeRef = useRef<HTMLIFrameElement>(null);
 
     useEffect(() => {
         if (scrollRef.current) {
@@ -59,6 +61,12 @@ export default function SmartChat() {
                 response = `Here are the links: GitHub (${t("contact.github")}), Instagram (${t("contact.instagram")})`;
             } else if (lowerQuery.includes("siapa") || lowerQuery.includes("who") || lowerQuery.includes("background")) {
                 response = t("about.desc");
+            } else if (lowerQuery === "play" || lowerQuery === "play music" || lowerQuery === "musik") {
+                setIsPlaying(true);
+                response = "🎵 Music started! Enjoy the vibes. Type \"stop\" to pause the music.";
+            } else if (lowerQuery === "stop" || lowerQuery === "stop music" || lowerQuery === "pause") {
+                setIsPlaying(false);
+                response = "⏹️ Music stopped. Type \"play\" to start again.";
             }
 
             const aiMsg = { role: 'ai', text: response };
@@ -89,7 +97,7 @@ export default function SmartChat() {
                 </div>
 
                 {/* Chat Container */}
-                <div className="glass-card backdrop-blur-3xl overflow-hidden border border-white/10 flex flex-col h-[600px] rounded-[2rem] shadow-2xl relative">
+                <div className="glass-card overflow-hidden border border-white/10 flex flex-col h-[600px] rounded-[2rem] shadow-2xl relative">
                     {/* Subtle Scan-line / Glass reflection */}
                     <div className="absolute inset-0 bg-gradient-to-tr from-white/5 via-transparent to-white/5 pointer-events-none opacity-30" />
 
@@ -126,6 +134,24 @@ export default function SmartChat() {
                         </div>
                     </div>
 
+                    {/* Music Player Bar */}
+                    {isPlaying && (
+                        <div className="px-4 py-2 bg-accent/10 border-t border-accent/20 flex items-center justify-between gap-3 relative z-20">
+                            <div className="flex items-center gap-2">
+                                <Music size={14} className="text-accent animate-pulse" />
+                                <span className="text-[10px] font-mono text-white/60 uppercase tracking-widest">Now Playing</span>
+                                <div className="flex gap-0.5 items-end h-3">
+                                    {[1, 2, 3, 4, 5].map(i => (
+                                        <div key={i} className="w-0.5 bg-accent rounded-full animate-bounce" style={{ height: `${4 + Math.random() * 8}px`, animationDelay: `${i * 0.1}s`, animationDuration: '0.6s' }} />
+                                    ))}
+                                </div>
+                            </div>
+                            <button onClick={() => setIsPlaying(false)} className="text-white/40 hover:text-white transition-colors">
+                                <Square size={12} />
+                            </button>
+                        </div>
+                    )}
+
                     {/* Input Area */}
                     <form onSubmit={handleSearch} className="p-6 glass border-t border-white/10 flex gap-4 backdrop-blur-2xl relative z-20">
                         <div className="relative flex-1 group">
@@ -146,6 +172,17 @@ export default function SmartChat() {
                         </div>
                     </form>
                 </div>
+
+                {/* Hidden YouTube Audio Player */}
+                {isPlaying && (
+                    <iframe
+                        ref={iframeRef}
+                        src="https://www.youtube.com/embed/6vNnB4oLZNo?autoplay=1&loop=1&playlist=6vNnB4oLZNo"
+                        allow="autoplay"
+                        className="hidden"
+                        title="Background Music"
+                    />
+                )}
             </div>
         </section>
     );
