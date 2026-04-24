@@ -214,17 +214,18 @@ export default function ProjectSlider({ selectedProject, setSelectedProject }: P
                                                     </div>
                                                 </div>
 
-                                                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                                                    {[1, 2, 3, 4, 1, 2, 3, 4, 1, 2].map((i, idx) => (
+                                                <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-6">
+                                                    {Array.from({ length: 20 }, (_, idx) => (
                                                         <motion.div
                                                             key={idx}
                                                             whileHover={{ scale: 1.05, y: -4 }}
-                                                            onClick={() => { playClick(); setActiveImage(`https://picsum.photos/seed/${selectedProject.id}${idx}/800/800`); }}
-                                                            className="aspect-square bg-white/[0.04] rounded-2xl md:rounded-3xl overflow-hidden border border-white/10 cursor-pointer shadow-2xl group/img relative"
+                                                            onClick={() => { playClick(); setActiveImage(`https://picsum.photos/seed/${selectedProject.id}g${idx}/800/800`); }}
+                                                            className="aspect-square bg-white/[0.04] rounded-xl md:rounded-3xl overflow-hidden border border-white/10 cursor-pointer shadow-xl group/img relative"
                                                         >
                                                             <img
-                                                                src={`https://picsum.photos/seed/${selectedProject.id}${idx}/800/800`}
+                                                                src={`https://picsum.photos/seed/${selectedProject.id}g${idx}/800/800`}
                                                                 alt="Gallery item"
+                                                                loading="lazy"
                                                                 className="w-full h-full object-cover opacity-60 group-hover/img:opacity-100 transition-all duration-700 group-hover/img:scale-110"
                                                             />
                                                             <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover/img:opacity-100 transition-opacity pointer-events-none" />
