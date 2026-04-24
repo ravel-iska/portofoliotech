@@ -235,11 +235,11 @@ export default function TraderDashboard() {
                         <div className="w-full md:w-1/3 z-10 relative">
                             <div className="flex items-center gap-3 mb-6">
                                 <Globe2 className="text-accent" size={24} />
-                                <span className="text-white font-mono uppercase tracking-[0.3em] text-sm">Server Latency Node</span>
+                                <span className="text-white font-mono uppercase tracking-[0.3em] text-sm">Network Topology</span>
                             </div>
-                            <h3 className="text-4xl lg:text-6xl font-display font-black text-white leading-none mb-6">GLOBAL <span className="text-accent">ROUTING</span></h3>
+                            <h3 className="text-4xl lg:text-6xl font-display font-black text-white leading-none mb-6">GLOBAL <span className="text-accent">NODES</span></h3>
                             <p className="text-white/40 font-mono text-sm leading-relaxed mb-8">
-                                Visualizing real-time websocket connections to major financial engines across optimal regions: NY, SF, London, Dubai, and Singapore.
+                                Visualizing real-time network latency across our distributed infrastructure: NY, Tokyo, London, and Singapore nodes.
                             </p>
                             <div className="space-y-4">
                                 <div className="flex justify-between items-center border-b border-white/5 pb-2">

@@ -68,13 +68,22 @@ export default function Hero() {
                     <strong className="text-white font-medium">{t("hero.role")}</strong> {t("hero.desc")}
                 </p>
 
-                <div className="hero-fade-in opacity-0 flex justify-center w-full">
+                <div className="hero-fade-in opacity-0 flex flex-col md:flex-row justify-center items-center gap-4 w-full">
                     <MagneticButton
                         onClick={handleExplore}
-                        className="text-base md:text-lg px-10 md:px-12 py-4 md:py-5 cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-300 border border-white/20"
+                        className="text-base md:text-lg px-10 md:px-12 py-4 md:py-5 cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-300 border border-white/20 bg-white/5"
                     >
                         {t("hero.cta")}
                     </MagneticButton>
+                    <button
+                        onClick={() => {
+                            const contact = document.getElementById('contact');
+                            if (contact) contact.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        className="text-white/60 hover:text-white font-mono text-xs uppercase tracking-widest px-8 py-4 transition-all hover:bg-white/5 rounded-2xl cursor-pointer"
+                    >
+                        {t("nav.contact")}
+                    </button>
                 </div>
             </div>
         </section>

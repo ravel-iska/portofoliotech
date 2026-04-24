@@ -14,7 +14,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
         { name: t("dashboard.title"), icon: <LayoutDashboard size={20} />, href: "#trading" },
         { name: t("nav.projects"), icon: <Cpu size={20} />, href: "#projects" },
         { name: t("nav.memories"), icon: <MessageSquare size={20} />, href: "#memories" },
-        { name: "Support", icon: <Mail size={20} />, href: "#contact" },
+        { name: t("nav.contact"), icon: <Mail size={20} />, href: "#contact" },
     ];
 
     const [isOpen, setIsOpen] = useState(false); // Mobile toggle
