@@ -24,6 +24,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Professional Developer Portfolio | Vibe Studio",
   description: "High-performance portfolio built with Next.js, GSAP, and iOS Glassmorphism.",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0",
 };
 
 export default function RootLayout({

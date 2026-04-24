@@ -173,16 +173,14 @@ export default function SmartChat() {
                     </form>
                 </div>
 
-                {/* YouTube Audio — needs real dimensions (1x1px) offscreen for audio to play */}
-                {isPlaying && (
-                    <iframe
-                        ref={iframeRef}
-                        src="https://www.youtube.com/embed/6vNnB4oLZNo?autoplay=1&loop=1&playlist=6vNnB4oLZNo&enablejsapi=1"
-                        allow="autoplay; encrypted-media"
-                        style={{ position: 'fixed', left: '-9999px', top: '-9999px', width: '1px', height: '1px', border: 'none', opacity: 0 }}
-                        title="Background Music"
-                    />
-                )}
+                {/* YouTube Audio — rendered always to bypass some autoplay restrictions on dynamic insertion */}
+                <iframe
+                    ref={iframeRef}
+                    src={isPlaying ? "https://www.youtube.com/embed/6vNnB4oLZNo?autoplay=1&loop=1&playlist=6vNnB4oLZNo&enablejsapi=1" : "about:blank"}
+                    allow="autoplay; encrypted-media"
+                    style={{ position: 'fixed', left: '-9999px', top: '-9999px', width: '1px', height: '1px', border: 'none', opacity: 0, pointerEvents: 'none' }}
+                    title="Background Music"
+                />
             </div>
         </section>
     );

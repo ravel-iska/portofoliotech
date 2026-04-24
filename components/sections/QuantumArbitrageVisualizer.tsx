@@ -58,30 +58,30 @@ export default function QuantumArbitrageVisualizer() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold font-mono tracking-widest uppercase">
                         <Zap size={14} /> Web3 Innovation
                     </div>
-                    <h2 className="text-3xl md:text-6xl font-display font-bold text-white leading-tight">
+                    <h2 className="text-2xl md:text-6xl font-display font-bold text-white leading-tight">
                         {t("quantum.subtitle")} <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-400">{t("quantum.title")}</span>
                     </h2>
-                    <p className="text-white/60 font-light leading-relaxed max-w-lg text-base md:text-lg">
+                    <p className="text-white/60 font-light leading-relaxed max-w-lg text-sm md:text-lg">
                         {t("quantum.desc")}
                     </p>
 
-                    <div className="flex flex-wrap items-center gap-4 pt-2 md:pt-4">
+                    <div className="flex flex-wrap items-center gap-3 md:gap-4 pt-2 md:pt-4">
                         <button
                             onClick={triggerSimulation}
                             disabled={isSimulating}
-                            className={`px-6 md:px-8 py-3 md:py-4 rounded-xl font-bold tracking-widest uppercase text-xs md:text-sm transition-all duration-300 flex items-center gap-2 md:gap-3 ${isSimulating
+                            className={`px-5 md:px-8 py-3 md:py-4 rounded-xl font-bold tracking-widest uppercase text-[10px] md:text-sm transition-all duration-300 flex items-center gap-2 md:gap-3 ${isSimulating
                                 ? 'bg-white/5 border border-white/10 text-white/40 cursor-not-allowed'
                                 : 'bg-gradient-to-r from-accent to-emerald-500 hover:scale-105 text-white shadow-[0_0_30px_rgba(0,255,135,0.3)]'
                                 }`}
                         >
-                            {isSimulating ? <Activity className="animate-spin" size={18} /> : <Cpu size={18} />}
+                            {isSimulating ? <Activity className="animate-spin" size={16} /> : <Cpu size={16} />}
                             {isSimulating ? t("quantum.simulating") : t("quantum.execute")}
                         </button>
 
-                        <div className="glass-card px-4 md:px-6 py-2 md:py-3 rounded-xl border border-white/10 flex flex-col">
-                            <span className="text-[9px] md:text-[10px] text-white/40 font-mono tracking-widest uppercase">{t("quantum.est_profit")}</span>
-                            <span className="text-xl md:text-2xl font-mono font-bold text-emerald-400">
+                        <div className="glass-card px-3 md:px-6 py-2 md:py-3 rounded-xl border border-white/10 flex flex-col">
+                            <span className="text-[8px] md:text-[10px] text-white/40 font-mono tracking-widest uppercase">{t("quantum.est_profit")}</span>
+                            <span className="text-lg md:text-2xl font-mono font-bold text-emerald-400">
                                 +${profit.toFixed(2)}
                             </span>
                         </div>

@@ -178,54 +178,58 @@ canvas {
 /* AGGRESSIVE: Disable ALL heavy GPU effects on mobile to prevent overheating */
 @media (max-width: 767px) {
 
+  html,
+  body {
+    overflow-x: hidden !important;
+    position: relative;
+    width: 100%;
+  }
+
   /* Kill all backdrop-blur — single biggest GPU drain */
   *,
   *::before,
   *::after {
     -webkit-backdrop-filter: none !important;
     backdrop-filter: none !important;
+    /* Kill all transitions to stop laggy layout recalculations */
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
   }
 
   /* Kill ALL blur filters on mobile */
   [class*="blur-"] {
+    display: none !important;
     filter: none !important;
     -webkit-filter: none !important;
   }
 
   /* Disable heavy box-shadow glows */
   .shadow-glow-sm,
-  .text-glow {
+  .text-glow,
+  [class*="shadow-"] {
     text-shadow: none !important;
     box-shadow: none !important;
   }
 
-  /* Kill complex box-shadows globally */
-  [class*="shadow-[0_0_"] {
-    box-shadow: none !important;
-  }
-
-  /* Reduce ALL animations to bare minimum */
-  .animate-pulse {
-    animation: none !important;
-  }
-
-  .animate-bounce {
-    animation: none !important;
-  }
-
+  /* Reduce ALL animations to zero */
+  .animate-pulse,
+  .animate-bounce,
   .animate-spin {
     animation: none !important;
   }
 
-  /* Disable framer-motion hover/tap effects by reducing will-change */
+  /* Disable will-change to save memory */
   [style*="will-change"] {
     will-change: auto !important;
   }
 
-  /* Force compositing layer optimization */
+  /* Force solid backgrounds to avoid transparency overhead */
   .glass,
-  .glass-card {
-    background: rgba(15, 17, 26, 0.8) !important;
+  .glass-card,
+  .glass-panel {
+    background: #0f111a !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: none !important;
   }
 }
 

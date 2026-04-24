@@ -108,7 +108,7 @@ export default function TraderDashboard() {
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 glass-card text-white/50 text-[10px] uppercase font-mono tracking-widest mb-6">
                             <Activity size={14} className="text-[#00ff87]" /> {t("dashboard.stats")}
                         </div>
-                        <h2 className="text-3xl md:text-8xl font-display font-black text-white tracking-tighter leading-none mb-4 md:mb-6">
+                        <h2 className="text-2xl md:text-8xl font-display font-black text-white tracking-tighter leading-none mb-4 md:mb-6">
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/40">{t("dashboard.title")}</span> <br />
                             <span className="text-[#00ff87] italic drop-shadow-[0_0_20px_rgba(0,255,135,0.4)]">{t("dashboard.role")}.</span>
                         </h2>
@@ -165,7 +165,7 @@ export default function TraderDashboard() {
                                         key={balance}
                                         initial={{ opacity: 0.8, y: -2 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        className="text-3xl md:text-8xl font-display font-black text-white tracking-tighter"
+                                        className="text-2xl md:text-8xl font-display font-black text-white tracking-tighter"
                                         style={{ fontVariantNumeric: 'tabular-nums' }}
                                     >
                                         {balance}
