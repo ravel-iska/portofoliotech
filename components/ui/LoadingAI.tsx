@@ -26,10 +26,10 @@ export default function LoadingAI() {
                     style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
                 >
                     {/* Ambient Glows */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/20 rounded-full blur-[150px] pointer-events-none animate-pulse" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] md:w-[600px] md:h-[600px] bg-accent/20 rounded-full blur-[80px] md:blur-[150px] pointer-events-none animate-pulse" />
 
                     {/* 3D Robot / Cubic Sequence */}
-                    <div className="relative w-40 h-40 preserve-3d">
+                    <div className="relative w-20 h-20 md:w-40 md:h-40 preserve-3d">
                         <motion.div
                             animate={{
                                 rotateX: [45, 405],
@@ -44,12 +44,12 @@ export default function LoadingAI() {
                         >
                             {/* Cube Faces */}
                             {[
-                                { rotateY: 0, translateZ: 80, color: "bg-accent/40" },
-                                { rotateY: 90, translateZ: 80, color: "bg-blue-500/30" },
-                                { rotateY: 180, translateZ: 80, color: "bg-purple-500/30" },
-                                { rotateY: -90, translateZ: 80, color: "bg-accent/30" },
-                                { rotateX: 90, translateZ: 80, color: "bg-blue-400/20" },
-                                { rotateX: -90, translateZ: 80, color: "bg-purple-400/20" },
+                                { rotateY: 0, translateZ: 40, color: "bg-accent/40" },
+                                { rotateY: 90, translateZ: 40, color: "bg-blue-500/30" },
+                                { rotateY: 180, translateZ: 40, color: "bg-purple-500/30" },
+                                { rotateY: -90, translateZ: 40, color: "bg-accent/30" },
+                                { rotateX: 90, translateZ: 40, color: "bg-blue-400/20" },
+                                { rotateX: -90, translateZ: 40, color: "bg-purple-400/20" },
                             ].map((face, i) => (
                                 <div
                                     key={i}
@@ -76,7 +76,7 @@ export default function LoadingAI() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.5 }}
-                            className="text-2xl md:text-4xl font-display font-bold text-white tracking-widest uppercase mb-2"
+                            className="text-base md:text-4xl font-display font-bold text-white tracking-widest uppercase mb-2"
                         >
                             Initializing <span className="text-accent">AI</span> Core
                         </motion.h2>
@@ -91,7 +91,7 @@ export default function LoadingAI() {
                     </div>
 
                     {/* Progress Bar */}
-                    <div className="absolute bottom-10 left-10 right-10 flex flex-col gap-2 max-w-lg mx-auto w-full px-6">
+                    <div className="absolute bottom-6 left-4 right-4 md:bottom-10 md:left-10 md:right-10 flex flex-col gap-2 max-w-lg mx-auto w-full px-4 md:px-6">
                         <div className="flex justify-between text-[10px] font-mono text-white/30 uppercase tracking-[0.3em]">
                             <span>System Load</span>
                             <span>99%</span>

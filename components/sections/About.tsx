@@ -35,14 +35,14 @@ export default function About() {
         <section id="about" className="relative py-32 px-6 overflow-hidden">
 
             {/* Apple iOS Glassmorphism "Grain/Orb" Highlight */}
-            <div className="absolute top-[10%] left-[5%] w-[400px] h-[400px] bg-accent/10 rounded-full blur-[120px] pointer-events-none select-none" />
-            <div className="absolute bottom-[20%] right-[10%] w-[300px] h-[300px] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none select-none" />
+            <div className="absolute top-[10%] left-[5%] w-[200px] h-[200px] md:w-[400px] md:h-[400px] bg-accent/10 rounded-full blur-[60px] md:blur-[120px] pointer-events-none select-none" />
+            <div className="absolute bottom-[20%] right-[10%] w-[150px] h-[150px] md:w-[300px] md:h-[300px] bg-blue-500/10 rounded-full blur-[50px] md:blur-[100px] pointer-events-none select-none" />
 
             <div ref={sectionRef} className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
 
                 <div
                     onClick={() => setIsVCardOpen(true)}
-                    className="relative aspect-square h-[450px] md:h-[600px] lg:h-auto glass rounded-[2.5rem] p-1 overflow-hidden group shadow-2xl cursor-pointer hover:scale-[1.02] active:scale-95 transition-transform duration-300 transform-gpu"
+                    className="relative aspect-square h-[280px] md:h-[450px] lg:h-auto glass rounded-[2rem] md:rounded-[2.5rem] p-1 overflow-hidden group shadow-2xl cursor-pointer hover:scale-[1.02] active:scale-95 transition-transform duration-300 transform-gpu"
                     title="Click to Download Contact (vCard)"
                 >
                     {/* Inner highlight to simulate thickness */}

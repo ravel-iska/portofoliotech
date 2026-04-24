@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, User, MessageSquare, Mail, Cpu, LayoutDashboard, Menu, X, ChevronLeft, ChevronRight, TrendingUp, Sun, Moon, Globe, Shield, Code } from "lucide-react";
+import { Home, User, MessageSquare, Mail, Cpu, LayoutDashboard, Menu, X, ChevronLeft, ChevronRight, TrendingUp, Sun, Moon, Globe, Shield } from "lucide-react";
 import { useState } from "react";
 import { useLenis } from "@studio-freight/react-lenis";
 import { useGlobal } from "@/components/core/GlobalProvider";
@@ -134,19 +134,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                             </a>
                         ))}
 
-                        {(!isCollapsed || isOpen) && (
-                            <div className="pt-6 mt-6 border-t border-white/5">
-                                <a
-                                    href="https://github.com/ravel-iska/portfolio-v2"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center gap-4 p-4 rounded-2xl text-white/40 hover:text-white transition-all hover:bg-white/5 border border-transparent hover:border-white/10 group/source"
-                                >
-                                    <Code size={18} className="group-hover/source:text-accent" />
-                                    <span className="text-[10px] font-bold uppercase tracking-widest">Source Code</span>
-                                </a>
-                            </div>
-                        )}
+
                     </nav>
 
                     {/* I18n & Theme Toggles */}
