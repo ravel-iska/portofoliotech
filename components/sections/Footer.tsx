@@ -52,12 +52,12 @@ export default function Footer() {
                 {/* Oversized Typography - iOS Glass Layered feel */}
                 <div className="w-full border-t border-white/5 pt-12 overflow-hidden relative group">
                     <h1 className="text-[14vw] font-display font-black tracking-tighter text-white/5 whitespace-nowrap text-center leading-none pointer-events-none select-none text-glow group-hover:text-accent/10 transition-colors duration-1000">
-                        VIBE STUDIO
+                        BGUS.DEV
                     </h1>
                 </div>
 
                 <div className="absolute bottom-6 w-full text-center md:text-left text-[9px] uppercase font-bold tracking-[0.4em] text-white/20">
-                    © {new Date().getFullYear()} VIBE STUDIO. {t("footer.copyright")}
+                    © {new Date().getFullYear()} BGUS.DEV. {t("footer.copyright")}
                 </div>
             </div>
         </footer>

@@ -55,7 +55,7 @@ export default function SmartChat() {
 
         // --- Greetings ---
         if (/^(hi|halo|hello|hey|hai|selamat|assalam|salam|yo|oi)/.test(q)) {
-            return "👋 Halo! Selamat datang di Vibe Studio. Saya adalah Vibe AI Agent, asisten virtual Bagus Priambudi. Ketik \"help\" untuk melihat apa saja yang bisa saya bantu!";
+            return "👋 Halo! Selamat datang di BGUS.DEV. Saya adalah Vibe AI Agent, asisten virtual Bagus Priambudi. Ketik \"help\" untuk melihat apa saja yang bisa saya bantu!";
         }
 
         // --- Help / Menu ---

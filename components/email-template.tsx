@@ -17,12 +17,12 @@ export const ContactEmailTemplate = ({
 }: ContactEmailProps) => (
     <Html>
         <Head />
-        <Preview>Pesan baru dari {senderName} via Vibe Studio</Preview>
+        <Preview>Pesan baru dari {senderName} via BGUS.DEV</Preview>
         <Body style={main}>
             <Container style={container}>
                 <Section style={headerSection}>
                     <Heading style={headerTitle}>📨 New Contact Message</Heading>
-                    <Text style={headerSub}>From your Vibe Studio portfolio</Text>
+                    <Text style={headerSub}>From your BGUS.DEV portfolio</Text>
                 </Section>
 
                 <Section style={contentSection}>
@@ -40,7 +40,7 @@ export const ContactEmailTemplate = ({
 
                 <Hr style={hr} />
                 <Text style={footer}>
-                    Sent via Vibe Studio Portfolio — {new Date().toLocaleDateString("id-ID")}
+                    Sent via BGUS.DEV Portfolio — {new Date().toLocaleDateString("id-ID")}
                 </Text>
             </Container>
         </Body>

@@ -36,7 +36,7 @@ export async function submitContactMessage(data: { name: string; email: string; 
                         <div style="font-family: 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 16px; overflow: hidden;">
                             <div style="background: linear-gradient(135deg, #3b82f6, #6366f1); padding: 24px 32px;">
                                 <h1 style="color: white; margin: 0; font-size: 20px;">📨 New Contact Message</h1>
-                                <p style="color: rgba(255,255,255,0.7); margin: 4px 0 0; font-size: 13px;">From your Vibe Studio portfolio</p>
+                                <p style="color: rgba(255,255,255,0.7); margin: 4px 0 0; font-size: 13px;">From your BGUS.DEV portfolio</p>
                             </div>
                             <div style="padding: 32px;">
                                 <div style="margin-bottom: 20px;">
@@ -53,7 +53,7 @@ export async function submitContactMessage(data: { name: string; email: string; 
                                 </div>
                             </div>
                             <div style="padding: 16px 32px; border-top: 1px solid #1a1a1a; text-align: center;">
-                                <p style="color: #555; font-size: 11px; margin: 0;">Sent via Vibe Studio Portfolio — ${new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })}</p>
+                                <p style="color: #555; font-size: 11px; margin: 0;">Sent via BGUS.DEV Portfolio — ${new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })}</p>
                             </div>
                         </div>
                     `,

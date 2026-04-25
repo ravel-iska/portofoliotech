@@ -7,7 +7,7 @@ export const downloadVCard = () => {
     const vCardData = `BEGIN:VCARD
 VERSION:3.0
 FN:Bagus Priambudi
-ORG:Vibe Studio
+ORG:BGUS.DEV
 TITLE:IT Data Analyst | Web3 Programmer | Vibe AI | Trader
 EMAIL:bagusnetagain@gmail.com
 TEL:+6282282535841

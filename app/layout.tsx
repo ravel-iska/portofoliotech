@@ -23,7 +23,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Professional Developer Portfolio | Vibe Studio",
+  title: "Professional Developer Portfolio | BGUS.DEV",
   description: "High-performance portfolio built with Next.js, GSAP, and iOS Glassmorphism.",
 };
 

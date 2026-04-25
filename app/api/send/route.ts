@@ -30,7 +30,7 @@ export async function POST(request: Request) {
         let sendResult;
         try {
             sendResult = await resend.emails.send({
-                from: "Vibe Studio <onboarding@resend.dev>",
+                from: "BGUS.DEV <onboarding@resend.dev>",
                 to: [CONTACT_EMAIL],
                 replyTo: email,
                 subject: `💬 Pesan Baru dari ${name}`,
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
             // Fallback to plain HTML if React template fails
             console.error("React template failed, using HTML fallback:", reactError);
             sendResult = await resend.emails.send({
-                from: "Vibe Studio <onboarding@resend.dev>",
+                from: "BGUS.DEV <onboarding@resend.dev>",
                 to: [CONTACT_EMAIL],
                 replyTo: email,
                 subject: `💬 Pesan Baru dari ${name}`,
