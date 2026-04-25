@@ -94,39 +94,15 @@ export default function PremiumCryptoShowcase() {
                         </div>
                     </motion.div>
 
-                    {/* Metrics Grid */}
-                    <div className="grid grid-cols-1 gap-6">
-                        {metrics.slice(0, 2).map((metric, i) => (
+                    {/* Metrics Grid - All 4 in a unified 2x2 sub-grid */}
+                    <div className="md:col-span-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-6">
+                        {metrics.map((metric, i) => (
                             <motion.div
                                 key={i}
-                                initial={{ opacity: 0, x: 20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true, margin: "-50px" }}
-                                transition={{ delay: 0.2 + (i * 0.1) }}
-                                className="p-6 rounded-[2rem] bg-white/[0.02] border border-white/10 glass-card flex flex-col justify-between"
-                            >
-                                <div className="flex justify-between items-start mb-4">
-                                    <div className="p-3 bg-white/5 rounded-xl border border-white/10">
-                                        {metric.icon}
-                                    </div>
-                                    <span className="text-xs font-mono text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded-md">{metric.trend}</span>
-                                </div>
-                                <div>
-                                    <h4 className="text-white/40 font-mono text-[10px] uppercase tracking-widest mb-1">{metric.title}</h4>
-                                    <p className="text-3xl font-display font-bold text-white">{metric.value}</p>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
-
-                    <div className="grid grid-cols-1 gap-6">
-                        {metrics.slice(2, 4).map((metric, i) => (
-                            <motion.div
-                                key={i + 2}
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-50px" }}
-                                transition={{ delay: 0.4 + (i * 0.1) }}
+                                transition={{ delay: 0.2 + (i * 0.1) }}
                                 className="p-6 rounded-[2rem] bg-white/[0.02] border border-white/10 glass-card flex flex-col justify-between"
                             >
                                 <div className="flex justify-between items-start mb-4">
