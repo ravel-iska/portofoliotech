@@ -5,9 +5,6 @@ import GlobeHeatmap from "@/components/canvas/GlobeHeatmap";
 import TradingCubes from "@/components/canvas/TradingCubes";
 import TokenGrid3D from "@/components/canvas/TokenGrid3D";
 import { useGlobal } from "@/components/core/GlobalProvider";
-import nextDynamic from "next/dynamic";
-
-const NetworkTrafficMap = nextDynamic(() => import("@/components/ui/NetworkTrafficMap"), { ssr: false });
 
 type CryptoData = {
     price: string;
@@ -101,7 +98,7 @@ export default function TraderDashboard() {
 
     return (
         <section id="trading" className="relative py-16 px-6 overflow-hidden min-h-[50vh] flex items-center bg-bg">
-            <NetworkTrafficMap />
+
             {/* Holographic Order Book Glows */}
             <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] bg-[#00ff87]/10 rounded-full blur-[150px] pointer-events-none" />
             <div className="absolute bottom-[10%] right-[-5%] w-[400px] h-[400px] bg-[#ff2a5f]/10 rounded-full blur-[120px] pointer-events-none" />

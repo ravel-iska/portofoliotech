@@ -143,24 +143,6 @@ export default function PremiumCryptoShowcase() {
                         ))}
                     </div>
 
-                    {/* Secondary Feature Card */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-50px" }}
-                        transition={{ delay: 0.5 }}
-                        onClick={() => window.open("https://docs.flashbots.net/flashbots-auction/overview", "_blank")}
-                        className="md:col-span-2 relative p-8 rounded-[2rem] bg-gradient-to-r from-blue-900/20 to-indigo-900/20 border border-blue-500/20 glass-card overflow-hidden group flex items-center justify-between cursor-pointer"
-                    >
-                        <div>
-                            <h3 className="text-xl font-display text-white mb-1 group-hover:text-blue-400 transition-colors">Advanced MEV Research</h3>
-                            <p className="text-white/50 font-mono text-xs max-w-sm">Exploring execution layer optimizations and optimal routing via Flashbots.</p>
-                        </div>
-                        <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white/10 transition-colors">
-                            <ArrowUpRight size={20} className="text-white" />
-                        </div>
-                    </motion.div>
-
                 </div>
             </div>
 
