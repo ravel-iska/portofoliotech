@@ -14,7 +14,7 @@ export default function TakoSupportModal({ isOpen, onClose }: TakoSupportModalPr
         name: "",
         email: "",
         amount: "",
-        currency: "IDR",
+        currency: "ID",
         paymentMethod: "qris",
         message: ""
     });
