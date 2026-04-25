@@ -28,6 +28,7 @@ const MemoryGallery = nextDynamic(() => import("@/components/sections/MemoryGall
 const SponsorMarquee = nextDynamic(() => import("@/components/sections/SponsorMarquee"), { ssr: false });
 const WeatherWidget = nextDynamic(() => import("@/components/ui/WeatherWidget"), { ssr: false });
 const EarthLanding = nextDynamic(() => import("@/components/sections/EarthLanding"), { ssr: false });
+import LazySection from "@/components/ui/LazySection";
 
 export default function PortfolioHome() {
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -63,16 +64,24 @@ export default function PortfolioHome() {
                     <QuantumArbitrageVisualizer />
                 </div>
                 <TraderDashboard />
-                <LifeJourney />
+                <LazySection minHeight="300px">
+                    <LifeJourney />
+                </LazySection>
                 <IsometricTimeline />
                 <ProfileSlide />
                 <Projects setSelectedProject={setSelectedProject} />
                 <ProjectSlider selectedProject={selectedProject} setSelectedProject={setSelectedProject} />
                 <MemoryGallery />
-                <SkillTree3D />
-                <Web3Vault />
+                <LazySection minHeight="400px">
+                    <SkillTree3D />
+                </LazySection>
+                <LazySection minHeight="300px">
+                    <Web3Vault />
+                </LazySection>
                 <HackerCV />
-                <SmartChat />
+                <LazySection minHeight="400px">
+                    <SmartChat />
+                </LazySection>
                 <ContactSection />
                 <Footer />
                 <WelcomeRobot />

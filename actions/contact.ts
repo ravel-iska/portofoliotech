@@ -3,10 +3,12 @@
 import { Resend } from "resend";
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+const CONTACT_EMAIL = process.env.CONTACT_EMAIL || "bagusnetagain@gmail.com";
 
 export async function submitContactMessage(data: { name: string; email: string; content: string }) {
     try {
         // Save to database if available (lazy import to avoid crash when no DB URL)
+        let savedToDB = false;
         if (process.env.POSTGRES_URL || process.env.DATABASE_URL) {
             try {
                 const { db } = await import("@/db");
@@ -16,9 +18,9 @@ export async function submitContactMessage(data: { name: string; email: string; 
                     email: data.email,
                     content: data.content,
                 });
+                savedToDB = true;
             } catch (dbError) {
                 console.error("Database save failed:", dbError);
-                // Continue — email can still be sent
             }
         }
 
@@ -27,7 +29,7 @@ export async function submitContactMessage(data: { name: string; email: string; 
             try {
                 await resend.emails.send({
                     from: "Portfolio Contact <onboarding@resend.dev>",
-                    to: process.env.CONTACT_EMAIL || "bagusnetagain@gmail.com",
+                    to: CONTACT_EMAIL,
                     replyTo: data.email,
                     subject: `💬 Pesan Baru dari ${data.name}`,
                     html: `
@@ -56,19 +58,23 @@ export async function submitContactMessage(data: { name: string; email: string; 
                         </div>
                     `,
                 });
-                return { success: true, message: "Pesan berhasil dikirim via email. Terima kasih! 🚀" };
+                return { success: true, message: "✅ Pesan berhasil dikirim via email. Terima kasih! 🚀" };
             } catch (emailError) {
                 console.error("Email sending failed:", emailError);
-                return { success: false, message: "Gagal mengirim email. Pastikan RESEND_API_KEY sudah diset." };
             }
         }
 
-        // No DB and no Resend configured
-        if (!process.env.POSTGRES_URL && !process.env.DATABASE_URL && !resend) {
-            return { success: false, message: "Layanan pesan belum dikonfigurasi. Hubungi langsung via email: bagusnetagain@gmail.com" };
+        // If saved to DB but email failed or not configured
+        if (savedToDB) {
+            return { success: true, message: "✅ Pesan tersimpan! Akan segera dibalas. Terima kasih! 🚀" };
         }
 
-        return { success: true, message: "Pesan berhasil disimpan. Terima kasih! 🚀" };
+        // Fallback: open mailto directly (returned as special flag)
+        return {
+            success: true,
+            message: `MAILTO_FALLBACK`,
+            mailto: `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Pesan dari ${data.name}`)}&body=${encodeURIComponent(`Dari: ${data.name} (${data.email})\n\n${data.content}`)}`
+        };
     } catch (error: any) {
         console.error("Error submitting contact message:", error);
         return { success: false, message: "Gagal mengirim pesan. Silakan coba lagi." };

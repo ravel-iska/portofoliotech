@@ -47,6 +47,18 @@ export default function ContactSection() {
         setResult(null);
 
         const res = await submitContactMessage({ name, email, content });
+
+        // If backend returns mailto fallback, open the user's email client
+        if (res.message === "MAILTO_FALLBACK" && (res as any).mailto) {
+            window.location.href = (res as any).mailto;
+            setResult({ success: true, message: "✅ Email client terbuka! Silakan kirim pesan dari aplikasi email Anda." });
+            setIsSubmitting(false);
+            setName("");
+            setEmail("");
+            setContent("");
+            return;
+        }
+
         setResult(res);
         setIsSubmitting(false);
 
