@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -H 0.0.0.0",
-    "build": "npx drizzle-kit push || echo 'Migration skipped: POSTGRES_URL not set' && next build",
+    "build": "next build",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "start": "next start",
