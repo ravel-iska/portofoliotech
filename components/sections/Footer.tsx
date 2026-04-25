@@ -8,7 +8,7 @@ export default function Footer() {
     const { t } = useGlobal();
 
     return (
-        <footer className="relative py-32 px-6 flex flex-col justify-end min-h-[70vh] overflow-hidden glass border-t border-white/10 mt-32 z-10">
+        <footer className="relative py-12 px-6 flex flex-col justify-end min-h-0 overflow-hidden glass border-t border-white/10 mt-8 z-10">
 
             {/* Apple Glow Highlight */}
             <div className="absolute -bottom-20 left-1/2 -translate-x-1/2 w-full h-[500px] bg-accent/5 blur-[160px] pointer-events-none" />
