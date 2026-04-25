@@ -94,44 +94,50 @@ export default function TakoSupportModal({ isOpen, onClose }: TakoSupportModalPr
 
                             <form onSubmit={handleSubmit} className="space-y-4">
                                 <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-1">
-                                        <label className="text-[10px] font-mono text-white/40 uppercase tracking-widest">Identifier (Name)</label>
-                                        <input
-                                            required
-                                            type="text"
-                                            value={formData.name}
-                                            onChange={e => setFormData({ ...formData, name: e.target.value })}
-                                            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-blue-500/50 transition-colors"
-                                            placeholder="Anonymous"
-                                        />
-                                    </div>
-                                    <div className="space-y-1">
-                                        <label className="text-[10px] font-mono text-white/40 uppercase tracking-widest">Connect Email</label>
-                                        <input
-                                            required
-                                            type="email"
-                                            value={formData.email}
-                                            onChange={e => setFormData({ ...formData, email: e.target.value })}
-                                            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-blue-500/50 transition-colors"
-                                            placeholder="alias@domain.com"
-                                        />
-                                    </div>
+                                    {formData.paymentMethod !== "crypto" && (
+                                        <>
+                                            <div className="space-y-1">
+                                                <label className="text-[10px] font-mono text-white/40 uppercase tracking-widest">Identifier (Name)</label>
+                                                <input
+                                                    required
+                                                    type="text"
+                                                    value={formData.name}
+                                                    onChange={e => setFormData({ ...formData, name: e.target.value })}
+                                                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-blue-500/50 transition-colors"
+                                                    placeholder="Anonymous"
+                                                />
+                                            </div>
+                                            <div className="space-y-1">
+                                                <label className="text-[10px] font-mono text-white/40 uppercase tracking-widest">Connect Email</label>
+                                                <input
+                                                    required
+                                                    type="email"
+                                                    value={formData.email}
+                                                    onChange={e => setFormData({ ...formData, email: e.target.value })}
+                                                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-blue-500/50 transition-colors"
+                                                    placeholder="alias@domain.com"
+                                                />
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
 
                                 <div className="grid grid-cols-2 gap-4">
-                                    <div className="space-y-1">
-                                        <label className="text-[10px] font-mono text-white/40 uppercase tracking-widest">Amount (IDR)</label>
-                                        <input
-                                            required
-                                            type="number"
-                                            min="10000"
-                                            value={formData.amount}
-                                            onChange={e => setFormData({ ...formData, amount: e.target.value })}
-                                            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-blue-500/50 transition-colors"
-                                            placeholder="50000"
-                                        />
-                                    </div>
-                                    <div className="space-y-1">
+                                    {formData.paymentMethod !== "crypto" && (
+                                        <div className="space-y-1">
+                                            <label className="text-[10px] font-mono text-white/40 uppercase tracking-widest">Amount (IDR)</label>
+                                            <input
+                                                required
+                                                type="number"
+                                                min="10000"
+                                                value={formData.amount}
+                                                onChange={e => setFormData({ ...formData, amount: e.target.value })}
+                                                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-blue-500/50 transition-colors"
+                                                placeholder="50000"
+                                            />
+                                        </div>
+                                    )}
+                                    <div className={`space-y-1 ${formData.paymentMethod === 'crypto' ? 'col-span-2' : ''}`}>
                                         <label className="text-[10px] font-mono text-white/40 uppercase tracking-widest">Protocol</label>
                                         <select
                                             value={formData.paymentMethod}
@@ -142,19 +148,43 @@ export default function TakoSupportModal({ isOpen, onClose }: TakoSupportModalPr
                                             <option value="gopay">GoPay</option>
                                             <option value="dana">DANA</option>
                                             <option value="paypal">PayPal</option>
+                                            <option value="crypto">Web3 / Crypto</option>
                                         </select>
                                     </div>
                                 </div>
 
-                                <div className="space-y-1 pt-2">
-                                    <label className="text-[10px] font-mono text-white/40 uppercase tracking-widest">Encrypted Message</label>
-                                    <textarea
-                                        value={formData.message}
-                                        onChange={e => setFormData({ ...formData, message: e.target.value })}
-                                        className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-blue-500/50 transition-colors h-24 resize-none"
-                                        placeholder="Add an optional message payload..."
-                                    />
-                                </div>
+                                {/* Crypto specific view */}
+                                {formData.paymentMethod === "crypto" && (
+                                    <div className="p-4 glass border border-[#00ff87]/30 bg-[#00ff87]/5 rounded-lg flex flex-col items-center justify-center gap-3">
+                                        <p className="text-white/60 font-mono text-xs text-center">
+                                            Send ERC-20, BEP-20, or Polygon tokens directly to our secure vault.
+                                        </p>
+                                        <div className="flex items-center gap-4 bg-white/5 border border-white/10 px-4 py-3 rounded-lg w-full justify-between">
+                                            <span className="font-mono text-xs text-[#00ff87] md:text-sm tracking-wider truncate">
+                                                0x71C7656EC7ab88b098defB751B7401B5f6d8976F
+                                            </span>
+                                            <button
+                                                type="button"
+                                                onClick={() => navigator.clipboard.writeText("0x71C7656EC7ab88b098defB751B7401B5f6d8976F")}
+                                                className="text-[10px] uppercase font-bold text-white bg-blue-500/20 hover:bg-blue-500/40 px-3 py-1.5 rounded transition-colors shrink-0"
+                                            >
+                                                Copy
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {formData.paymentMethod !== "crypto" && (
+                                    <div className="space-y-1 pt-2">
+                                        <label className="text-[10px] font-mono text-white/40 uppercase tracking-widest">Encrypted Message</label>
+                                        <textarea
+                                            value={formData.message}
+                                            onChange={e => setFormData({ ...formData, message: e.target.value })}
+                                            className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-blue-500/50 transition-colors h-24 resize-none"
+                                            placeholder="Add an optional message payload..."
+                                        />
+                                    </div>
+                                )}
 
                                 {error && (
                                     <div className="text-red-400 text-xs font-mono bg-red-400/10 border border-red-400/20 p-3 rounded-lg">
@@ -162,25 +192,35 @@ export default function TakoSupportModal({ isOpen, onClose }: TakoSupportModalPr
                                     </div>
                                 )}
 
-                                <button
-                                    type="submit"
-                                    disabled={loading}
-                                    className="w-full relative group overflow-hidden bg-white/5 border border-white/10 hover:border-blue-500/50 rounded-lg px-4 py-4 mt-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                                >
-                                    <div className="absolute inset-0 bg-blue-500/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                                    <div className="relative flex items-center justify-center gap-2">
-                                        {loading ? (
-                                            <>
-                                                <Loader2 className="w-4 h-4 text-blue-400 animate-spin" />
-                                                <span className="text-white text-sm font-mono font-bold tracking-widest uppercase text-glow">Processing...</span>
-                                            </>
-                                        ) : (
-                                            <span className="text-white text-sm font-mono font-bold tracking-widest uppercase group-hover:text-glow transition-all">
-                                                Transmit Funds
-                                            </span>
-                                        )}
-                                    </div>
-                                </button>
+                                {formData.paymentMethod !== "crypto" ? (
+                                    <button
+                                        type="submit"
+                                        disabled={loading}
+                                        className="w-full relative group overflow-hidden bg-white/5 border border-white/10 hover:border-blue-500/50 rounded-lg px-4 py-4 mt-4 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        <div className="absolute inset-0 bg-blue-500/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                                        <div className="relative flex items-center justify-center gap-2">
+                                            {loading ? (
+                                                <>
+                                                    <Loader2 className="w-4 h-4 text-blue-400 animate-spin" />
+                                                    <span className="text-white text-sm font-mono font-bold tracking-widest uppercase text-glow">Processing...</span>
+                                                </>
+                                            ) : (
+                                                <span className="text-white text-sm font-mono font-bold tracking-widest uppercase group-hover:text-glow transition-all">
+                                                    Transmit Funds
+                                                </span>
+                                            )}
+                                        </div>
+                                    </button>
+                                ) : (
+                                    <button
+                                        type="button"
+                                        onClick={onClose}
+                                        className="w-full bg-[#00ff87]/10 hover:bg-[#00ff87]/20 border border-[#00ff87]/30 text-[#00ff87] rounded-lg px-4 py-4 mt-4 transition-all duration-300 font-mono font-bold tracking-widest uppercase text-sm"
+                                    >
+                                        DONE
+                                    </button>
+                                )}
                             </form>
                         </motion.div>
                     </div>
