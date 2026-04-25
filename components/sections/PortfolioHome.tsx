@@ -58,13 +58,6 @@ export default function PortfolioHome() {
 
             <div className="w-full relative z-10 bg-gradient-to-b from-transparent via-black/20 to-black/95">
                 <About />
-                <div id="innovation">
-                    <PremiumCryptoShowcase />
-                </div>
-                <div id="hft">
-                    <TechFlowChart />
-                </div>
-                <TraderDashboard />
                 <LazySection minHeight="300px">
                     <LifeJourney />
                 </LazySection>
@@ -73,6 +66,15 @@ export default function PortfolioHome() {
                 <Projects setSelectedProject={setSelectedProject} />
                 <ProjectSlider selectedProject={selectedProject} setSelectedProject={setSelectedProject} />
                 <MemoryGallery />
+
+                {/* Web3 / Trading / Crypto Group */}
+                <div id="innovation">
+                    <PremiumCryptoShowcase />
+                </div>
+                <div id="hft">
+                    <TechFlowChart />
+                </div>
+                <TraderDashboard />
                 <LazySection minHeight="300px">
                     <Web3Vault />
                 </LazySection>
