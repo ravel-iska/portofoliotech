@@ -21,47 +21,46 @@ export default function TakoSupportModal({ isOpen, onClose }: TakoSupportModalPr
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    // Configuration for dynamic behavior based on currency
-    const currencyConfig: Record<string, { protocols: { value: string; label: string }[]; min: number; placeholder: string }> = {
-        IDR: {
+    // Configuration for dynamic behavior based on Country
+    // Amount is ALWAYS in IDR with a minimum of 10000 as per Tako.id limits
+    const countryConfig: Record<string, { protocols: { value: string; label: string }[] }> = {
+        ID: {
             protocols: [
-                { value: "qris", label: "QRIS (Global)" },
+                { value: "qris", label: "QRIS" },
                 { value: "gopay", label: "GoPay" },
                 { value: "dana", label: "DANA" },
-            ],
-            min: 10000,
-            placeholder: "50000"
+                { value: "shopeepay", label: "ShopeePay" },
+                { value: "ovo", label: "OVO" }
+            ]
         },
-        USD: {
+        US: {
             protocols: [
                 { value: "paypal", label: "PayPal" }
-            ],
-            min: 1,
-            placeholder: "5"
+            ]
         },
-        EUR: {
+        MY: {
             protocols: [
-                { value: "paypal", label: "PayPal" }
-            ],
-            min: 1,
-            placeholder: "5"
+                { value: "qris", label: "QRIS Cross-Border" },
+                { value: "paypal", label: "PayPal" },
+                { value: "touchngo", label: "Touch 'n Go" },
+                { value: "shopeepay", label: "ShopeePay" },
+                { value: "grabpay", label: "GrabPay" }
+            ]
         },
-        SGD: {
+        SG: {
             protocols: [
+                { value: "qris", label: "QRIS Cross-Border" },
                 { value: "paypal", label: "PayPal" }
-            ],
-            min: 1,
-            placeholder: "5"
+            ]
         }
     };
 
-    const currentConfig = currencyConfig[formData.currency] || currencyConfig["IDR"];
+    const currentConfig = countryConfig[formData.currency] || countryConfig["ID"];
 
-    const handleCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const newCurrency = e.target.value;
-        const newConfig = currencyConfig[newCurrency];
+    const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const newCountry = e.target.value;
+        const newConfig = countryConfig[newCountry];
 
-        // If current protocol isn't available in new currency (and isn't crypto), switch to first available
         let newPaymentMethod = formData.paymentMethod;
         if (newPaymentMethod !== "crypto" && !newConfig.protocols.find(p => p.value === newPaymentMethod)) {
             newPaymentMethod = newConfig.protocols[0].value;
@@ -69,7 +68,7 @@ export default function TakoSupportModal({ isOpen, onClose }: TakoSupportModalPr
 
         setFormData({
             ...formData,
-            currency: newCurrency,
+            currency: newCountry,
             paymentMethod: newPaymentMethod
         });
     };
@@ -180,28 +179,28 @@ export default function TakoSupportModal({ isOpen, onClose }: TakoSupportModalPr
                                     {formData.paymentMethod !== "crypto" && (
                                         <div className="grid grid-cols-3 gap-2">
                                             <div className="space-y-1 col-span-2">
-                                                <label className="text-[10px] font-mono text-white/40 uppercase tracking-widest">Amount</label>
+                                                <label className="text-[10px] font-mono text-white/40 uppercase tracking-widest">Amount (IDR)</label>
                                                 <input
                                                     required
                                                     type="number"
-                                                    min={currentConfig.min}
+                                                    min="10000"
                                                     value={formData.amount}
                                                     onChange={e => setFormData({ ...formData, amount: e.target.value })}
                                                     className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-blue-500/50 transition-colors"
-                                                    placeholder={currentConfig.placeholder}
+                                                    placeholder="10000"
                                                 />
                                             </div>
                                             <div className="space-y-1">
-                                                <label className="text-[10px] font-mono text-white/40 uppercase tracking-widest">Currency</label>
+                                                <label className="text-[10px] font-mono text-white/40 uppercase tracking-widest">Country</label>
                                                 <select
                                                     value={formData.currency}
-                                                    onChange={handleCurrencyChange}
+                                                    onChange={handleCountryChange}
                                                     className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-blue-500/50 transition-colors appearance-none text-center"
                                                 >
-                                                    <option value="IDR">IDR</option>
-                                                    <option value="USD">USD</option>
-                                                    <option value="EUR">EUR</option>
-                                                    <option value="SGD">SGD</option>
+                                                    <option value="ID">Indonesia</option>
+                                                    <option value="US">United States</option>
+                                                    <option value="MY">Malaysia</option>
+                                                    <option value="SG">Singapore</option>
                                                 </select>
                                             </div>
                                         </div>
