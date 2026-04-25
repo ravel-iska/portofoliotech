@@ -61,8 +61,8 @@ export default function Hero() {
                     transition={{ type: "spring", stiffness: 300, damping: 15 }}
                     className="text-4xl md:text-7xl lg:text-[6rem] font-display font-bold tracking-tight mb-6 md:mb-8 leading-[1.1] select-none cursor-pointer flex flex-col items-center justify-center pt-4"
                 >
-                    <span className="block"><TextReveal text="Bagus" delay={0.3} /></span>
-                    <span className="block -mt-1 md:mt-0"><TextReveal text="Priambudi, S.Kom." delay={0.5} /></span>
+                    <span className="block pb-3 md:pb-5"><TextReveal text="Bagus" delay={0.3} /></span>
+                    <span className="block"><TextReveal text="Priambudi, S.Kom." delay={0.5} /></span>
                 </motion.h1>
 
                 <p className="text-center text-sm md:text-2xl text-blue-100/70 font-sans max-w-2xl md:max-w-3xl mb-10 md:mb-16 font-light tracking-wide leading-relaxed hero-fade-in opacity-0">

@@ -49,7 +49,7 @@ export default function About() {
                     <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-transparent pointer-events-none z-10" />
 
                     <div className="relative w-full h-full rounded-[2.3rem] overflow-hidden bg-[#050B14]">
-                        <ParallaxImage src="/profile.jpg" alt="Profile of Bagus Priambudi" className="absolute inset-0 z-0 object-cover w-full h-full" parallaxOffset={20} />
+                        <img src="/profile.jpg" alt="Profile of Bagus Priambudi" className="absolute inset-0 z-0 object-cover w-full h-full scale-105" />
 
                         {/* Apple-style gradient overlay */}
                         <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-transparent opacity-60 z-10" />

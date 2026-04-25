@@ -14,7 +14,6 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
         { name: t("dashboard.title"), icon: <LayoutDashboard size={20} />, href: "#trading" },
         { name: t("nav.projects"), icon: <Cpu size={20} />, href: "#projects" },
         { name: "Vibe Gallery", icon: <ImageIcon size={20} />, href: "#memories" },
-        { name: t("nav.admin"), icon: <Shield size={20} />, href: "#admin" },
         { name: t("nav.contact"), icon: <Mail size={20} />, href: "#contact" },
     ];
 

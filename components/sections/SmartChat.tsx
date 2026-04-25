@@ -263,13 +263,16 @@ export default function SmartChat() {
                     </form>
                 </div>
 
-                {/* YouTube Audio — rendered always to bypass some autoplay restrictions on dynamic insertion */}
-                <iframe
-                    ref={iframeRef}
-                    src={isPlaying ? "https://www.youtube.com/embed/6vNnB4oLZNo?autoplay=1&loop=1&playlist=6vNnB4oLZNo&enablejsapi=1" : "about:blank"}
-                    allow="autoplay; encrypted-media"
-                    style={{ position: 'fixed', left: '-9999px', top: '-9999px', width: '1px', height: '1px', border: 'none', opacity: 0, pointerEvents: 'none' }}
-                    title="Background Music"
+                {/* HTML Audio — much more reliable for programmatic autoplay than YouTube iframe */}
+                <audio
+                    ref={(el) => {
+                        if (el) {
+                            if (isPlaying) el.play().catch(e => console.log("Audio play blocked by browser. User interaction needed.", e));
+                            else el.pause();
+                        }
+                    }}
+                    src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3"
+                    loop
                 />
             </div>
         </section>

@@ -60,47 +60,50 @@ export default function ContactSection() {
             </div>
 
             <div className="container max-w-7xl mx-auto px-6 relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start pt-10">
                     {/* Left Side: Copy */}
-                    <div className="space-y-12">
+                    <div className="space-y-10 lg:sticky lg:top-24">
                         <motion.div
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             className="space-y-6"
                         >
-                            <h2 className="text-3xl md:text-8xl font-display font-black text-white tracking-tighter leading-none">
+                            <h2 className="text-4xl md:text-7xl lg:text-8xl font-display font-black text-white tracking-tighter leading-[1.1]">
                                 LET'S <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-600">COLLABORATE.</span>
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-600 drop-shadow-sm">COLLABORATE.</span>
                             </h2>
-                            <p className="text-white/40 font-mono text-sm md:text-lg max-w-md leading-relaxed">
-                                Ready to bring high-fidelity 3D experiences and advanced data architecture to your next project?
+                            <p className="text-white/60 font-sans text-base md:text-lg max-w-md leading-relaxed">
+                                Ready to bring high-fidelity experiences and advanced data architecture to your next project? Let's connect.
                                 <br /><br />
-                                Drop a message below and let's build the future together.
+                                Whether it's a full-stack engagement, web3 integration, or just a technical discussion, drop a message below.
                             </p>
                         </motion.div>
 
-                        <div className="flex flex-wrap gap-4 pt-4 relative z-20 pointer-events-auto">
+                        <div className="flex flex-wrap gap-4 pt-2 relative z-20 pointer-events-auto">
                             {/* X / Twitter */}
-                            <a href="#contact" className="relative w-20 h-20 md:w-32 md:h-32 rounded-[1.5rem] md:rounded-[2rem] bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] flex items-center justify-center group transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
-                                <XIcon className="w-8 h-8 md:w-12 md:h-12 text-white/60 group-hover:text-white transition-colors duration-300" />
-                                <div className="absolute inset-0 rounded-[1.5rem] md:rounded-[2rem] bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <a href="#contact" className="relative w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] flex items-center justify-center group transition-all duration-300 hover:scale-105 hover:-translate-y-1">
+                                <XIcon className="w-6 h-6 md:w-8 md:h-8 text-white/60 group-hover:text-white transition-colors duration-300" />
+                                <div className="absolute inset-0 rounded-2xl bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                             </a>
 
                             {/* Instagram */}
-                            <a href={t("contact.instagram")} target="_blank" rel="noopener noreferrer" className="relative w-20 h-20 md:w-32 md:h-32 rounded-[1.5rem] md:rounded-[2rem] bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] flex items-center justify-center group transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
-                                <InstagramIcon className="w-8 h-8 md:w-12 md:h-12 text-white/60 group-hover:text-pink-400 transition-colors duration-300" />
-                                <div className="absolute inset-0 rounded-[1.5rem] md:rounded-[2rem] bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <a href={t("contact.instagram")} target="_blank" rel="noopener noreferrer" className="relative w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] flex items-center justify-center group transition-all duration-300 hover:scale-105 hover:-translate-y-1">
+                                <InstagramIcon className="w-6 h-6 md:w-8 md:h-8 text-white/60 group-hover:text-pink-400 transition-colors duration-300" />
+                                <div className="absolute inset-0 rounded-2xl bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                             </a>
 
                             {/* GitHub */}
-                            <a href={t("contact.github")} target="_blank" rel="noopener noreferrer" className="relative w-20 h-20 md:w-32 md:h-32 rounded-[1.5rem] md:rounded-[2rem] bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] flex items-center justify-center group transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(255,255,255,0.1)]">
-                                <GithubIcon className="w-8 h-8 md:w-12 md:h-12 text-white/60 group-hover:text-white transition-colors duration-300" />
-                                <div className="absolute inset-0 rounded-[1.5rem] md:rounded-[2rem] bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <a href={t("contact.github")} target="_blank" rel="noopener noreferrer" className="relative w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.08] flex items-center justify-center group transition-all duration-300 hover:scale-105 hover:-translate-y-1">
+                                <GithubIcon className="w-6 h-6 md:w-8 md:h-8 text-white/60 group-hover:text-white transition-colors duration-300" />
+                                <div className="absolute inset-0 rounded-2xl bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                             </a>
                         </div>
 
-                        <div className="mt-8 p-6 rounded-3xl bg-blue-900/20 border border-blue-500/20 backdrop-blur-md relative z-20 pointer-events-auto">
-                            <p className="text-blue-200/60 font-mono text-[10px] md:text-sm tracking-widest text-center break-all md:break-normal">DIRECT EMAIL: <span className="text-white font-bold ml-1 md:ml-2">{t("contact.email")}</span></p>
+                        <div className="mt-8 p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md relative z-20 pointer-events-auto">
+                            <p className="text-white/60 font-mono text-xs tracking-widest break-all md:break-normal">
+                                DIRECT EMAIL: <br className="md:hidden" />
+                                <span className="text-blue-400 font-bold ml-0 md:ml-2 mt-1 md:mt-0 inline-block">{t("contact.email")}</span>
+                            </p>
                         </div>
                     </div>
 
@@ -109,7 +112,7 @@ export default function ContactSection() {
                         initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-50px" }}
-                        className="p-10 md:p-16 rounded-[4rem] bg-white/[0.03] border border-white/10 backdrop-blur-3xl shadow-2xl relative"
+                        className="p-8 md:p-12 rounded-[2.5rem] bg-white/[0.03] border border-white/10 backdrop-blur-2xl shadow-2xl relative w-full"
                     >
                         {/* Form Glow */}
                         <div className="absolute -top-20 -right-20 w-80 h-80 bg-blue-500/10 rounded-full blur-[100px] pointer-events-none" />
