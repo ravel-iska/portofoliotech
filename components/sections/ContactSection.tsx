@@ -62,19 +62,13 @@ export default function ContactSection() {
                 setEmail("");
                 setContent("");
             } else {
-                // Fallback: open mailto
-                const mailtoUrl = `mailto:bagusnetagain@gmail.com?subject=${encodeURIComponent(`Pesan dari ${name}`)}&body=${encodeURIComponent(`Dari: ${name} (${email})\n\n${content}`)}`;
-                window.location.href = mailtoUrl;
-                setResult({ success: true, message: "✅ Email client terbuka! Silakan kirim pesan dari aplikasi email Anda." });
-                setName("");
-                setEmail("");
-                setContent("");
+                // Show actual error from API for debugging
+                console.error("API error:", data);
+                setResult({ success: false, message: `❌ Gagal: ${data.error || "Unknown error"}. Coba lagi atau hubungi langsung via email.` });
             }
-        } catch (err) {
-            // Network error fallback
-            const mailtoUrl = `mailto:bagusnetagain@gmail.com?subject=${encodeURIComponent(`Pesan dari ${name}`)}&body=${encodeURIComponent(`Dari: ${name} (${email})\n\n${content}`)}`;
-            window.location.href = mailtoUrl;
-            setResult({ success: true, message: "✅ Email client terbuka! Silakan kirim pesan dari aplikasi email Anda." });
+        } catch (err: any) {
+            console.error("Network error:", err);
+            setResult({ success: false, message: `❌ Network error: ${err?.message || "Koneksi gagal"}` });
         } finally {
             setIsSubmitting(false);
         }
