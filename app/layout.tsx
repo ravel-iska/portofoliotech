@@ -9,6 +9,7 @@ import FloatingCodeBackground from "@/components/canvas/FloatingCodeBackground";
 import SocialBar3D from "@/components/ui/SocialBar3D";
 import LoadingAI from "@/components/ui/LoadingAI";
 import { GlobalProvider } from "@/components/core/GlobalProvider";
+import RocketScroller from "@/components/ui/RocketScroller";
 
 const inter = Inter({
   variable: "--font-satoshi",
@@ -47,6 +48,7 @@ export default function RootLayout({
         <Script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.43/build/spline-viewer.js" strategy="lazyOnload" />
         <GlobalProvider>
           <LoadingAI />
+          <RocketScroller />
           <SmoothScroll>
             <FloatingCodeBackground />
             <CustomCursor />
