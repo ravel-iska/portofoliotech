@@ -49,10 +49,10 @@ export default function TokenGrid3D() {
             </div>
 
             <motion.div
-                className="relative grid gap-4 md:gap-8 p-6 md:p-10 transform-gpu"
+                className="relative grid gap-4 md:gap-8 p-6 md:p-10 transform-gpu cursor-pointer"
                 style={{
                     gridTemplateColumns: `repeat(${cols}, 1fr)`,
-                    ...(mounted && isMobile ? {} : { rotateX: 25, rotateY: -15, rotateZ: 5 }),
+                    ...(mounted && isMobile ? {} : { rotateX: 15, rotateY: -10, rotateZ: 2, scale: 0.85 }),
                 }}
             >
                 {gridItems.map((item) => (
@@ -60,14 +60,21 @@ export default function TokenGrid3D() {
                         key={item.id}
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
+                        whileHover={{ scale: 1.2, zIndex: 50 }}
+                        whileTap={{ scale: 0.95 }}
                         transition={{
                             opacity: { duration: 0.5, delay: item.delay },
                             scale: { duration: 0.5, delay: item.delay },
                         }}
-                        className="relative w-12 h-12 md:w-20 md:h-20 rounded-full bg-white/[0.03] border border-white/20 shadow-lg flex items-center justify-center"
+                        className="relative w-12 h-12 md:w-20 md:h-20 rounded-full bg-white/[0.03] border border-white/20 shadow-lg flex items-center justify-center cursor-pointer hover:border-accent hover:bg-white/10 transition-colors"
+                        onClick={() => {
+                            // Dummy click interaction to show responsiveness
+                            const tokenLabel = document.getElementById('token-label');
+                            if (tokenLabel) tokenLabel.innerText = item.token.name;
+                        }}
                     >
-                        <div className="absolute inset-2">
-                            <img src={item.token.src} alt={item.token.name} className="w-full h-full object-contain" loading="lazy" />
+                        <div className="absolute inset-2 group">
+                            <img src={item.token.src} alt={item.token.name} className="w-full h-full object-contain drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]" loading="lazy" />
                         </div>
                     </motion.div>
                 ))}
