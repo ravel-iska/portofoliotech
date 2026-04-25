@@ -23,7 +23,6 @@ const Footer = nextDynamic(() => import("@/components/sections/Footer"), { ssr: 
 const WelcomeRobot = nextDynamic(() => import("@/components/ui/WelcomeRobot"), { ssr: false });
 const MeshBackground = nextDynamic(() => import("@/components/ui/MeshBackground"), { ssr: true });
 const MemoryGallery = nextDynamic(() => import("@/components/sections/MemoryGallery"), { ssr: false });
-const AdminDashboard = nextDynamic(() => import("@/components/admin/AdminDashboard"), { ssr: false });
 const SponsorMarquee = nextDynamic(() => import("@/components/sections/SponsorMarquee"), { ssr: false });
 const WeatherWidget = nextDynamic(() => import("@/components/ui/WeatherWidget"), { ssr: false });
 
@@ -64,9 +63,6 @@ export default function PortfolioHome() {
                 <Projects setSelectedProject={setSelectedProject} />
                 <ProjectSlider selectedProject={selectedProject} setSelectedProject={setSelectedProject} />
                 <MemoryGallery />
-                <div id="admin">
-                    <AdminDashboard />
-                </div>
                 <HackerCV />
                 <SmartChat />
                 <ContactSection />
