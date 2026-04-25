@@ -1,7 +1,7 @@
 import { Resend } from "resend";
 import { ContactEmailTemplate } from "@/components/email-template";
 
-const CONTACT_EMAIL = process.env.CONTACT_EMAIL || "daijobudesuka19@gmail.com";
+const CONTACT_EMAIL = process.env.CONTACT_EMAIL || "bagusnetagain@gmail.com";
 
 export async function POST(request: Request) {
     try {
