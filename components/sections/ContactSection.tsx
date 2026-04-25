@@ -46,28 +46,40 @@ export default function ContactSection() {
         setIsSubmitting(true);
         setResult(null);
 
-        const res = await submitContactMessage({ name, email, content });
+        try {
+            // Try the Resend API route first
+            const res = await fetch("/api/send", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, content }),
+            });
 
-        // If backend returns mailto fallback, open the user's email client
-        if (res.message === "MAILTO_FALLBACK" && (res as any).mailto) {
-            window.location.href = (res as any).mailto;
+            const data = await res.json();
+
+            if (res.ok && data.success) {
+                setResult({ success: true, message: "✅ Pesan berhasil dikirim via email! Terima kasih 🚀" });
+                setName("");
+                setEmail("");
+                setContent("");
+            } else {
+                // Fallback: open mailto
+                const mailtoUrl = `mailto:bagusnetagain@gmail.com?subject=${encodeURIComponent(`Pesan dari ${name}`)}&body=${encodeURIComponent(`Dari: ${name} (${email})\n\n${content}`)}`;
+                window.location.href = mailtoUrl;
+                setResult({ success: true, message: "✅ Email client terbuka! Silakan kirim pesan dari aplikasi email Anda." });
+                setName("");
+                setEmail("");
+                setContent("");
+            }
+        } catch (err) {
+            // Network error fallback
+            const mailtoUrl = `mailto:bagusnetagain@gmail.com?subject=${encodeURIComponent(`Pesan dari ${name}`)}&body=${encodeURIComponent(`Dari: ${name} (${email})\n\n${content}`)}`;
+            window.location.href = mailtoUrl;
             setResult({ success: true, message: "✅ Email client terbuka! Silakan kirim pesan dari aplikasi email Anda." });
+        } finally {
             setIsSubmitting(false);
-            setName("");
-            setEmail("");
-            setContent("");
-            return;
-        }
-
-        setResult(res);
-        setIsSubmitting(false);
-
-        if (res.success) {
-            setName("");
-            setEmail("");
-            setContent("");
         }
     };
+
 
 
     return (
