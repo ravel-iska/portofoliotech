@@ -60,7 +60,7 @@ export default function ContactSection() {
             </div>
 
             <div className="container max-w-7xl mx-auto px-6 relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start pt-10">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 items-start pt-10">
                     {/* Left Side: Copy */}
                     <div className="space-y-10 lg:sticky lg:top-24">
                         <motion.div
@@ -68,9 +68,9 @@ export default function ContactSection() {
                             viewport={{ once: true, margin: "-50px" }}
                             className="space-y-6"
                         >
-                            <h2 className="text-4xl md:text-7xl lg:text-6xl xl:text-7xl font-display font-black text-white tracking-tighter leading-[1.1] break-words">
+                            <h2 className="text-5xl md:text-6xl lg:text-5xl xl:text-6xl font-display font-black text-white tracking-tighter leading-[1.1]">
                                 LET'S <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-600 drop-shadow-sm whitespace-normal">COLLABORATE.</span>
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-600 drop-shadow-sm">COLLABORATE.</span>
                             </h2>
                             <p className="text-white/60 font-sans text-base md:text-lg max-w-md leading-relaxed">
                                 Ready to bring high-fidelity experiences and advanced data architecture to your next project? Let's connect.
