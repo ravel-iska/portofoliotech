@@ -5,6 +5,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useTexture, Html, Stars } from "@react-three/drei";
 import { motion } from "framer-motion";
 import * as THREE from 'three';
+import { createPortal } from "react-dom";
 
 // Convert lat/lon to 3D Cartesian coordinates
 function getCoordinatesFromLatLng(lat: number, lng: number, radius: number) {
@@ -103,19 +104,22 @@ export default function EarthLanding({ onUnlock }: { onUnlock: () => void }) {
         }, 1200);
     };
 
+    if (typeof window === "undefined") return null;
+
     if (isExiting) {
-        return (
+        return createPortal(
             <motion.div
                 initial={{ opacity: 1, filter: "brightness(1) blur(0px)" }}
                 animate={{ opacity: 0, scale: 2, filter: "brightness(5) blur(10px)" }}
                 transition={{ duration: 1.2, ease: "easeInOut" }}
-                className="fixed inset-0 z-[9999] bg-black pointer-events-none"
-            />
+                className="fixed inset-0 z-[99999] bg-black pointer-events-none"
+            />,
+            document.body
         );
     }
 
-    return (
-        <div className="fixed inset-0 z-[9999] bg-black overflow-hidden flex flex-col">
+    return createPortal(
+        <div className="fixed inset-0 z-[99999] bg-black overflow-hidden flex flex-col">
             <div className="absolute top-12 left-0 w-full text-center z-20 pointer-events-none">
                 <motion.h1
                     initial={{ opacity: 0, y: -20 }}
@@ -135,7 +139,7 @@ export default function EarthLanding({ onUnlock }: { onUnlock: () => void }) {
                 </motion.p>
             </div>
 
-            <div className="absolute inset-0 z-10">
+            <div className="absolute inset-0 z-10 w-full h-full">
                 <Canvas camera={{ position: [0, 0, 6], fov: 45 }}>
                     <Suspense fallback={
                         <Html center>
@@ -161,6 +165,7 @@ export default function EarthLanding({ onUnlock }: { onUnlock: () => void }) {
 
             {/* Dark gradient vignette */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.8)_100%)] pointer-events-none z-10" />
-        </div>
+        </div>,
+        document.body
     );
 }
