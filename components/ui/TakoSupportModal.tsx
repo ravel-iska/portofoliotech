@@ -33,14 +33,17 @@ export default function TakoSupportModal({ isOpen, onClose }: TakoSupportModalPr
             });
             const data = await res.json();
 
-            if (data.success && data.paymentUrl) {
+            // The actual payload is inside `data.result` according to the 206 status response
+            const success = data.success || data.result?.success;
+            const paymentUrl = data.paymentUrl || data.result?.paymentUrl;
+
+            if (success && paymentUrl) {
                 // Redirect user to Tako.id payment page
-                window.open(data.paymentUrl, "_blank");
+                window.open(paymentUrl, "_blank");
                 onClose();
             } else {
                 console.error("Tako API response:", data);
-                // Stringify the data if it lacks a message, to help us debug
-                let errMsg = data.message;
+                let errMsg = data.message || data.result?.message;
                 if (!errMsg) {
                     errMsg = JSON.stringify(data);
                 }
