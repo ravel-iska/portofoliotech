@@ -24,15 +24,14 @@ function SolarSystem({ onClickNode }: { onClickNode: () => void }) {
 
     const earthRef = useRef<THREE.Mesh>(null);
     const moonGroupRef = useRef<THREE.Group>(null);
-    const sunGroupRef = useRef<THREE.Group>(null);
 
     const earthRadius = 2.5;
 
     // Indonesia coordinates roughly covering the center (Jakarta)
     const [markerX, markerY, markerZ] = getCoordinatesFromLatLng(-3, 115, earthRadius);
 
-    // Sun Position (Far away, acting as main light source)
-    const sunPosition = new THREE.Vector3(20, 5, -20);
+    // Sun Position (Far away, acting as dramatic back-right rim light)
+    const sunPosition = new THREE.Vector3(25, 8, -25);
 
     useFrame((state) => {
         const t = state.clock.getElapsedTime();
@@ -46,57 +45,65 @@ function SolarSystem({ onClickNode }: { onClickNode: () => void }) {
         if (moonGroupRef.current) {
             moonGroupRef.current.rotation.y = t * 0.1;
         }
-
-        // Extremely slow rotation of the sun and distant planetary system
-        if (sunGroupRef.current) {
-            sunGroupRef.current.rotation.y = t * 0.01;
-        }
     });
 
     return (
         <group>
-            {/* Ambient light for minimum shadow visibility */}
-            <ambientLight intensity={0.05} />
+            {/* Ambient light so shadows aren't pitch black */}
+            <ambientLight intensity={0.15} />
 
-            {/* The Sun acts as the absolute spotlight/directional light in the solar system */}
-            <pointLight position={sunPosition} intensity={3} color="#ffffff" distance={100} decay={1} />
-            <directionalLight position={sunPosition} intensity={2} color="#fffcf2" castShadow />
+            {/* Direct front-fill light so Indonesia is always visible from the camera */}
+            <directionalLight position={[0, 0, 15]} intensity={0.8} color="#e2e8f0" />
 
-            {/* THE SUN */}
-            <group position={sunPosition} ref={sunGroupRef}>
+            {/* The Sun acts as the dramatic sun-light in the solar system */}
+            <pointLight position={sunPosition} intensity={4} color="#ffffff" distance={200} decay={1.5} />
+            <directionalLight position={sunPosition} intensity={1.5} color="#fffcf2" castShadow />
+
+            {/* THE SUN & DISTANT PLANETS (Diorama style, static orbits) */}
+            <group position={sunPosition}>
                 <mesh>
-                    <sphereGeometry args={[8, 64, 64]} />
-                    <meshBasicMaterial color="#ffdc73" />
+                    <sphereGeometry args={[7, 64, 64]} />
+                    <meshBasicMaterial color="#ffcc00" />
                 </mesh>
-                {/* Sun Glow */}
-                <mesh scale={[1.1, 1.1, 1.1]}>
-                    <sphereGeometry args={[8, 64, 64]} />
-                    <meshBasicMaterial color="#ffb703" transparent opacity={0.6} blending={THREE.AdditiveBlending} />
+                {/* Sun Glow layers */}
+                <mesh scale={[1.15, 1.15, 1.15]}>
+                    <sphereGeometry args={[7, 64, 64]} />
+                    <meshBasicMaterial color="#ff9900" transparent opacity={0.6} blending={THREE.AdditiveBlending} />
                 </mesh>
-                <mesh scale={[1.4, 1.4, 1.4]}>
-                    <sphereGeometry args={[8, 64, 64]} />
-                    <meshBasicMaterial color="#fb8500" transparent opacity={0.2} blending={THREE.AdditiveBlending} />
+                <mesh scale={[1.5, 1.5, 1.5]}>
+                    <sphereGeometry args={[7, 64, 64]} />
+                    <meshBasicMaterial color="#ff5500" transparent opacity={0.2} blending={THREE.AdditiveBlending} />
                 </mesh>
 
-                {/* Inner Planets Orbiting the Sun */}
-                <group rotation={[0.1, 0, 0]}>
-                    {/* Mercury */}
-                    <mesh position={[12, 0, 0]}>
-                        <sphereGeometry args={[0.3, 32, 32]} />
-                        <meshStandardMaterial color="#8c7c6a" roughness={0.9} />
+                {/* Visible Orbital Rings & Planets */}
+                <group rotation={[0.2, 0, 0]}>
+
+                    {/* Mars Orbit & Planet */}
+                    <mesh rotation={[Math.PI / 2, 0, 0]}>
+                        <torusGeometry args={[14, 0.02, 16, 100]} />
+                        <meshBasicMaterial color="#ffffff" transparent opacity={0.1} />
                     </mesh>
-                    {/* Mars */}
-                    <mesh position={[-16, 1, 4]}>
-                        <sphereGeometry args={[0.6, 32, 32]} />
+                    <mesh position={[-14, 0, 0]}>
+                        <sphereGeometry args={[0.5, 32, 32]} />
                         <meshStandardMaterial color="#c1440e" roughness={0.8} />
                     </mesh>
-                    {/* Jupiter */}
-                    <mesh position={[25, -2, -10]}>
+
+                    {/* Jupiter Orbit & Planet */}
+                    <mesh rotation={[Math.PI / 2, 0, 0]}>
+                        <torusGeometry args={[26, 0.03, 16, 100]} />
+                        <meshBasicMaterial color="#ffffff" transparent opacity={0.1} />
+                    </mesh>
+                    <mesh position={[18.3, 0, -18.3]}>
                         <sphereGeometry args={[1.8, 64, 64]} />
                         <meshStandardMaterial color="#d39c7e" roughness={0.7} />
                     </mesh>
-                    {/* Saturn with Rings */}
-                    <group position={[-35, 3, 10]} rotation={[0.4, 0.2, 0.1]}>
+
+                    {/* Saturn Orbit & Planet */}
+                    <mesh rotation={[Math.PI / 2, 0, 0]}>
+                        <torusGeometry args={[40, 0.03, 16, 100]} />
+                        <meshBasicMaterial color="#ffffff" transparent opacity={0.1} />
+                    </mesh>
+                    <group position={[-28.2, 0, 28.2]} rotation={[0.4, -0.2, 0.1]}>
                         <mesh>
                             <sphereGeometry args={[1.5, 64, 64]} />
                             <meshStandardMaterial color="#ead6b8" />
@@ -106,6 +113,7 @@ function SolarSystem({ onClickNode }: { onClickNode: () => void }) {
                             <meshStandardMaterial color="#ceb8b8" side={THREE.DoubleSide} transparent opacity={0.8} />
                         </mesh>
                     </group>
+
                 </group>
             </group>
 
