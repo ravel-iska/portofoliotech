@@ -19,7 +19,24 @@ export default function TraderDashboard() {
     const [sol, setSol] = useState<CryptoData>({ price: 'Loading...', change: 0, color: 'text-gray-400' });
     const [balance, setBalance] = useState("$124,530.00");
     const [profit, setProfit] = useState("+12.4%");
+    const [walletAddress, setWalletAddress] = useState<string | null>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
+
+    const connectWallet = async () => {
+        if (typeof window !== "undefined" && typeof (window as any).ethereum !== "undefined") {
+            try {
+                const accounts = await (window as any).ethereum.request({ method: "eth_requestAccounts" });
+                if (accounts.length > 0) {
+                    setWalletAddress(accounts[0]);
+                    setBalance("0.00 ETH"); // Reset simulated balance to actual connected balance placeholder
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        } else {
+            alert("No Web3 wallet detected. Please install MetaMask!");
+        }
+    };
 
     // Live WebSockets for real-time crypto prices
     useEffect(() => {
@@ -158,8 +175,10 @@ export default function TraderDashboard() {
                             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
                                 <div>
                                     <div className="flex items-center gap-3 mb-2">
-                                        <Wallet className="text-white/40" size={20} />
-                                        <span className="text-white/40 font-mono text-xs uppercase tracking-widest">{t("dashboard.wallet")}</span>
+                                        <Wallet className={walletAddress ? "text-[#00ff87]" : "text-white/40"} size={20} />
+                                        <span className="text-white/40 font-mono text-xs uppercase tracking-widest">
+                                            {walletAddress ? "Connected Web3 Wallet" : t("dashboard.wallet")}
+                                        </span>
                                     </div>
                                     <motion.div
                                         key={balance}
@@ -171,41 +190,52 @@ export default function TraderDashboard() {
                                         {balance}
                                     </motion.div>
                                     <div className={`flex items-center gap-2 mt-4 font-mono ${profit.startsWith('+') ? 'text-[#00ff87]' : 'text-[#ff2a5f]'}`}>
-                                        <TrendingUp size={16} /> <span className="text-sm">{t("dashboard.pnl")}: {profit}</span>
+                                        <TrendingUp size={16} /> <span className="text-sm">{t("dashboard.pnl")}: {walletAddress ? "+0.00%" : profit}</span>
                                     </div>
                                 </div>
 
-                                <div className="flex flex-col gap-3">
-                                    <div
-                                        onClick={() => window.open("https://www.binance.com", "_blank")}
-                                        className="px-5 py-3 glass rounded-2xl border border-white/10 flex items-center justify-between gap-6 hover:bg-white/5 cursor-pointer transition-all"
-                                    >
-                                        <div className="flex items-center gap-3">
-                                            <span className="w-5 h-5 rounded-full bg-[#F0B90B] flex items-center justify-center text-black font-black text-[10px]">B</span>
-                                            <span className="text-white/60 font-mono text-xs">Binance</span>
+                                <div className="flex flex-col gap-3 min-w-[200px]">
+                                    {walletAddress ? (
+                                        <div className="px-5 py-4 glass rounded-2xl border border-[#00ff87]/30 bg-[#00ff87]/5 flex flex-col justify-center gap-2">
+                                            <div className="flex items-center gap-2">
+                                                <div className="w-2 h-2 rounded-full bg-[#00ff87] shadow-[0_0_8px_#00ff87] animate-pulse" />
+                                                <span className="text-[#00ff87] font-mono text-xs font-bold uppercase tracking-widest">Wallet Active</span>
+                                            </div>
+                                            <span className="text-white/80 font-mono text-sm tracking-widest">
+                                                {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}
+                                            </span>
+                                            <button
+                                                onClick={() => setWalletAddress(null)}
+                                                className="mt-2 text-[10px] text-white/40 hover:text-white/80 uppercase font-mono text-left transition-colors"
+                                            >
+                                                Disconnect
+                                            </button>
                                         </div>
-                                        <div className="w-2 h-2 rounded-full bg-[#00ff87] shadow-[0_0_8px_#00ff87]" />
-                                    </div>
-                                    <div
-                                        onClick={() => window.open("https://www.bybit.com", "_blank")}
-                                        className="px-5 py-3 glass rounded-2xl border border-white/10 flex items-center justify-between gap-6 hover:bg-white/5 cursor-pointer transition-all"
-                                    >
-                                        <div className="flex items-center gap-3">
-                                            <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-white font-black text-[10px]">By</span>
-                                            <span className="text-white/60 font-mono text-xs">Bybit</span>
-                                        </div>
-                                        <div className="w-2 h-2 rounded-full bg-[#00ff87] shadow-[0_0_8px_#00ff87]" />
-                                    </div>
-                                    <div
-                                        onClick={() => window.open("https://www.bitget.com", "_blank")}
-                                        className="px-5 py-3 glass rounded-2xl border border-white/10 flex items-center justify-between gap-6 hover:bg-white/5 cursor-pointer transition-all gap-8"
-                                    >
-                                        <div className="flex items-center gap-3">
-                                            <span className="w-5 h-5 rounded-full bg-[#00F0FF] flex items-center justify-center text-black font-black text-[10px]">Bg</span>
-                                            <span className="text-white/60 font-mono text-xs">Bitget</span>
-                                        </div>
-                                        <RefreshCcw size={12} className="text-white/20 animate-spin" />
-                                    </div>
+                                    ) : (
+                                        <>
+                                            <button
+                                                onClick={connectWallet}
+                                                className="px-6 py-4 glass rounded-2xl border border-white/20 bg-white/5 hover:bg-white/10 flex items-center justify-between gap-4 cursor-pointer transition-all hover:scale-[1.02] active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.05)] text-left"
+                                            >
+                                                <div className="flex flex-col">
+                                                    <span className="text-white font-bold font-sans text-sm">Connect Web3 Wallet</span>
+                                                    <span className="text-white/50 font-mono text-[10px] tracking-widest uppercase mt-1">Metamask / Trust</span>
+                                                </div>
+                                                <ArrowUpRight size={16} className="text-white/40" />
+                                            </button>
+
+                                            <div
+                                                onClick={() => window.open(walletAddress ? `https://etherscan.io/address/${walletAddress}` : "https://etherscan.io", "_blank")}
+                                                className="px-5 py-3 glass rounded-2xl border border-white/10 flex items-center justify-between gap-6 hover:bg-white/5 cursor-pointer transition-all"
+                                            >
+                                                <div className="flex items-center gap-3">
+                                                    <span className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center text-white font-black text-[10px]">E</span>
+                                                    <span className="text-white/60 font-mono text-xs">Etherscan</span>
+                                                </div>
+                                                <ArrowUpRight size={12} className="text-white/40" />
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>

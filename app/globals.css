@@ -121,23 +121,90 @@
 }
 
 /* ---------------------------------
-   LIGHT MODE OVERRIDE (RAPID INVERT)
-   Inverts Deep Blue (#0f111a) into a bright Cream/White
-   and rotates Hue to keep acccent colors generally correct.
+   LIGHT MODE OVERRIDE (VISION-OS STYLE)
+   Intercepts hardcoded Tailwind classes (text-white, bg-white/10)
+   and dynamically forces them into dark elements over a light background.
 ----------------------------------- */
 .light-mode {
-  filter: invert(1) hue-rotate(180deg);
-  background-color: #f0f4f8 !important;
-  /* Forces a clean light gray background */
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
 }
 
-/* Protect Graphics & Media from being color reversed */
-.light-mode img,
-.light-mode video,
-.light-mode [data-no-invert="true"],
-.light-mode iframe,
-.light-mode svg {
-  filter: invert(1) hue-rotate(-180deg);
+/* Typography Overrides */
+.light-mode .text-white,
+.light-mode .text-white\/90,
+.light-mode .text-white\/80,
+.light-mode .text-white\/70,
+.light-mode .text-white\/60,
+.light-mode .text-white\/50,
+.light-mode .text-white\/40,
+.light-mode .text-blue-100\/70,
+.light-mode .text-blue-200\/60 {
+  color: #1e293b !important;
+}
+
+/* Preserve color for colored text */
+.light-mode .text-accent {
+  color: #4f46e5 !important;
+  /* Deeper indigo for contrast */
+}
+
+/* Background Overrides */
+.light-mode .bg-white\/5,
+.light-mode .bg-white\/10,
+.light-mode .bg-white\/20,
+.light-mode .bg-white\/\[0\.03\],
+.light-mode .bg-white\/\[0\.08\] {
+  background-color: rgba(15, 23, 42, 0.04) !important;
+}
+
+/* Hover Overrides */
+.light-mode .group:hover .group-hover\:text-white,
+.light-mode .hover\:text-white:hover {
+  color: #000000 !important;
+}
+
+.light-mode .hover\:bg-white\/5:hover,
+.light-mode .hover\:bg-white\/10:hover,
+.light-mode .hover\:bg-white\/\[0\.08\]:hover {
+  background-color: rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Border Overrides */
+.light-mode .border-white\/5,
+.light-mode .border-white\/10,
+.light-mode .border-white\/20 {
+  border-color: rgba(15, 23, 42, 0.1) !important;
+}
+
+/* Solid Dark Background Overrides */
+.light-mode .bg-\[\#0A1128\],
+.light-mode .bg-\[\#050B14\],
+.light-mode .bg-black\/40 {
+  background-color: #ffffff !important;
+}
+
+/* Glassmorphism Re-rendering for Light Mode (VisionOS Frosted Glass) */
+.light-mode .glass {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  border-color: rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03) !important;
+}
+
+.light-mode .glass-card {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Reduce intense glows */
+.light-mode .text-glow {
+  text-shadow: 0 0 15px rgba(99, 102, 241, 0.2) !important;
+}
+
+.light-mode .shadow-\[0_0_40px_rgba\(255\,255\,255\,0\.1\)\]:hover {
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* Custom Scrollbar */
