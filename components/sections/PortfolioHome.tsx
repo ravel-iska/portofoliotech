@@ -18,6 +18,7 @@ const Projects = nextDynamic(() => import("@/components/sections/Projects"), { s
 const ProjectSlider = nextDynamic(() => import("@/components/sections/ProjectSlider"), { ssr: false });
 const HackerCV = nextDynamic(() => import("@/components/sections/HackerCV"), { ssr: false });
 const SkillTree3D = nextDynamic(() => import("@/components/sections/SkillTree3D"), { ssr: false });
+const Web3Vault = nextDynamic(() => import("@/components/sections/Web3Vault"), { ssr: false });
 const SmartChat = nextDynamic(() => import("@/components/sections/SmartChat"), { ssr: false });
 const ContactSection = nextDynamic(() => import("@/components/sections/ContactSection"), { ssr: false });
 const Footer = nextDynamic(() => import("@/components/sections/Footer"), { ssr: true });
@@ -69,6 +70,7 @@ export default function PortfolioHome() {
                 <ProjectSlider selectedProject={selectedProject} setSelectedProject={setSelectedProject} />
                 <MemoryGallery />
                 <SkillTree3D />
+                <Web3Vault />
                 <HackerCV />
                 <SmartChat />
                 <ContactSection />
