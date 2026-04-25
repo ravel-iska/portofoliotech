@@ -75,41 +75,67 @@ function SolarSystem({ onClickNode }: { onClickNode: () => void }) {
                     <meshBasicMaterial color="#ff5500" transparent opacity={0.2} blending={THREE.AdditiveBlending} />
                 </mesh>
 
-                {/* Visible Orbital Rings & Planets */}
+                {/* Visible Orbital Rings & Planets (Proper Sequence: Mercury, Venus, Earth, Mars, Jupiter, Saturn) */}
                 <group rotation={[0.2, 0, 0]}>
 
-                    {/* Mars Orbit & Planet */}
+                    {/* 1. Mercury Orbit & Planet */}
                     <mesh rotation={[Math.PI / 2, 0, 0]}>
-                        <torusGeometry args={[14, 0.02, 16, 100]} />
+                        <torusGeometry args={[12, 0.02, 16, 100]} />
                         <meshBasicMaterial color="#ffffff" transparent opacity={0.1} />
                     </mesh>
-                    <mesh position={[-14, 0, 0]}>
-                        <sphereGeometry args={[0.5, 32, 32]} />
+                    <mesh position={[-12, 0, 0]}>
+                        <sphereGeometry args={[0.4, 32, 32]} />
+                        <meshStandardMaterial color="#8c7c6a" roughness={0.9} />
+                    </mesh>
+
+                    {/* 2. Venus Orbit & Planet */}
+                    <mesh rotation={[Math.PI / 2, 0, 0]}>
+                        <torusGeometry args={[22, 0.02, 16, 100]} />
+                        <meshBasicMaterial color="#ffffff" transparent opacity={0.1} />
+                    </mesh>
+                    <mesh position={[0, 0, 22]}>
+                        <sphereGeometry args={[0.8, 32, 32]} />
+                        <meshStandardMaterial color="#e3bb76" roughness={0.5} />
+                    </mesh>
+
+                    {/* 3. Earth's Virtual Orbit Ring (Earth is physically at 0,0 world center, radius roughly ~35.5 from Sun) */}
+                    <mesh rotation={[Math.PI / 2, 0, 0]}>
+                        <torusGeometry args={[35.5, 0.02, 16, 100]} />
+                        <meshBasicMaterial color="#3b82f6" transparent opacity={0.3} />
+                    </mesh>
+
+                    {/* 4. Mars Orbit & Planet */}
+                    <mesh rotation={[Math.PI / 2, 0, 0]}>
+                        <torusGeometry args={[48, 0.02, 16, 100]} />
+                        <meshBasicMaterial color="#ffffff" transparent opacity={0.1} />
+                    </mesh>
+                    <mesh position={[-34, 0, -34]}>
+                        <sphereGeometry args={[0.7, 32, 32]} />
                         <meshStandardMaterial color="#c1440e" roughness={0.8} />
                     </mesh>
 
-                    {/* Jupiter Orbit & Planet */}
+                    {/* 5. Jupiter Orbit & Planet */}
                     <mesh rotation={[Math.PI / 2, 0, 0]}>
-                        <torusGeometry args={[26, 0.03, 16, 100]} />
+                        <torusGeometry args={[65, 0.03, 16, 100]} />
                         <meshBasicMaterial color="#ffffff" transparent opacity={0.1} />
                     </mesh>
-                    <mesh position={[18.3, 0, -18.3]}>
-                        <sphereGeometry args={[1.8, 64, 64]} />
+                    <mesh position={[46, 0, -46]}>
+                        <sphereGeometry args={[2.5, 64, 64]} />
                         <meshStandardMaterial color="#d39c7e" roughness={0.7} />
                     </mesh>
 
-                    {/* Saturn Orbit & Planet */}
+                    {/* 6. Saturn Orbit & Planet */}
                     <mesh rotation={[Math.PI / 2, 0, 0]}>
-                        <torusGeometry args={[40, 0.03, 16, 100]} />
+                        <torusGeometry args={[85, 0.03, 16, 100]} />
                         <meshBasicMaterial color="#ffffff" transparent opacity={0.1} />
                     </mesh>
-                    <group position={[-28.2, 0, 28.2]} rotation={[0.4, -0.2, 0.1]}>
+                    <group position={[-60.1, 0, 60.1]} rotation={[0.4, -0.2, 0.1]}>
                         <mesh>
-                            <sphereGeometry args={[1.5, 64, 64]} />
+                            <sphereGeometry args={[2.0, 64, 64]} />
                             <meshStandardMaterial color="#ead6b8" />
                         </mesh>
                         <mesh rotation={[Math.PI / 2, 0, 0]}>
-                            <ringGeometry args={[2.0, 3.5, 64]} />
+                            <ringGeometry args={[2.5, 4.2, 64]} />
                             <meshStandardMaterial color="#ceb8b8" side={THREE.DoubleSide} transparent opacity={0.8} />
                         </mesh>
                     </group>
