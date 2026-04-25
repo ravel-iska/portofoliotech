@@ -53,7 +53,7 @@ export default function MemoryGallery() {
 
     return (
         <section id="memories" className="relative py-0 px-4 md:px-6 min-h-0 bg-transparent overflow-hidden">
-            <div className="max-w-5xl mx-auto h-[400px] glass-card rounded-[2rem] border border-white/10 overflow-hidden flex shadow-[0_0_100px_rgba(0,0,0,0.5)] mt-4">
+            <div className="max-w-5xl mx-auto h-[500px] md:h-[550px] glass-card rounded-[3rem] border-2 border-white/20 overflow-hidden flex shadow-[0_0_100px_rgba(0,0,0,0.5)] mt-4">
 
                 {/* macOS Sidebar */}
                 <AnimatePresence initial={false}>
@@ -161,8 +161,8 @@ export default function MemoryGallery() {
                     </div>
 
                     {/* Scrollable Grid */}
-                    <div className="flex-1 overflow-y-auto p-10 custom-scrollbar">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <div className="flex-1 overflow-y-auto p-4 md:p-6 custom-scrollbar">
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
                             {filteredMemories.map((memory, i) => (
                                 <motion.div
                                     key={memory.id}
@@ -170,7 +170,7 @@ export default function MemoryGallery() {
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: i * 0.05 }}
                                     onClick={() => setSelectedMemory(memory)}
-                                    className="group relative aspect-[4/5] rounded-[2rem] overflow-hidden cursor-pointer shadow-2xl"
+                                    className="group relative aspect-square rounded-[1.5rem] md:rounded-[2rem] overflow-hidden cursor-pointer shadow-2xl border border-white/10"
                                 >
                                     <ParallaxImage
                                         src={memory.image}

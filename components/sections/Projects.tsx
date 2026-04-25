@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { projects, Project } from "@/data/projects";
-import { ExternalLink, Code, Layers } from "lucide-react";
+import { ExternalLink, Layers, ChevronLeft, ChevronRight } from "lucide-react";
 import ParallaxImage from "@/components/ui/ParallaxImage";
 import { useGlobal } from "@/components/core/GlobalProvider";
 
@@ -16,6 +16,14 @@ interface ProjectsProps {
 export default function Projects({ setSelectedProject }: ProjectsProps) {
     const { t } = useGlobal();
     const [activeCategory, setActiveCategory] = useState("all");
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    const slide = (direction: 'left' | 'right') => {
+        if (scrollRef.current) {
+            const scrollAmount = direction === 'left' ? -400 : 400;
+            scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        }
+    };
 
     const filteredProjects = projects.filter(
         (p) => activeCategory === "all" || p.category === activeCategory
@@ -39,24 +47,37 @@ export default function Projects({ setSelectedProject }: ProjectsProps) {
                         </div>
                     </div>
 
-                    {/* Filter Tabs - Premium Glass Pill */}
-                    <div className="flex glass-card p-1 md:p-1.5 rounded-xl md:rounded-2xl shrink-0 shadow-2xl border border-white/5 overflow-x-auto hide-scrollbar">
-                        {categories.map((cat) => (
-                            <button
-                                key={cat}
-                                onClick={() => setActiveCategory(cat)}
-                                className={`px-4 md:px-8 py-2 md:py-3 rounded-lg md:rounded-xl text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] transition-all duration-300 whitespace-nowrap ${activeCategory === cat ? "bg-accent text-white shadow-lg scale-105" : "text-white/40 hover:text-white"
-                                    }`}
-                            >
-                                {t(`projects.${cat}`)}
+                    {/* Control Bar: Filter Tabs & Arrows */}
+                    <div className="flex flex-col md:flex-row items-center gap-4 shrink-0">
+                        {/* Filter Tabs - Premium Glass Pill */}
+                        <div className="flex glass-card p-1 md:p-1.5 rounded-xl md:rounded-2xl shadow-2xl border border-white/5 overflow-x-auto hide-scrollbar">
+                            {categories.map((cat) => (
+                                <button
+                                    key={cat}
+                                    onClick={() => setActiveCategory(cat)}
+                                    className={`px-4 md:px-8 py-2 md:py-3 rounded-lg md:rounded-xl text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] md:tracking-[0.3em] transition-all duration-300 whitespace-nowrap ${activeCategory === cat ? "bg-accent text-white shadow-lg scale-105" : "text-white/40 hover:text-white"
+                                        }`}
+                                >
+                                    {t(`projects.${cat}`)}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Navigation Buttons for the Slider */}
+                        <div className="hidden md:flex gap-3">
+                            <button onClick={() => slide('left')} className="p-3 md:p-4 rounded-xl glass-card border border-white/10 hover:bg-white/10 transition-colors text-white">
+                                <ChevronLeft size={18} />
                             </button>
-                        ))}
+                            <button onClick={() => slide('right')} className="p-3 md:p-4 rounded-xl glass-card border border-white/10 hover:bg-white/10 transition-colors text-white">
+                                <ChevronRight size={18} />
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 {/* Flex Snap Scroll identical to ProfileSlide */}
                 <div className="w-full relative z-10 overflow-hidden hide-scrollbar">
-                    <motion.div layout className="flex gap-6 overflow-x-auto snap-x snap-proximity hide-scrollbar py-6 mt-4 min-w-full">
+                    <motion.div ref={scrollRef} layout className="flex gap-6 overflow-x-auto snap-x snap-proximity hide-scrollbar py-6 mt-4 min-w-full">
                         <AnimatePresence mode="popLayout">
                             {filteredProjects.map((project, i) => {
                                 return (
