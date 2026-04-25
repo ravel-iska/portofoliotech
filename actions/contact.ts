@@ -27,7 +27,8 @@ export async function submitContactMessage(data: { name: string; email: string; 
             try {
                 await resend.emails.send({
                     from: "Portfolio Contact <onboarding@resend.dev>",
-                    to: "bagusnetagain@gmail.com",
+                    to: process.env.CONTACT_EMAIL || "bagusnetagain@gmail.com",
+                    replyTo: data.email,
                     subject: `💬 Pesan Baru dari ${data.name}`,
                     html: `
                         <div style="font-family: 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 16px; overflow: hidden;">
