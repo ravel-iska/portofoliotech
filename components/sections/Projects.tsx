@@ -22,15 +22,15 @@ export default function Projects({ setSelectedProject }: ProjectsProps) {
     );
 
     return (
-        <section id="projects" className="relative py-12 px-6 bg-transparent">
+        <section id="projects" className="relative py-6 px-6 bg-transparent">
             <div className="max-w-7xl mx-auto relative z-10">
-                <div className="flex flex-col items-center lg:flex-row lg:items-end justify-between mb-8 gap-4 md:gap-12">
+                <div className="flex flex-col items-center lg:flex-row lg:items-end justify-between mb-4 gap-4 md:gap-8">
                     <div className="max-w-2xl">
                         <motion.h2
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
-                            className="text-3xl md:text-5xl font-display font-bold text-white mb-2 md:mb-4 tracking-tighter leading-none text-center lg:text-left"
+                            className="text-2xl md:text-3xl font-display font-bold text-white mb-2 tracking-tighter leading-none text-center lg:text-left"
                         >
                             {t("projects.title").split(" ")[0]} <span className="text-accent text-glow text-edge">{t("projects.title").split(" ").slice(1).join(" ")}</span>
                         </motion.h2>
@@ -55,7 +55,7 @@ export default function Projects({ setSelectedProject }: ProjectsProps) {
                 </div>
 
                 {/* Bento Grid */}
-                <motion.div layout className="grid grid-cols-2 md:grid-cols-12 auto-rows-[200px] md:auto-rows-[300px] gap-3 md:gap-6 mt-8">
+                <motion.div layout className="grid grid-cols-2 md:grid-cols-12 auto-rows-[200px] gap-3 md:gap-4 mt-6">
                     <AnimatePresence mode="popLayout">
                         {filteredProjects.map((project, i) => {
                             let bentoClasses = "md:col-span-4";

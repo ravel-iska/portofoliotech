@@ -47,18 +47,18 @@ export default function QuantumArbitrageVisualizer() {
     };
 
     return (
-        <section className="relative w-full py-12 px-4 md:px-6 overflow-hidden bg-[#141825] border-t border-white/5">
+        <section className="relative w-full py-6 px-4 md:px-6 overflow-hidden bg-[#141825] border-t border-white/5">
             {/* Ambient Background - smaller on mobile */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] md:w-[350px] md:h-[350px] bg-gradient-to-tr from-accent/10 to-emerald-500/10 blur-[80px] md:blur-[100px] rounded-full pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] md:w-[300px] md:h-[300px] bg-gradient-to-tr from-accent/10 to-emerald-500/10 blur-[60px] md:blur-[80px] rounded-full pointer-events-none" />
 
-            <div className="max-w-7xl mx-auto relative z-10 flex flex-col lg:flex-row gap-10 lg:gap-16 items-center">
+            <div className="max-w-7xl mx-auto relative z-10 flex flex-col lg:flex-row gap-6 lg:gap-10 items-center">
 
                 {/* Left Content */}
-                <div className="flex-1 space-y-4 md:space-y-6">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold font-mono tracking-widest uppercase">
-                        <Zap size={14} /> Web3 Innovation
+                <div className="flex-1 space-y-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-[10px] font-bold font-mono tracking-widest uppercase">
+                        <Zap size={12} /> Web3 Innovation
                     </div>
-                    <h2 className="text-2xl md:text-4xl font-display font-bold text-white leading-tight">
+                    <h2 className="text-xl md:text-2xl font-display font-bold text-white leading-tight">
                         {t("quantum.subtitle")} <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-400">{t("quantum.title")}</span>
                     </h2>
@@ -90,8 +90,8 @@ export default function QuantumArbitrageVisualizer() {
 
                 {/* Right - System Infrastructure (responsive card layout on mobile) */}
                 <div className="flex-1 w-full">
-                    <h3 className="text-[10px] md:text-xs font-mono font-bold uppercase tracking-[0.3em] text-white/30 mb-4 md:mb-6">System Infrastructure</h3>
-                    <div className="grid grid-cols-2 gap-3 md:gap-4">
+                    <h3 className="text-[9px] md:text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-white/30 mb-3">System Infrastructure</h3>
+                    <div className="grid grid-cols-2 gap-2 md:gap-3">
                         {nodes.map((node) => {
                             const Icon = node.icon;
                             const isActive = activeNode === node.id;
@@ -100,7 +100,7 @@ export default function QuantumArbitrageVisualizer() {
                                 <motion.div
                                     key={node.id}
                                     onClick={() => setExpandedNode(isExpanded ? null : node.id)}
-                                    className={`relative p-3 md:p-4 rounded-xl md:rounded-2xl glass border-2 cursor-pointer transition-all duration-500 ${isActive ? `${node.activeColor} ${node.glowColor} scale-[1.02]` : 'border-white/10 bg-black/40 hover:bg-white/5'} ${isExpanded ? 'col-span-2' : ''}`}
+                                    className={`relative p-2 md:p-3 rounded-xl glass border-2 cursor-pointer transition-all duration-500 ${isActive ? `${node.activeColor} ${node.glowColor} scale-[1.02]` : 'border-white/10 bg-black/40 hover:bg-white/5'} ${isExpanded ? 'col-span-2' : ''}`}
                                     layout
                                 >
                                     <div className="flex items-center gap-3 mb-2">

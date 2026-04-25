@@ -37,10 +37,10 @@ export default function TokenGrid3D() {
     }));
 
     return (
-        <div className={`relative w-full overflow-hidden rounded-[2rem] md:rounded-[3rem] border border-white/10 glass-card bg-[#141a2e] mt-4 md:mt-6 flex items-center justify-center ${mounted && isMobile ? 'h-[200px]' : 'h-[250px] perspective-[1500px]'}`}>
+        <div className={`relative w-full rounded-[2rem] md:rounded-[3rem] border border-white/10 glass-card bg-[#141a2e] mt-4 md:mt-6 overflow-hidden`}>
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-[#0A1128] to-[#0A1128] pointer-events-none" />
             {!(mounted && isMobile) && (
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-indigo-500/10 blur-[100px] rounded-full pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-indigo-500/10 blur-[80px] rounded-full pointer-events-none" />
             )}
 
             <div className="absolute top-4 right-4 md:top-10 md:right-10 z-20 text-right pointer-events-none">
@@ -49,10 +49,9 @@ export default function TokenGrid3D() {
             </div>
 
             <motion.div
-                className="relative grid gap-4 md:gap-8 p-6 md:p-10 transform-gpu cursor-pointer"
+                className="relative grid gap-3 md:gap-6 p-4 md:p-6 transform-gpu cursor-pointer z-10"
                 style={{
                     gridTemplateColumns: `repeat(${cols}, 1fr)`,
-                    ...(mounted && isMobile ? {} : { rotateX: 15, rotateY: -10, rotateZ: 2, scale: 0.85 }),
                 }}
             >
                 {gridItems.map((item) => (
@@ -66,7 +65,7 @@ export default function TokenGrid3D() {
                             opacity: { duration: 0.5, delay: item.delay },
                             scale: { duration: 0.5, delay: item.delay },
                         }}
-                        className="relative w-12 h-12 md:w-20 md:h-20 rounded-full bg-white/[0.03] border border-white/20 shadow-lg flex items-center justify-center cursor-pointer hover:border-accent hover:bg-white/10 transition-colors"
+                        className="relative w-10 h-10 md:w-14 md:h-14 rounded-full bg-white/[0.03] border border-white/20 shadow-lg flex items-center justify-center cursor-pointer hover:border-accent hover:bg-white/10 transition-colors mx-auto"
                         onClick={() => {
                             // Dummy click interaction to show responsiveness
                             const tokenLabel = document.getElementById('token-label');
