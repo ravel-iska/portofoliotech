@@ -62,7 +62,7 @@ export default function LifeJourney() {
     };
 
     return (
-        <section className="relative w-full py-32 bg-[#141a2e] overflow-hidden">
+        <section className="relative w-full py-8 md:py-12 bg-[#141a2e] overflow-hidden">
             {/* Header & Controls Container */}
             <div className="container mx-auto px-6 mb-16 relative flex flex-col md:flex-row items-center justify-between gap-6 z-20">
                 <motion.div
@@ -98,7 +98,7 @@ export default function LifeJourney() {
 
             {/* Manual Horizontal Container */}
             <div className="w-full relative z-10">
-                <div ref={scrollRef} className="flex gap-8 md:gap-24 overflow-x-auto snap-x snap-proximity hide-scrollbar px-6 md:px-[15vw] py-10 md:py-20 pb-20 md:pb-40 min-w-full">
+                <div ref={scrollRef} className="flex gap-6 md:gap-12 overflow-x-auto snap-x snap-proximity hide-scrollbar px-6 md:px-[10vw] py-6 md:py-10 pb-10 md:pb-16 min-w-full">
 
                     {milestones.map((node) => (
                         <div key={node.id} className="relative shrink-0 flex items-center justify-center snap-center">
@@ -113,13 +113,12 @@ export default function LifeJourney() {
                                 }}
                                 whileHover={{ scale: 1.05, rotateY: 10 }}
                                 whileTap={{ scale: 0.95 }}
-                                className={`relative w-[200px] h-[200px] md:w-[400px] md:h-[400px] rounded-[2rem] md:rounded-[4rem] bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/10 flex items-center justify-center group overflow-hidden z-[100] cursor-pointer transition-all duration-300 ${selectedCard === node.id ? 'ring-2 md:ring-4 ring-blue-500/50 scale-105' : ''}`}
+                                className={`relative w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-[2rem] md:rounded-[3rem] shadow-[0_0_20px_rgba(255,255,255,0.05)] bg-gradient-to-br from-white/[0.08] to-white/[0.02] border-2 border-white/20 flex items-center justify-center group overflow-hidden z-[100] cursor-pointer transition-all duration-300 ${selectedCard === node.id ? 'ring-2 md:ring-4 ring-blue-500/50 scale-105' : ''}`}
                             >
                                 {/* Inner Glass reflection */}
                                 <div className="absolute inset-4 rounded-[3.5rem] border border-white/[0.05] pointer-events-none" />
 
-                                {/* The Medium-sized logo (Shrinked from 45% based on user feedback) */}
-                                <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center opacity-90 drop-shadow-[0_0_30px_rgba(255,255,255,0.3)] group-hover:scale-110 group-hover:opacity-100 transition-all duration-500 text-white">
+                                <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center opacity-90 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] group-hover:scale-110 group-hover:opacity-100 transition-all duration-500 text-white">
                                     <node.IconComponent className="w-full h-full" strokeWidth={1.5} />
                                 </div>
 

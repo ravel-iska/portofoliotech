@@ -54,21 +54,23 @@ export default function Projects({ setSelectedProject }: ProjectsProps) {
                     </div>
                 </div>
 
-                {/* Simple 3-Col Grid */}
-                <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-[250px] gap-6 mt-6">
-                    <AnimatePresence mode="popLayout">
-                        {filteredProjects.map((project, i) => {
-                            return (
-                                <ProjectCard
-                                    key={project.id}
-                                    project={project}
-                                    className="col-span-1"
-                                    onClick={() => setSelectedProject(project)}
-                                />
-                            );
-                        })}
-                    </AnimatePresence>
-                </motion.div>
+                {/* Flex Snap Scroll identical to ProfileSlide */}
+                <div className="w-full relative z-10 overflow-hidden hide-scrollbar">
+                    <motion.div layout className="flex gap-6 overflow-x-auto snap-x snap-proximity hide-scrollbar py-6 mt-4 min-w-full">
+                        <AnimatePresence mode="popLayout">
+                            {filteredProjects.map((project, i) => {
+                                return (
+                                    <ProjectCard
+                                        key={project.id}
+                                        project={project}
+                                        className="shrink-0 snap-center"
+                                        onClick={() => setSelectedProject(project)}
+                                    />
+                                );
+                            })}
+                        </AnimatePresence>
+                    </motion.div>
+                </div>
             </div>
         </section>
     );
@@ -84,7 +86,7 @@ function ProjectCard({ project, className = "", onClick }: { project: Project, c
             exit={{ opacity: 0, scale: 0.98 }}
             whileHover={{ y: -10 }}
             onClick={onClick}
-            className={`group relative glass-card p-2 md:p-3 overflow-hidden flex flex-col cursor-pointer border border-white/5 rounded-[1.5rem] md:rounded-[3rem] ${className}`}
+            className={`group relative glass-card p-2 md:p-3 overflow-hidden flex flex-col cursor-pointer border-2 border-white/20 shadow-[0_0_20px_rgba(255,255,255,0.05)] rounded-[2rem] w-[300px] h-[360px] md:w-[360px] md:h-[400px] ${className}`}
         >
             <div className="relative w-full h-full rounded-[2.2rem] overflow-hidden bg-black shadow-inner">
                 <ParallaxImage

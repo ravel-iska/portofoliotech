@@ -12,12 +12,12 @@ export default function SkillTree3D() {
     const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
     return (
-        <section ref={containerRef} className="relative min-h-[80vh] w-full bg-[#141825] flex items-center justify-center overflow-hidden border-t border-white/5 py-24">
+        <section ref={containerRef} className="relative min-h-[50vh] w-full bg-[#141825] flex flex-col items-center justify-center overflow-hidden border-t border-white/5 py-8">
             {/* Background elements */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,255,135,0.03),transparent_70%)] pointer-events-none" />
 
             {/* UI Overlay */}
-            <div className="absolute top-12 left-0 w-full px-6 z-10 pointer-events-none">
+            <div className="w-full px-6 z-10 pointer-events-none mt-8">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
@@ -55,7 +55,7 @@ export default function SkillTree3D() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 1.2, ease: "easeOut" }}
-                className="w-full h-[600px] md:h-[700px] cursor-grab active:cursor-grabbing"
+                className="w-full h-[400px] md:h-[450px] cursor-grab active:cursor-grabbing relative z-0 mt-4"
             >
                 <Canvas camera={{ position: [0, 0, 8], fov: 60 }}>
                     <color attach="background" args={["#02050a"]} />
