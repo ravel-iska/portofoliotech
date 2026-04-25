@@ -77,7 +77,7 @@ export default function Projects({ setSelectedProject }: ProjectsProps) {
 
                 {/* Flex Snap Scroll identical to ProfileSlide */}
                 <div className="w-full relative z-10 overflow-hidden hide-scrollbar">
-                    <motion.div ref={scrollRef} layout className="flex gap-6 overflow-x-auto snap-x snap-proximity hide-scrollbar py-6 mt-4 min-w-full">
+                    <motion.div ref={scrollRef} layout className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-proximity hide-scrollbar py-4 min-w-full">
                         <AnimatePresence mode="popLayout">
                             {filteredProjects.map((project, i) => {
                                 return (
@@ -107,7 +107,7 @@ function ProjectCard({ project, className = "", onClick }: { project: Project, c
             exit={{ opacity: 0, scale: 0.98 }}
             whileHover={{ y: -10 }}
             onClick={onClick}
-            className={`group relative glass-card p-2 md:p-3 overflow-hidden flex flex-col cursor-pointer border-2 border-white/20 shadow-[0_0_20px_rgba(255,255,255,0.05)] rounded-[2rem] w-[300px] h-[360px] md:w-[360px] md:h-[400px] ${className}`}
+            className={`group relative glass-card p-2 overflow-hidden flex flex-col cursor-pointer border-2 border-white/20 shadow-[0_0_20px_rgba(255,255,255,0.05)] rounded-[2rem] w-[240px] h-[280px] md:w-[280px] md:h-[320px] shrink-0 snap-center ${className}`}
         >
             <div className="relative w-full h-full rounded-[2.2rem] overflow-hidden bg-black shadow-inner">
                 <ParallaxImage
