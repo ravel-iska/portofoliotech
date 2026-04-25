@@ -1,11 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import MagneticButton from "@/components/ui/MagneticButton";
 import { useGlobal } from "@/components/core/GlobalProvider";
+import TakoSupportModal from "@/components/ui/TakoSupportModal";
 
 export default function Footer() {
     const { t } = useGlobal();
+    const [isTakoOpen, setIsTakoOpen] = useState(false);
+
     return (
         <footer className="relative py-32 px-6 flex flex-col justify-end min-h-[70vh] overflow-hidden glass border-t border-white/10 mt-32 z-10">
 
@@ -19,9 +22,18 @@ export default function Footer() {
                             {t("footer.greet")} <br />
                             <span className="text-white/40">{t("footer.subgreet")}</span>
                         </h3>
-                        <MagneticButton className="px-10 py-5 glass border border-white/20 text-white hover:bg-accent hover:text-bg hover:border-transparent shadow-[0_0_40px_rgba(129,140,248,0.2)] transition-all duration-300">
-                            {t("footer.cta")}
-                        </MagneticButton>
+                        <div className="flex flex-col sm:flex-row gap-4">
+                            <MagneticButton className="px-10 py-5 glass border border-white/20 text-white hover:bg-accent hover:text-bg hover:border-transparent shadow-[0_0_40px_rgba(129,140,248,0.2)] transition-all duration-300">
+                                {t("footer.cta")}
+                            </MagneticButton>
+                            <MagneticButton
+                                onClick={() => setIsTakoOpen(true)}
+                                className="px-10 py-5 bg-white/5 border border-white/10 text-white hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300 flex items-center justify-center gap-2"
+                            >
+                                <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                                SUPPORT NODE
+                            </MagneticButton>
+                        </div>
                     </div>
 
                     <div className="flex justify-start md:justify-end gap-16 text-xs font-mono text-white/50 pt-4 uppercase tracking-[0.3em]">
@@ -57,6 +69,11 @@ export default function Footer() {
                     © {new Date().getFullYear()} VIBE STUDIO. {t("footer.copyright")}
                 </div>
             </div>
+
+            <TakoSupportModal
+                isOpen={isTakoOpen}
+                onClose={() => setIsTakoOpen(false)}
+            />
         </footer>
     );
 }
