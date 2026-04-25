@@ -47,7 +47,7 @@ export default function QuantumArbitrageVisualizer() {
     };
 
     return (
-        <section className="relative w-full py-16 md:py-24 px-4 md:px-6 overflow-hidden bg-black border-t border-white/5">
+        <section className="relative w-full py-16 md:py-24 px-4 md:px-6 overflow-hidden bg-[#141825] border-t border-white/5">
             {/* Ambient Background - smaller on mobile */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] md:w-[600px] md:h-[600px] bg-gradient-to-tr from-accent/10 to-emerald-500/10 blur-[80px] md:blur-[150px] rounded-full pointer-events-none" />
 

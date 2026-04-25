@@ -12,7 +12,7 @@ export default function SkillTree3D() {
     const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
     return (
-        <section ref={containerRef} className="relative min-h-[80vh] w-full bg-[#02050a] flex items-center justify-center overflow-hidden border-t border-white/5 py-24">
+        <section ref={containerRef} className="relative min-h-[80vh] w-full bg-[#141825] flex items-center justify-center overflow-hidden border-t border-white/5 py-24">
             {/* Background elements */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,255,135,0.03),transparent_70%)] pointer-events-none" />
 

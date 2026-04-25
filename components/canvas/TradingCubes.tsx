@@ -71,7 +71,7 @@ export default function TradingCubes() {
     const [selectedNode, setSelectedNode] = useState<{ name: string, status: string, info: string } | null>(null);
 
     return (
-        <div className="relative w-full h-[400px] overflow-hidden rounded-[3rem] border border-white/10 glass-card bg-gradient-to-b from-[#0A1128] to-[#040812]">
+        <div className="relative w-full h-[400px] overflow-hidden rounded-[3rem] border border-white/10 glass-card bg-gradient-to-b from-[#141a2e] to-[#0e1220]">
 
             <AnimatePresence>
                 {selectedNode && (

@@ -56,7 +56,7 @@ export default function ProfileSlide() {
     };
 
     return (
-        <section className="relative w-full py-24 bg-black border-t border-white/5">
+        <section className="relative w-full py-24 bg-[#141825] border-t border-white/5">
             {/* iOS Apple Glow Base */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-accent/10 to-blue-500/10 rounded-full blur-[160px] pointer-events-none" />
 

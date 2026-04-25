@@ -5,7 +5,7 @@ import { Database, Server, Cpu, Network, ArrowRightCircle, X } from "lucide-reac
 export default function IsometricTimeline() {
     const [selectedNode, setSelectedNode] = useState<{ title: string, desc: string, tech: string } | null>(null);
     return (
-        <section className="relative w-full min-h-[80vh] bg-[#0c0c0c] py-16 overflow-hidden flex items-center justify-center">
+        <section className="relative w-full min-h-[80vh] bg-[#151820] py-16 overflow-hidden flex items-center justify-center">
 
             {/* Background Data Grid */}
             <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: `linear-gradient(rgba(255, 165, 0, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 165, 0, 0.4) 1px, transparent 1px)`, backgroundSize: '40px 40px', transform: 'perspective(1000px) rotateX(60deg)', transformOrigin: 'top' }} />

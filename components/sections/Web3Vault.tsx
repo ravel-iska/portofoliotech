@@ -37,7 +37,7 @@ export default function Web3Vault() {
     };
 
     return (
-        <section ref={containerRef} className="relative w-full min-h-[60vh] py-24 bg-[#0a0f1d] flex flex-col items-center justify-center overflow-hidden border-y border-white/5">
+        <section ref={containerRef} className="relative w-full min-h-[60vh] py-24 bg-[#141825] flex flex-col items-center justify-center overflow-hidden border-y border-white/5">
             {/* Ambient Background Glow */}
             <div className={`absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,184,255,0.05),transparent_70%)] transition-opacity duration-1000 ${isUnlocked ? 'opacity-100' : 'opacity-30'}`} />
 

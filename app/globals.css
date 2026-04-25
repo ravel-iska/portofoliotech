@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  /* Comfortable eye-care dark mode - iOS Slate */
-  --color-bg: #0f111a;
-  --color-surface: #161925;
-  --color-border: #2a2d3d;
+  /* Comfortable eye-care dark mode - Brightened Slate */
+  --color-bg: #131620;
+  --color-surface: #1a1e2e;
+  --color-border: #333750;
   --color-accent: #818cf8;
   /* Soft indigo accent */
-  --color-accent-2: #334155;
-  --color-text: #e2e8f0;
+  --color-accent-2: #3d4a60;
+  --color-text: #eaf0f7;
   /* Off-white, easier on eyes */
-  --color-muted: #94a3b8;
+  --color-muted: #a0b0c4;
 
   --font-display: var(--font-clash), sans-serif;
   --font-sans: var(--font-satoshi), sans-serif;
@@ -91,8 +91,8 @@
 
 @layer base {
   :root {
-    --background: #0f111a;
-    --foreground: #e2e8f0;
+    --background: #131620;
+    --foreground: #eaf0f7;
   }
 
   body {
@@ -107,22 +107,22 @@
 
   /* iOS 26 Glassmorphism Core */
   .glass {
-    background-color: rgba(22, 25, 37, 0.4);
+    background-color: rgba(28, 32, 48, 0.55);
     backdrop-filter: blur(24px) saturate(150%);
     -webkit-backdrop-filter: blur(24px) saturate(150%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   }
 
   .glass-card {
-    background-color: rgba(30, 41, 59, 0.25);
+    background-color: rgba(30, 41, 59, 0.4);
     backdrop-filter: blur(40px) saturate(180%);
     -webkit-backdrop-filter: blur(40px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
     /* Subtle lighting top edge */
     border-radius: 1.5rem;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
 
   .text-glow {

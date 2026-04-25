@@ -62,7 +62,7 @@ export default function LifeJourney() {
     };
 
     return (
-        <section className="relative w-full py-32 bg-[#0A1128] overflow-hidden">
+        <section className="relative w-full py-32 bg-[#141a2e] overflow-hidden">
             {/* Header & Controls Container */}
             <div className="container mx-auto px-6 mb-16 relative flex flex-col md:flex-row items-center justify-between gap-6 z-20">
                 <motion.div

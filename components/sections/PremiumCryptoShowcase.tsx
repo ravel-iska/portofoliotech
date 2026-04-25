@@ -23,7 +23,7 @@ export default function PremiumCryptoShowcase() {
     ];
 
     return (
-        <section className="relative w-full py-24 bg-[#050B14] overflow-hidden border-t border-white/5">
+        <section className="relative w-full py-24 bg-[#121826] overflow-hidden border-t border-white/5">
             {/* Subtle Gradient Backdrops */}
             <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-emerald-600/5 rounded-full blur-[150px] pointer-events-none" />

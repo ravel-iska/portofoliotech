@@ -53,7 +53,7 @@ export default function ContactSection() {
 
 
     return (
-        <section id="contact" className="relative py-20 bg-[#0A1128] overflow-hidden">
+        <section id="contact" className="relative py-20 bg-[#141a2e] overflow-hidden">
             {/* Background 3D Accent */}
             <div className="absolute top-0 right-0 w-full h-full pointer-events-none opacity-40">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-blue-600/10 to-indigo-600/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen animate-pulse" />
