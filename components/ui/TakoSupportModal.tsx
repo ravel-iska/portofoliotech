@@ -38,11 +38,17 @@ export default function TakoSupportModal({ isOpen, onClose }: TakoSupportModalPr
                 window.open(data.paymentUrl, "_blank");
                 onClose();
             } else {
-                setError(data.message || "Failed to initialize support module.");
+                console.error("Tako API response:", data);
+                // Stringify the data if it lacks a message, to help us debug
+                let errMsg = data.message;
+                if (!errMsg) {
+                    errMsg = JSON.stringify(data);
+                }
+                setError(errMsg);
             }
         } catch (err) {
             console.error(err);
-            setError("Network error. Could not connect to support node.");
+            setError(err instanceof Error ? err.message : "Network error. Could not connect to support node.");
         } finally {
             setLoading(false);
         }
@@ -76,7 +82,7 @@ export default function TakoSupportModal({ isOpen, onClose }: TakoSupportModalPr
 
                             <div className="flex items-center gap-3 mb-6">
                                 <Heart className="w-6 h-6 text-blue-400 animate-pulse" />
-                                <h2 className="text-2xl font-display font-bold text-white tracking-wider">SUPPORT NODE</h2>
+                                <h2 className="text-2xl font-display font-bold text-white tracking-wider">SUPPORT</h2>
                             </div>
 
                             <p className="text-white/60 font-mono text-xs mb-8">

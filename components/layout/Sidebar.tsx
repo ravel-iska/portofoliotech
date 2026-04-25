@@ -1,10 +1,11 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, User, MessageSquare, Mail, Cpu, LayoutDashboard, Menu, X, ChevronLeft, ChevronRight, TrendingUp, Sun, Moon, Globe, Shield, Image as ImageIcon } from "lucide-react";
+import { Home, User, MessageSquare, Mail, Cpu, LayoutDashboard, Menu, X, ChevronLeft, ChevronRight, TrendingUp, Sun, Moon, Globe, Shield, Image as ImageIcon, Heart } from "lucide-react";
 import { useState } from "react";
 import { useLenis } from "@studio-freight/react-lenis";
 import { useGlobal } from "@/components/core/GlobalProvider";
+import TakoSupportModal from "@/components/ui/TakoSupportModal";
 
 export default function Sidebar({ children }: { children: React.ReactNode }) {
     const { theme, toggleTheme, language, setLanguage, t } = useGlobal();
@@ -20,6 +21,7 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
     const [isOpen, setIsOpen] = useState(false); // Mobile toggle
     const [isCollapsed, setIsCollapsed] = useState(false); // Desktop toggle
     const [active, setActive] = useState(t("nav.home"));
+    const [isTakoOpen, setIsTakoOpen] = useState(false);
     const lenis = useLenis();
     const [isLangOpen, setIsLangOpen] = useState(false);
 
@@ -134,7 +136,27 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                             </a>
                         ))}
 
+                        {/* SUPPORT ACTION */}
+                        <div
+                            onClick={() => setIsTakoOpen(true)}
+                            className={`relative flex items-center gap-4 px-2 py-3 rounded-lg cursor-pointer transition-all duration-300 group text-zinc-400 hover:text-emerald-400 mt-8`}
+                        >
+                            <div className="relative z-10 shrink-0 bg-[#02050a] flex items-center justify-center p-1">
+                                <Heart className={`w-5 h-5 transition-all duration-300 group-hover:drop-shadow-[0_0_8px_rgba(52,211,153,0.8)] group-hover:animate-pulse`} />
+                            </div>
 
+                            {(!isCollapsed || isOpen) && (
+                                <motion.span
+                                    className="relative z-10 w-[120px] font-bold text-xs tracking-[0.15em] uppercase whitespace-nowrap"
+                                    initial={{ opacity: 0, x: -10 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                >
+                                    SUPPORT
+                                </motion.span>
+                            )}
+
+                            <div className="absolute inset-0 bg-emerald-500/0 group-hover:bg-emerald-500/5 rounded-lg transition-colors duration-300 -z-10" />
+                        </div>
                     </nav>
 
                     {/* I18n & Theme Toggles */}
@@ -227,6 +249,11 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                 {isOpen && <div className="absolute inset-0 z-[100] cursor-pointer" onClick={() => setIsOpen(false)} />}
                 {children}
             </main>
+
+            <TakoSupportModal
+                isOpen={isTakoOpen}
+                onClose={() => setIsTakoOpen(false)}
+            />
         </>
     );
 }
