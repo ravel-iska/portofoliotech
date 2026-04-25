@@ -73,20 +73,21 @@ export default function VCardModal({ isOpen, onClose }: VCardModalProps) {
                         <X size={20} />
                     </button>
 
-                    <div className="w-full flex justify-center items-center z-10" style={{ perspective: isMobile ? "none" : "1200px" }}>
+                    <div className="w-full flex justify-center items-center z-10" style={{ perspective: "1200px" }}>
                         <motion.div
                             ref={cardRef}
                             style={isMobile ? {
-                                rotateY: isFlipped ? 180 : 0,
                                 transformStyle: "preserve-3d",
-                                transition: "transform 0.6s ease"
                             } : {
                                 rotateX,
                                 rotateY: isFlipped ? 180 : rotateYSpring,
                                 transformStyle: "preserve-3d"
                             }}
+                            animate={isMobile
+                                ? { rotateY: isFlipped ? 180 : 0, scale: 1, y: 0, opacity: 1 }
+                                : { scale: 1, y: 0, opacity: 1 }
+                            }
                             initial={{ scale: 0.8, y: 50, opacity: 0 }}
-                            animate={{ scale: 1, y: 0, opacity: 1 }}
                             exit={{ scale: 0.8, y: 50, opacity: 0 }}
                             transition={{ type: "spring", stiffness: 200, damping: 20 }}
                             className="relative w-full max-w-[320px] md:max-w-[400px] aspect-[5/8] cursor-pointer"

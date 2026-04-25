@@ -7,13 +7,13 @@ const texts = [
 ];
 
 const frameworks = [
-    { name: "React", icon: "https://cdn.simpleicons.org/react/white" },
-    { name: "Next.js", icon: "https://cdn.simpleicons.org/nextdotjs/white" },
-    { name: "Node.js", icon: "https://cdn.simpleicons.org/nodedotjs/white" },
-    { name: "Docker", icon: "https://cdn.simpleicons.org/docker/white" },
-    { name: "Framer", icon: "https://cdn.simpleicons.org/framer/white" },
-    { name: "Tailwind", icon: "https://cdn.simpleicons.org/tailwindcss/white" },
-    { name: "TypeScript", icon: "https://cdn.simpleicons.org/typescript/white" },
+    { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+    { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+    { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+    { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+    { name: "Framer", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/framermotion/framermotion-original.svg" },
+    { name: "Tailwind", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" },
+    { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
 ];
 
 export default function InfiniteMarquee() {

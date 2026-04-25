@@ -181,7 +181,7 @@ export default function TraderDashboard() {
                                         className="px-5 py-3 glass rounded-2xl border border-white/10 flex items-center justify-between gap-6 hover:bg-white/5 cursor-pointer transition-all"
                                     >
                                         <div className="flex items-center gap-3">
-                                            <img src="https://cdn.simpleicons.org/binance/F0B90B" alt="Binance" className="w-5 h-5" />
+                                            <span className="w-5 h-5 rounded-full bg-[#F0B90B] flex items-center justify-center text-black font-black text-[10px]">B</span>
                                             <span className="text-white/60 font-mono text-xs">Binance</span>
                                         </div>
                                         <div className="w-2 h-2 rounded-full bg-[#00ff87] shadow-[0_0_8px_#00ff87]" />
@@ -191,7 +191,7 @@ export default function TraderDashboard() {
                                         className="px-5 py-3 glass rounded-2xl border border-white/10 flex items-center justify-between gap-6 hover:bg-white/5 cursor-pointer transition-all"
                                     >
                                         <div className="flex items-center gap-3">
-                                            <img src="https://cdn.simpleicons.org/bybit/white" alt="Bybit" className="w-5 h-5" />
+                                            <span className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-white font-black text-[10px]">By</span>
                                             <span className="text-white/60 font-mono text-xs">Bybit</span>
                                         </div>
                                         <div className="w-2 h-2 rounded-full bg-[#00ff87] shadow-[0_0_8px_#00ff87]" />
@@ -201,7 +201,7 @@ export default function TraderDashboard() {
                                         className="px-5 py-3 glass rounded-2xl border border-white/10 flex items-center justify-between gap-6 hover:bg-white/5 cursor-pointer transition-all gap-8"
                                     >
                                         <div className="flex items-center gap-3">
-                                            <img src="https://cdn.simpleicons.org/bitget/00F0FF" alt="Bitget" className="w-5 h-5" />
+                                            <span className="w-5 h-5 rounded-full bg-[#00F0FF] flex items-center justify-center text-black font-black text-[10px]">Bg</span>
                                             <span className="text-white/60 font-mono text-xs">Bitget</span>
                                         </div>
                                         <RefreshCcw size={12} className="text-white/20 animate-spin" />

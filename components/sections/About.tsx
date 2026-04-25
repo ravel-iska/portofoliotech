@@ -94,10 +94,10 @@ export default function About() {
                         </div>
                         <div className="flex gap-4">
                             {[
-                                { name: "React", icon: "https://cdn.simpleicons.org/react/white" },
-                                { name: "Vite", icon: "https://cdn.simpleicons.org/vite/white" },
-                                { name: "Node.js", icon: "https://cdn.simpleicons.org/nodedotjs/white" },
-                                { name: "Docker", icon: "https://cdn.simpleicons.org/docker/white" }
+                                { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+                                { name: "Vite", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg" },
+                                { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+                                { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" }
                             ].map((fw) => (
                                 <div
                                     key={fw.name}

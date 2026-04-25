@@ -187,7 +187,7 @@ export default function SmartChat() {
                 </div>
 
                 {/* Chat Container */}
-                <div className="glass-card overflow-hidden border border-white/10 flex flex-col h-[600px] rounded-[2rem] shadow-2xl relative">
+                <div className="glass-card overflow-hidden border border-white/10 flex flex-col h-[600px] max-h-[80vh] rounded-[2rem] shadow-2xl relative">
                     {/* Subtle Scan-line / Glass reflection */}
                     <div className="absolute inset-0 bg-gradient-to-tr from-white/5 via-transparent to-white/5 pointer-events-none opacity-30" />
 
@@ -243,7 +243,7 @@ export default function SmartChat() {
                     )}
 
                     {/* Input Area */}
-                    <form onSubmit={handleSearch} className="p-6 glass border-t border-white/10 flex gap-4 backdrop-blur-2xl relative z-20">
+                    <form onSubmit={handleSearch} className="shrink-0 p-6 glass border-t border-white/10 flex gap-4 backdrop-blur-2xl relative z-20">
                         <div className="relative flex-1 group">
                             <span className="absolute left-6 top-1/2 -translate-y-1/2 text-accent/50 font-mono text-sm group-focus-within:text-glow transition-all">&gt;</span>
                             <input
@@ -251,7 +251,7 @@ export default function SmartChat() {
                                 value={query}
                                 onChange={(e) => setQuery(e.target.value)}
                                 placeholder={t("chat.command")}
-                                className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-4 py-4 outline-none focus:border-accent/40 focus:bg-white/10 transition-all text-sm font-sans tracking-wide text-white placeholder-white/20"
+                                className="w-full bg-white/5 border border-white/10 rounded-2xl pl-12 pr-28 py-4 outline-none focus:border-accent/40 focus:bg-white/10 transition-all text-sm font-sans tracking-wide text-white placeholder-white/20"
                             />
                             <button
                                 type="submit"

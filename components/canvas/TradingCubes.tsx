@@ -110,29 +110,37 @@ export default function TradingCubes() {
                         transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
                         style={{ transformStyle: 'preserve-3d' }}
                     >
-                        <div onClick={() => setSelectedNode({ name: "Core Hybrid Node", status: "Operational", info: "The primary execution engine cluster handling HFT requests across DEX layers." })}>
-                            <Cube delay={0} color="rgba(0, 255, 135, 0.4)" x={200} z={250} scale={1.5} />
+                        <div onClick={() => setSelectedNode({ name: "Core Hybrid Node", status: "Operational", info: "The primary execution engine cluster handling HFT requests across DEX layers." })} style={{ position: 'absolute', left: '40%', top: '42%' }}>
+                            <Cube delay={0} color="rgba(0, 255, 135, 0.4)" x={0} z={0} scale={1.5} />
                         </div>
 
                         {/* Surrounding Cubes */}
-                        <div onClick={() => setSelectedNode({ name: "Liquidity Relay", status: "Active", info: "Real-time relay node for Uniswap and SushiSwap liquidity monitoring." })}>
-                            <Cube delay={0.2} color="rgba(59, 130, 246, 0.3)" x={100} z={150} />
+                        <div onClick={() => setSelectedNode({ name: "Liquidity Relay", status: "Active", info: "Real-time relay node for Uniswap and SushiSwap liquidity monitoring." })} style={{ position: 'absolute', left: '20%', top: '25%' }}>
+                            <Cube delay={0.2} color="rgba(59, 130, 246, 0.3)" x={0} z={0} />
                         </div>
-                        <div onClick={() => setSelectedNode({ name: "MEV Guard", status: "Shielded", info: "Protective infrastructure preventing front-running on user trades." })}>
-                            <Cube delay={0.4} color="rgba(147, 51, 234, 0.3)" x={300} z={150} />
+                        <div onClick={() => setSelectedNode({ name: "MEV Guard", status: "Shielded", info: "Protective infrastructure preventing front-running on user trades." })} style={{ position: 'absolute', left: '60%', top: '25%' }}>
+                            <Cube delay={0.4} color="rgba(147, 51, 234, 0.3)" x={0} z={0} />
                         </div>
-                        <div onClick={() => setSelectedNode({ name: "RPC Endpoint", status: "Low Latency", info: "Dedicated private RPC for ultra-fast transaction propagation." })}>
-                            <Cube delay={0.6} color="rgba(255, 42, 95, 0.3)" x={100} z={350} />
+                        <div onClick={() => setSelectedNode({ name: "RPC Endpoint", status: "Low Latency", info: "Dedicated private RPC for ultra-fast transaction propagation." })} style={{ position: 'absolute', left: '20%', top: '58%' }}>
+                            <Cube delay={0.6} color="rgba(255, 42, 95, 0.3)" x={0} z={0} />
                         </div>
-                        <div onClick={() => setSelectedNode({ name: "Archive Node", status: "Synced", info: "Historical data storage for strategy backtesting and analytics." })}>
-                            <Cube delay={0.8} color="rgba(59, 130, 246, 0.2)" x={300} z={350} />
+                        <div onClick={() => setSelectedNode({ name: "Archive Node", status: "Synced", info: "Historical data storage for strategy backtesting and analytics." })} style={{ position: 'absolute', left: '60%', top: '58%' }}>
+                            <Cube delay={0.8} color="rgba(59, 130, 246, 0.2)" x={0} z={0} />
                         </div>
 
                         {/* Distant background cubes */}
-                        <Cube delay={1.2} color="rgba(255, 255, 255, 0.1)" x={50} z={80} scale={0.7} />
-                        <Cube delay={1.5} color="rgba(0, 255, 135, 0.1)" x={400} z={100} scale={0.8} />
-                        <Cube delay={1.8} color="rgba(147, 51, 234, 0.1)" x={450} z={400} scale={0.6} />
-                        <Cube delay={2.0} color="rgba(255, 42, 95, 0.1)" x={50} z={450} scale={0.9} />
+                        <div style={{ position: 'absolute', left: '10%', top: '13%' }}>
+                            <Cube delay={1.2} color="rgba(255, 255, 255, 0.1)" x={0} z={0} scale={0.7} />
+                        </div>
+                        <div style={{ position: 'absolute', left: '75%', top: '17%' }}>
+                            <Cube delay={1.5} color="rgba(0, 255, 135, 0.1)" x={0} z={0} scale={0.8} />
+                        </div>
+                        <div style={{ position: 'absolute', left: '80%', top: '67%' }}>
+                            <Cube delay={1.8} color="rgba(147, 51, 234, 0.1)" x={0} z={0} scale={0.6} />
+                        </div>
+                        <div style={{ position: 'absolute', left: '10%', top: '75%' }}>
+                            <Cube delay={2.0} color="rgba(255, 42, 95, 0.1)" x={0} z={0} scale={0.9} />
+                        </div>
                     </motion.div>
                 </div>
             </div>
