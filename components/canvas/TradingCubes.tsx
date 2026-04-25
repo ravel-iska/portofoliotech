@@ -71,14 +71,7 @@ export default function TradingCubes() {
     const [selectedNode, setSelectedNode] = useState<{ name: string, status: string, info: string } | null>(null);
 
     return (
-        <div className="relative w-full h-[600px] overflow-hidden rounded-[3rem] border border-white/10 glass-card bg-gradient-to-b from-[#0A1128] to-[#040812]">
-            <div className="absolute top-10 left-10 z-20">
-                <h3 className="text-white/20 font-mono text-[10px] uppercase tracking-[0.5em] mb-2">Network Topology</h3>
-                <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-[#00ff87] animate-pulse shadow-[0_0_10px_#00ff87]" />
-                    <span className="text-[#00ff87] font-mono text-[8px] uppercase tracking-widest">Global Node Sync: Active</span>
-                </div>
-            </div>
+        <div className="relative w-full h-[400px] overflow-hidden rounded-[3rem] border border-white/10 glass-card bg-gradient-to-b from-[#0A1128] to-[#040812]">
 
             <AnimatePresence>
                 {selectedNode && (

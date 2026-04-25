@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { TrendingUp, Activity, BarChart2, Wallet, ArrowUpRight, ArrowDownRight, RefreshCcw, Globe2, Layers, Grid3X3 } from "lucide-react";
-import GlobeHeatmap from "@/components/canvas/GlobeHeatmap";
+import { TrendingUp, Activity, BarChart2, Wallet, ArrowUpRight, ArrowDownRight, RefreshCcw, Layers, Grid3X3 } from "lucide-react";
 import TradingCubes from "@/components/canvas/TradingCubes";
 import TokenGrid3D from "@/components/canvas/TokenGrid3D";
 import { useGlobal } from "@/components/core/GlobalProvider";
@@ -199,34 +198,7 @@ export default function TraderDashboard() {
                         <TokenGrid3D />
                     </div>
 
-                    {/* Interactive Globe Row */}
-                    <div className="lg:col-span-12 p-8 md:p-12 glass-card border border-white/10 rounded-[2.5rem] relative overflow-hidden shadow-2xl flex flex-col md:flex-row items-center gap-10 mt-8">
-                        <div className="absolute top-0 left-0 w-64 h-64 bg-gradient-radial from-accent/10 to-transparent blur-3xl rounded-full" />
-                        <div className="w-full md:w-1/3 z-10 relative">
-                            <div className="flex items-center gap-3 mb-6">
-                                <Globe2 className="text-accent" size={24} />
-                                <span className="text-white font-mono uppercase tracking-[0.3em] text-sm">Network Topology</span>
-                            </div>
-                            <h3 className="text-4xl lg:text-6xl font-display font-black text-white leading-none mb-6">GLOBAL <span className="text-accent">NODES</span></h3>
-                            <p className="text-white/40 font-mono text-sm leading-relaxed mb-8">
-                                Visualizing real-time network latency across our distributed infrastructure: NY, Tokyo, London, and Singapore nodes.
-                            </p>
-                            <div className="space-y-4">
-                                <div className="flex justify-between items-center border-b border-white/5 pb-2">
-                                    <span className="text-white/30 font-mono text-xs uppercase">NY (Equinix NY4)</span>
-                                    <span className="text-accent font-mono text-xs">8ms</span>
-                                </div>
-                                <div className="flex justify-between items-center border-b border-white/5 pb-2">
-                                    <span className="text-white/30 font-mono text-xs uppercase">Tokyo (TY3)</span>
-                                    <span className="text-accent font-mono text-xs">12ms</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="w-full md:w-2/3 h-[400px] lg:h-[500px] relative z-0 flex items-center justify-center -mr-10 -my-10">
-                            <GlobeHeatmap />
-                        </div>
-                    </div>
+                    {/* End of Token Grid Row */}
 
                 </div>
             </div>
