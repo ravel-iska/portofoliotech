@@ -51,7 +51,7 @@ export default function QuantumArbitrageVisualizer() {
             {/* Ambient Background - smaller on mobile */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] md:w-[300px] md:h-[300px] bg-gradient-to-tr from-accent/10 to-emerald-500/10 blur-[60px] md:blur-[80px] rounded-full pointer-events-none" />
 
-            <div className="max-w-7xl mx-auto relative z-10 flex flex-col lg:flex-row gap-6 lg:gap-10 items-center">
+            <div className="max-w-4xl mx-auto relative z-10 flex flex-col md:flex-row gap-6 items-center">
 
                 {/* Left Content */}
                 <div className="flex-1 space-y-4">

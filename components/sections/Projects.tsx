@@ -54,20 +54,15 @@ export default function Projects({ setSelectedProject }: ProjectsProps) {
                     </div>
                 </div>
 
-                {/* Bento Grid */}
-                <motion.div layout className="grid grid-cols-2 md:grid-cols-12 auto-rows-[200px] gap-3 md:gap-4 mt-6">
+                {/* Simple 3-Col Grid */}
+                <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-[250px] gap-6 mt-6">
                     <AnimatePresence mode="popLayout">
                         {filteredProjects.map((project, i) => {
-                            let bentoClasses = "md:col-span-4";
-                            if (i === 0) bentoClasses = "col-span-2 md:col-span-8 md:row-span-2"; // Feature
-                            else if (i === 3) bentoClasses = "col-span-2 md:col-span-12"; // Wide
-                            else if (i === 4) bentoClasses = "col-span-2 md:col-span-8";
-
                             return (
                                 <ProjectCard
                                     key={project.id}
                                     project={project}
-                                    className={bentoClasses}
+                                    className="col-span-1"
                                     onClick={() => setSelectedProject(project)}
                                 />
                             );
@@ -113,17 +108,17 @@ function ProjectCard({ project, className = "", onClick }: { project: Project, c
                 </div>
             </div>
 
-            <div className="absolute bottom-4 left-4 right-4 md:bottom-10 md:left-10 md:right-10 p-4 md:p-8 glass-card border border-white/10 rounded-xl md:rounded-[2rem] bg-black/40 backdrop-blur-xl transition-all duration-500 translate-y-4 group-hover:translate-y-0 shadow-2xl">
-                <span className="text-[10px] font-mono text-accent uppercase tracking-[0.5em] mb-4 block">{project.category}</span>
-                <h3 className="text-lg md:text-3xl font-display font-bold text-white mb-1 md:mb-2 leading-none uppercase tracking-tighter group-hover:text-glow transition-all line-clamp-1">{t(`project.${project.id}.title`)}</h3>
-                <p className="text-white/40 text-xs md:text-sm font-light leading-relaxed mb-3 md:mb-6 line-clamp-1 hidden md:block">{t(`project.${project.id}.desc`)}</p>
-                <div className="flex items-center justify-between pt-6 border-t border-white/5">
+            <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-6 p-4 glass-card border border-white/10 rounded-xl bg-black/40 backdrop-blur-xl transition-all duration-500 translate-y-4 group-hover:translate-y-0 shadow-2xl">
+                <span className="text-[10px] font-mono text-accent uppercase tracking-[0.5em] mb-2 block">{project.category}</span>
+                <h3 className="text-sm md:text-xl font-display font-bold text-white mb-2 leading-tight uppercase tracking-tighter group-hover:text-glow transition-all line-clamp-1">{t(`project.${project.id}.title`)}</h3>
+
+                <div className="flex items-center justify-between pt-3 border-t border-white/5">
                     <div className="flex gap-2">
                         {project.tags.slice(0, 2).map(tag => (
-                            <span key={tag} className="px-3 py-1 bg-white/5 rounded-lg text-[9px] text-white/30 uppercase font-mono tracking-widest">#{tag}</span>
+                            <span key={tag} className="px-2 py-1 bg-white/5 rounded-lg text-[8px] text-white/30 uppercase font-mono tracking-widest">#{tag}</span>
                         ))}
                     </div>
-                    <div className="text-accent"><ExternalLink size={18} /></div>
+                    <div className="text-accent"><ExternalLink size={14} /></div>
                 </div>
             </div>
         </motion.div>
