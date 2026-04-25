@@ -64,7 +64,9 @@ export default function PortfolioHome() {
                 <Projects setSelectedProject={setSelectedProject} />
                 <ProjectSlider selectedProject={selectedProject} setSelectedProject={setSelectedProject} />
                 <MemoryGallery />
-                {isAdminVisible && <AdminDashboard />}
+                <div id="admin">
+                    <AdminDashboard />
+                </div>
                 <HackerCV />
                 <SmartChat />
                 <ContactSection />

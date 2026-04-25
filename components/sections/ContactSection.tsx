@@ -53,14 +53,14 @@ export default function ContactSection() {
 
 
     return (
-        <section id="contact" className="relative py-20 bg-[#0A1128] overflow-hidden">
+        <section id="contact" className="relative py-20 bg-bg transition-colors duration-500 overflow-hidden">
             {/* Background 3D Accent */}
             <div className="absolute top-0 right-0 w-full h-full pointer-events-none opacity-40">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-blue-600/10 to-indigo-600/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen animate-pulse" />
             </div>
 
-            <div className="container max-w-7xl mx-auto px-6 relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start pt-10">
+            <div className="container max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32 items-center py-10 md:py-20">
                     {/* Left Side: Copy */}
                     <div className="space-y-10 lg:sticky lg:top-24">
                         <motion.div
