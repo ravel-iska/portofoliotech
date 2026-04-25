@@ -1,123 +1,127 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import createGlobe from "cobe";
-import { motion, AnimatePresence } from "framer-motion";
-import { useGlobal } from "@/components/core/GlobalProvider";
+import { useState, useRef, Suspense } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { OrbitControls, useTexture, Html, Stars } from "@react-three/drei";
+import { motion } from "framer-motion";
+import * as THREE from 'three';
+
+// Convert lat/lon to 3D Cartesian coordinates
+function getCoordinatesFromLatLng(lat: number, lng: number, radius: number) {
+    const latRad = lat * (Math.PI / 180);
+    const lonRad = -lng * (Math.PI / 180);
+    const x = Math.cos(latRad) * Math.cos(lonRad) * radius;
+    const z = Math.cos(latRad) * Math.sin(lonRad) * radius;
+    const y = Math.sin(latRad) * radius;
+    return [x, y, z];
+}
+
+function RealisticEarth({ onClickNode }: { onClickNode: () => void }) {
+    // High-res realistic earth texture from public CDN
+    const [colorMap] = useTexture([
+        "https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
+    ]);
+
+    const earthRef = useRef<THREE.Mesh>(null);
+    const radius = 2.5;
+
+    // Indonesia coordinates roughly covering the center (Jakarta)
+    const [markerX, markerY, markerZ] = getCoordinatesFromLatLng(-3, 115, radius);
+
+    useFrame(() => {
+        // Slow auto-rotation on the Y axis if no interaction
+        if (earthRef.current) {
+            // earthRef.current.rotation.y += 0.0005;
+        }
+    });
+
+    return (
+        <group>
+            {/* Ambient and directional light for realistic sun-casting */}
+            <ambientLight intensity={0.4} />
+            <directionalLight position={[5, 3, 5]} intensity={1.5} />
+            <pointLight position={[-5, -3, -5]} intensity={0.5} color="#4f46e5" />
+
+            <mesh ref={earthRef} rotation={[0, -Math.PI / 2, 0]}>
+                <sphereGeometry args={[radius, 64, 64]} />
+                <meshStandardMaterial
+                    map={colorMap}
+                    roughness={0.6}
+                    metalness={0.1}
+                />
+            </mesh>
+
+            {/* Glowing atmosphere effect */}
+            <mesh scale={[1.02, 1.02, 1.02]}>
+                <sphereGeometry args={[radius, 64, 64]} />
+                <meshBasicMaterial color="#3b82f6" transparent opacity={0.1} side={THREE.BackSide} />
+            </mesh>
+
+            {/* Interactive Node over Indonesia */}
+            <group position={[markerX, markerY, markerZ]}>
+                {/* Visual bouncing marker ring */}
+                <mesh>
+                    <ringGeometry args={[0.05, 0.08, 32]} />
+                    <meshBasicMaterial color="#34d399" side={THREE.DoubleSide} transparent opacity={0.8} />
+                </mesh>
+
+                {/* Central dot */}
+                <mesh>
+                    <circleGeometry args={[0.02, 32]} />
+                    <meshBasicMaterial color="#ffffff" />
+                </mesh>
+
+                <Html center distanceFactor={15}>
+                    <button
+                        onClick={onClickNode}
+                        onPointerEnter={() => document.body.style.cursor = 'pointer'}
+                        onPointerLeave={() => document.body.style.cursor = 'auto'}
+                        className="group relative flex items-center justify-center mt-8 animate-bounce"
+                    >
+                        <div className="absolute w-12 h-12 bg-emerald-500/20 rounded-full animate-ping" />
+                        <div className="relative px-3 py-1 bg-black/80 border border-emerald-500/50 backdrop-blur-md rounded-lg whitespace-nowrap opacity-50 group-hover:opacity-100 transition-opacity">
+                            <span className="text-[10px] font-mono font-bold text-emerald-400 tracking-[0.2em] uppercase cursor-pointer">
+                                Initialize Uplink
+                            </span>
+                        </div>
+                        {/* Connecting line */}
+                        <div className="absolute top-0 w-px h-8 bg-emerald-500/50 pointer-events-none -translate-y-full" />
+                    </button>
+                </Html>
+            </group>
+        </group>
+    );
+}
 
 export default function EarthLanding({ onUnlock }: { onUnlock: () => void }) {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-    const pointerInteracting = useRef<number | null>(null);
-    const pointerInteractionMovement = useRef(0);
-    const phiRef = useRef(1.0); // Start slightly offset so they have to spin
-    const thetaRef = useRef(0.2); // Look slightly down
-
-    const [isAligned, setIsAligned] = useState(false);
     const [isExiting, setIsExiting] = useState(false);
 
-    useEffect(() => {
-        if (!canvasRef.current) return;
-
-        let width = 0;
-        const onResize = () => canvasRef.current && (width = canvasRef.current.offsetWidth);
-        window.addEventListener("resize", onResize);
-        onResize();
-
-        const globe = createGlobe(canvasRef.current, {
-            devicePixelRatio: 2,
-            width: width * 2,
-            height: width * 2,
-            phi: phiRef.current,
-            theta: thetaRef.current,
-            dark: 1,
-            diffuse: 1.2,
-            mapSamples: 16000,
-            mapBrightness: 6,
-            baseColor: [0.05, 0.08, 0.15],
-            markerColor: [0.1, 1, 0.5], // Glow green
-            glowColor: [0, 0.5, 1], // Blue atmospheric glow
-            markers: [
-                // Indonesia Map Marker (-0.789275, 113.921327)
-                { location: [-0.7893, 113.9213], size: 0.15 }
-            ],
-            onRender: (state: any) => {
-                // If not interacting, VERY slowly auto-rotate so user knows it's interactive
-                if (pointerInteracting.current === null) {
-                    phiRef.current += 0.001;
-                }
-
-                state.phi = phiRef.current + pointerInteractionMovement.current;
-                state.theta = thetaRef.current;
-                state.width = width * 2;
-                state.height = width * 2;
-
-                // Check Alignment with Indonesia
-                // In Cobe, a phi of ~ -2.0 or ~4.2 usually points towards Asia/Indonesia 
-                // Let's normalize current phi
-                const currentPhi = state.phi % (Math.PI * 2);
-                let normalizedPhi = currentPhi < 0 ? currentPhi + (Math.PI * 2) : currentPhi;
-
-                // We will use a generous window [3.5, 4.4] -> Actually we'll give a wide window 
-                // and rely more on the user discovering the glowing dot.
-                const isNearIndonesia = normalizedPhi > 3.6 && normalizedPhi < 4.8;
-
-                if (isNearIndonesia !== isAligned) {
-                    setIsAligned(isNearIndonesia);
-                }
-            },
-        } as any);
-
-        return () => {
-            window.removeEventListener("resize", onResize);
-            globe.destroy();
-        };
-    }, []);
-
-    const handlePointerDown = (e: any) => {
-        pointerInteracting.current = e.clientX;
-        canvasRef.current!.style.cursor = 'grabbing';
-    };
-
-    const handlePointerUp = () => {
-        pointerInteracting.current = null;
-        canvasRef.current!.style.cursor = 'grab';
-    };
-
-    const handlePointerMove = (e: any) => {
-        if (pointerInteracting.current !== null) {
-            const delta = e.clientX - pointerInteracting.current;
-            pointerInteractionMovement.current = delta * 0.005;
-        }
-    };
-
     const handleUnlock = () => {
-        if (isAligned) {
-            setIsExiting(true);
-            setTimeout(() => {
-                onUnlock();
-            }, 1000);
-        }
+        setIsExiting(true);
+        setTimeout(() => {
+            onUnlock();
+        }, 1200);
     };
 
     if (isExiting) {
         return (
             <motion.div
-                initial={{ opacity: 1, scale: 1 }}
-                animate={{ opacity: 0, scale: 5 }}
-                transition={{ duration: 1, ease: "easeInOut" }}
+                initial={{ opacity: 1, filter: "brightness(1) blur(0px)" }}
+                animate={{ opacity: 0, scale: 2, filter: "brightness(5) blur(10px)" }}
+                transition={{ duration: 1.2, ease: "easeInOut" }}
                 className="fixed inset-0 z-[9999] bg-black pointer-events-none"
             />
         );
     }
 
     return (
-        <div className="fixed inset-0 z-[9999] bg-black flex items-center justify-center overflow-hidden">
-            <div className="absolute top-10 left-0 w-full text-center z-20 pointer-events-none">
+        <div className="fixed inset-0 z-[9999] bg-black overflow-hidden flex flex-col">
+            <div className="absolute top-12 left-0 w-full text-center z-20 pointer-events-none">
                 <motion.h1
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="text-white font-display font-black text-3xl md:text-5xl uppercase tracking-[0.3em] text-glow"
+                    className="text-white font-display font-black text-3xl md:text-5xl uppercase tracking-[0.3em] text-glow drop-shadow-2xl"
                 >
                     Locate <span className="text-blue-500">Node</span>
                 </motion.h1>
@@ -125,52 +129,38 @@ export default function EarthLanding({ onUnlock }: { onUnlock: () => void }) {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1 }}
-                    className="text-white/50 font-mono text-xs uppercase tracking-widest mt-4"
+                    className="text-white/70 font-mono text-xs uppercase tracking-[0.2em] mt-4"
                 >
-                    Spin the globe. Find the glowing green marker (Indonesia).
+                    Spin the globe. Find the access node in Indonesia.
                 </motion.p>
             </div>
 
-            <div className="relative w-full max-w-[800px] aspect-square">
-                <canvas
-                    ref={canvasRef}
-                    onPointerDown={handlePointerDown}
-                    onPointerUp={handlePointerUp}
-                    onPointerOut={handlePointerUp}
-                    onPointerMove={handlePointerMove}
-                    style={{ width: "100%", height: "100%", contain: "layout paint size", cursor: "grab" }}
-                />
-
-                {/* Target Reticle Overlay */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none w-32 h-32 flex items-center justify-center">
-                    <div className={`absolute inset-0 border-2 rounded-full transition-all duration-500 ${isAligned ? 'border-emerald-400 scale-110 shadow-[0_0_30px_rgba(52,211,153,0.5)]' : 'border-white/20 scale-100'}`} />
-                    <div className={`w-2 h-2 rounded-full transition-all duration-500 ${isAligned ? 'bg-emerald-400 shadow-[0_0_10px_#34d399]' : 'bg-white/20'}`} />
-
-                    {/* Crosshairs */}
-                    <div className={`absolute top-0 bottom-0 left-1/2 w-px -translate-x-1/2 transition-colors duration-500 ${isAligned ? 'bg-emerald-400/50' : 'bg-white/10'}`} />
-                    <div className={`absolute left-0 right-0 top-1/2 h-px -translate-y-1/2 transition-colors duration-500 ${isAligned ? 'bg-emerald-400/50' : 'bg-white/10'}`} />
-                </div>
-            </div>
-
-            <div className="absolute bottom-20 left-0 w-full flex justify-center z-20">
-                <AnimatePresence>
-                    {isAligned && (
-                        <motion.button
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 10 }}
-                            onClick={handleUnlock}
-                            className="px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-black font-display font-black text-sm uppercase tracking-[0.5em] rounded-full shadow-[0_0_40px_rgba(52,211,153,0.6)] hover:shadow-[0_0_60px_rgba(52,211,153,0.8)] transition-all hover:scale-105 active:scale-95 flex items-center gap-3"
-                        >
-                            <span className="w-2 h-2 bg-black rounded-full animate-ping" />
-                            Lock Target
-                        </motion.button>
-                    )}
-                </AnimatePresence>
+            <div className="absolute inset-0 z-10">
+                <Canvas camera={{ position: [0, 0, 6], fov: 45 }}>
+                    <Suspense fallback={
+                        <Html center>
+                            <div className="text-white font-mono text-xs animate-pulse tracking-widest whitespace-nowrap">
+                                ASSEMBLING PLANET...
+                            </div>
+                        </Html>
+                    }>
+                        <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+                        <RealisticEarth onClickNode={handleUnlock} />
+                        <OrbitControls
+                            enableZoom={true}
+                            minDistance={3}
+                            maxDistance={10}
+                            enablePan={false}
+                            rotateSpeed={0.5}
+                            autoRotate={true}
+                            autoRotateSpeed={0.5}
+                        />
+                    </Suspense>
+                </Canvas>
             </div>
 
             {/* Dark gradient vignette */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,black_100%)] pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.8)_100%)] pointer-events-none z-10" />
         </div>
     );
 }

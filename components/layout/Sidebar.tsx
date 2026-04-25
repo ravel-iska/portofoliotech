@@ -141,6 +141,19 @@ export default function Sidebar({ children }: { children: React.ReactNode }) {
                     {(!isCollapsed || isOpen) && (
                         <div className="mt-8 mb-6 flex flex-col gap-3 relative z-50">
                             <div className="flex gap-2 w-full relative">
+                                {/* Theme Toggle */}
+                                <button
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        toggleTheme();
+                                    }}
+                                    type="button"
+                                    className="flex-1 px-4 py-3 rounded-xl glass-card border border-white/10 flex items-center justify-center gap-2 hover:bg-white/10 transition-all text-white/70 hover:text-white cursor-pointer active:scale-95 shadow-md"
+                                >
+                                    {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+                                    <span className="text-xs font-bold font-mono tracking-widest">{theme.toUpperCase()}</span>
+                                </button>
+
                                 {/* Language Select */}
                                 <div className="relative flex-1">
                                     <button

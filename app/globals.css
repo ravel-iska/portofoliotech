@@ -120,7 +120,90 @@
   }
 }
 
-/* Light Mode Removed by User Request */
+/* ---------------------------------
+   SOFT LIGHT MODE OVERRIDE
+   Addresses high contrast complaints with muted slate colors.
+----------------------------------- */
+.light-mode {
+  background-color: #f1f5f9 !important;
+  /* Soft slate gray */
+  color: #334155 !important;
+}
+
+/* Gentle Typography */
+.light-mode .text-white,
+.light-mode .text-white\/90,
+.light-mode .text-white\/80,
+.light-mode .text-white\/70,
+.light-mode .text-white\/60,
+.light-mode .text-white\/50,
+.light-mode .text-white\/40,
+.light-mode .text-blue-100\/70,
+.light-mode .text-blue-200\/60 {
+  color: #475569 !important;
+  /* Muted slate */
+}
+
+/* Keep accent text visible but not blinding */
+.light-mode .text-accent {
+  color: #4338ca !important;
+}
+
+/* Very subtle backgrounds instead of harsh white/black */
+.light-mode .bg-white\/5,
+.light-mode .bg-white\/10,
+.light-mode .bg-white\/20,
+.light-mode .bg-white\/\[0\.03\],
+.light-mode .bg-white\/\[0\.08\] {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+.light-mode .group:hover .group-hover\:text-white,
+.light-mode .hover\:text-white:hover {
+  color: #1e293b !important;
+}
+
+.light-mode .hover\:bg-white\/5:hover,
+.light-mode .hover\:bg-white\/10:hover,
+.light-mode .hover\:bg-white\/\[0\.08\]:hover {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Specifically for solid dark backgrounds */
+.light-mode .bg-\[\#0A1128\],
+.light-mode .bg-\[\#050B14\],
+.light-mode .bg-black,
+.light-mode .bg-black\/40 {
+  background-color: #ffffff !important;
+}
+
+/* Borders */
+.light-mode .border-white\/5,
+.light-mode .border-white\/10,
+.light-mode .border-white\/20 {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Glassmorphism adjustments for Light Mode */
+.light-mode .glass {
+  background-color: rgba(255, 255, 255, 0.6) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02) !important;
+}
+
+.light-mode .glass-card {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  border-color: rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.03) !important;
+}
+
+.light-mode .text-glow {
+  text-shadow: none !important;
+}
+
+.light-mode .shadow-\[0_0_40px_rgba\(255\,255\,255\,0\.1\)\]:hover {
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.05) !important;
+}
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
