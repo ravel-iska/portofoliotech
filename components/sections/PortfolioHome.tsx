@@ -25,10 +25,12 @@ const MeshBackground = nextDynamic(() => import("@/components/ui/MeshBackground"
 const MemoryGallery = nextDynamic(() => import("@/components/sections/MemoryGallery"), { ssr: false });
 const SponsorMarquee = nextDynamic(() => import("@/components/sections/SponsorMarquee"), { ssr: false });
 const WeatherWidget = nextDynamic(() => import("@/components/ui/WeatherWidget"), { ssr: false });
+const EarthLanding = nextDynamic(() => import("@/components/sections/EarthLanding"), { ssr: false });
 
 export default function PortfolioHome() {
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [isAdminVisible, setIsAdminVisible] = useState(false);
+    const [isUnlocked, setIsUnlocked] = useState(false);
 
     useEffect(() => {
         const handleHashChange = () => {
@@ -42,7 +44,9 @@ export default function PortfolioHome() {
     useGsapScroll();
 
     return (
-        <div className="flex flex-col min-h-screen relative z-10 w-full overflow-hidden bg-bg">
+        <div className={`flex flex-col relative z-10 w-full bg-bg ${!isUnlocked ? "h-screen overflow-hidden" : "min-h-screen overflow-hidden"}`}>
+            {!isUnlocked && <EarthLanding onUnlock={() => setIsUnlocked(true)} />}
+
             <MeshBackground />
             <Hero />
             <SponsorMarquee />
