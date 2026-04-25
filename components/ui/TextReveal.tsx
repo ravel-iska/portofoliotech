@@ -40,7 +40,7 @@ export const TextReveal = ({
     const words = text.split(" ");
 
     return (
-        <div ref={textRef} className={cn("overflow-hidden flex flex-wrap", className)}>
+        <div ref={textRef} className={cn("overflow-hidden flex flex-wrap pb-4 -mb-4 pt-2 -mt-2", className)}>
             {words.map((word, i) => (
                 <span key={i} className="word inline-block mr-[0.25em] origin-bottom-left" style={{ opacity: 0 }}>
                     {word}
