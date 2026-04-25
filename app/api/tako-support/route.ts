@@ -8,7 +8,7 @@ export async function POST(req: Request) {
         const body = await req.json();
 
         // Validate incoming payload
-        const { name, email, amount, paymentMethod, message } = body;
+        const { name, email, amount, currency, paymentMethod, message } = body;
         if (!name || !email || !amount || !paymentMethod) {
             return NextResponse.json({ success: false, message: "Missing required fields" }, { status: 400 });
         }
@@ -24,6 +24,7 @@ export async function POST(req: Request) {
                 name,
                 email,
                 amount: Number(amount),
+                currency: currency || "IDR", // Forward the currency
                 paymentMethod,
                 message: message || "Support from portfolio"
             })

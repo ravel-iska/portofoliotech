@@ -14,6 +14,7 @@ export default function TakoSupportModal({ isOpen, onClose }: TakoSupportModalPr
         name: "",
         email: "",
         amount: "",
+        currency: "IDR",
         paymentMethod: "qris",
         message: ""
     });
@@ -124,17 +125,32 @@ export default function TakoSupportModal({ isOpen, onClose }: TakoSupportModalPr
 
                                 <div className="grid grid-cols-2 gap-4">
                                     {formData.paymentMethod !== "crypto" && (
-                                        <div className="space-y-1">
-                                            <label className="text-[10px] font-mono text-white/40 uppercase tracking-widest">Amount (IDR)</label>
-                                            <input
-                                                required
-                                                type="number"
-                                                min="10000"
-                                                value={formData.amount}
-                                                onChange={e => setFormData({ ...formData, amount: e.target.value })}
-                                                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-blue-500/50 transition-colors"
-                                                placeholder="50000"
-                                            />
+                                        <div className="grid grid-cols-3 gap-2">
+                                            <div className="space-y-1 col-span-2">
+                                                <label className="text-[10px] font-mono text-white/40 uppercase tracking-widest">Amount</label>
+                                                <input
+                                                    required
+                                                    type="number"
+                                                    min="1"
+                                                    value={formData.amount}
+                                                    onChange={e => setFormData({ ...formData, amount: e.target.value })}
+                                                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-blue-500/50 transition-colors"
+                                                    placeholder="50000"
+                                                />
+                                            </div>
+                                            <div className="space-y-1">
+                                                <label className="text-[10px] font-mono text-white/40 uppercase tracking-widest">Currency</label>
+                                                <select
+                                                    value={formData.currency}
+                                                    onChange={e => setFormData({ ...formData, currency: e.target.value })}
+                                                    className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-blue-500/50 transition-colors appearance-none text-center"
+                                                >
+                                                    <option value="IDR">IDR</option>
+                                                    <option value="USD">USD</option>
+                                                    <option value="EUR">EUR</option>
+                                                    <option value="SGD">SGD</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     )}
                                     <div className={`space-y-1 ${formData.paymentMethod === 'crypto' ? 'col-span-2' : ''}`}>
