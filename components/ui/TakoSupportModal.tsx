@@ -21,6 +21,59 @@ export default function TakoSupportModal({ isOpen, onClose }: TakoSupportModalPr
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
+    // Configuration for dynamic behavior based on currency
+    const currencyConfig: Record<string, { protocols: { value: string; label: string }[]; min: number; placeholder: string }> = {
+        IDR: {
+            protocols: [
+                { value: "qris", label: "QRIS (Global)" },
+                { value: "gopay", label: "GoPay" },
+                { value: "dana", label: "DANA" },
+            ],
+            min: 10000,
+            placeholder: "50000"
+        },
+        USD: {
+            protocols: [
+                { value: "paypal", label: "PayPal" }
+            ],
+            min: 1,
+            placeholder: "5"
+        },
+        EUR: {
+            protocols: [
+                { value: "paypal", label: "PayPal" }
+            ],
+            min: 1,
+            placeholder: "5"
+        },
+        SGD: {
+            protocols: [
+                { value: "paypal", label: "PayPal" }
+            ],
+            min: 1,
+            placeholder: "5"
+        }
+    };
+
+    const currentConfig = currencyConfig[formData.currency] || currencyConfig["IDR"];
+
+    const handleCurrencyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const newCurrency = e.target.value;
+        const newConfig = currencyConfig[newCurrency];
+
+        // If current protocol isn't available in new currency (and isn't crypto), switch to first available
+        let newPaymentMethod = formData.paymentMethod;
+        if (newPaymentMethod !== "crypto" && !newConfig.protocols.find(p => p.value === newPaymentMethod)) {
+            newPaymentMethod = newConfig.protocols[0].value;
+        }
+
+        setFormData({
+            ...formData,
+            currency: newCurrency,
+            paymentMethod: newPaymentMethod
+        });
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -131,18 +184,18 @@ export default function TakoSupportModal({ isOpen, onClose }: TakoSupportModalPr
                                                 <input
                                                     required
                                                     type="number"
-                                                    min="1"
+                                                    min={currentConfig.min}
                                                     value={formData.amount}
                                                     onChange={e => setFormData({ ...formData, amount: e.target.value })}
                                                     className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-blue-500/50 transition-colors"
-                                                    placeholder="50000"
+                                                    placeholder={currentConfig.placeholder}
                                                 />
                                             </div>
                                             <div className="space-y-1">
                                                 <label className="text-[10px] font-mono text-white/40 uppercase tracking-widest">Currency</label>
                                                 <select
                                                     value={formData.currency}
-                                                    onChange={e => setFormData({ ...formData, currency: e.target.value })}
+                                                    onChange={handleCurrencyChange}
                                                     className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-blue-500/50 transition-colors appearance-none text-center"
                                                 >
                                                     <option value="IDR">IDR</option>
@@ -160,11 +213,16 @@ export default function TakoSupportModal({ isOpen, onClose }: TakoSupportModalPr
                                             onChange={e => setFormData({ ...formData, paymentMethod: e.target.value })}
                                             className="w-full bg-[#0a0a0a] border border-white/10 rounded-lg px-4 py-3 text-white text-sm font-mono focus:outline-none focus:border-blue-500/50 transition-colors appearance-none"
                                         >
-                                            <option value="qris">QRIS (Global)</option>
-                                            <option value="gopay">GoPay</option>
-                                            <option value="dana">DANA</option>
-                                            <option value="paypal">PayPal</option>
-                                            <option value="crypto">Web3 / Crypto</option>
+                                            <optgroup label="Fiat">
+                                                {currentConfig.protocols.map((protocol) => (
+                                                    <option key={protocol.value} value={protocol.value}>
+                                                        {protocol.label}
+                                                    </option>
+                                                ))}
+                                            </optgroup>
+                                            <optgroup label="Web3">
+                                                <option value="crypto">Web3 / Crypto</option>
+                                            </optgroup>
                                         </select>
                                     </div>
                                 </div>
