@@ -37,10 +37,10 @@ export default function TokenGrid3D() {
     }));
 
     return (
-        <div className={`relative w-full overflow-hidden rounded-[2rem] md:rounded-[3rem] border border-white/10 glass-card bg-[#141a2e] mt-8 md:mt-12 flex items-center justify-center ${mounted && isMobile ? 'h-[300px]' : 'h-[500px] perspective-[1500px]'}`}>
+        <div className={`relative w-full overflow-hidden rounded-[2rem] md:rounded-[3rem] border border-white/10 glass-card bg-[#141a2e] mt-4 md:mt-6 flex items-center justify-center ${mounted && isMobile ? 'h-[200px]' : 'h-[250px] perspective-[1500px]'}`}>
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-[#0A1128] to-[#0A1128] pointer-events-none" />
             {!(mounted && isMobile) && (
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/10 blur-[150px] rounded-full pointer-events-none" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-indigo-500/10 blur-[100px] rounded-full pointer-events-none" />
             )}
 
             <div className="absolute top-4 right-4 md:top-10 md:right-10 z-20 text-right pointer-events-none">

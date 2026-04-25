@@ -56,16 +56,16 @@ export default function ProfileSlide() {
     };
 
     return (
-        <section className="relative w-full py-24 bg-[#141825] border-t border-white/5">
+        <section className="relative w-full py-12 bg-[#141825] border-t border-white/5">
             {/* iOS Apple Glow Base */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-accent/10 to-blue-500/10 rounded-full blur-[160px] pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-accent/10 to-blue-500/10 rounded-full blur-[160px] pointer-events-none" />
 
-            <div className="container mx-auto px-6 md:px-12 relative z-20 mb-12 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="container mx-auto px-6 md:px-12 relative z-20 mb-8 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div>
-                    <h2 className="text-4xl md:text-7xl font-display font-bold text-white tracking-tighter drop-shadow-xl text-center md:text-left">
+                    <h2 className="text-3xl md:text-5xl font-display font-bold text-white tracking-tighter drop-shadow-xl text-center md:text-left">
                         PROFILE <span className="text-accent text-glow">SLIDE</span>
                     </h2>
-                    <p className="text-white/60 font-mono text-xs md:text-sm mt-4 uppercase tracking-widest max-w-lg mx-auto md:mx-0 text-center md:text-left">
+                    <p className="text-white/60 font-mono text-[10px] md:text-xs mt-3 uppercase tracking-widest max-w-lg mx-auto md:mx-0 text-center md:text-left">
                         Manually browse the engineering expertise and mindset.
                     </p>
                 </div>
@@ -91,7 +91,7 @@ export default function ProfileSlide() {
                     {profileData.map((data, index) => (
                         <div
                             key={index}
-                            className="relative w-[85vw] md:w-[450px] shrink-0 aspect-[4/5] glass-card p-8 flex flex-col justify-between overflow-hidden group rounded-[2.5rem] select-none border border-white/5"
+                            className="relative w-[85vw] md:w-[320px] lg:w-[360px] shrink-0 aspect-[4/5] glass-card p-6 md:p-8 flex flex-col justify-between overflow-hidden group rounded-[2.5rem] select-none border border-white/5"
                         >
                             {/* Glass Highlight */}
                             <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-50 pointer-events-none" />

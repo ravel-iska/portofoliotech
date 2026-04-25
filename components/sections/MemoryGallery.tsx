@@ -52,8 +52,8 @@ export default function MemoryGallery() {
     );
 
     return (
-        <section id="memories" className="relative py-32 px-6 min-h-screen bg-transparent overflow-hidden">
-            <div className="max-w-7xl mx-auto h-[800px] glass-card rounded-[2.5rem] border border-white/10 overflow-hidden flex shadow-[0_0_100px_rgba(0,0,0,0.5)]">
+        <section id="memories" className="relative py-16 px-6 min-h-[80vh] bg-transparent overflow-hidden">
+            <div className="max-w-7xl mx-auto h-[600px] glass-card rounded-[2.5rem] border border-white/10 overflow-hidden flex shadow-[0_0_100px_rgba(0,0,0,0.5)]">
 
                 {/* macOS Sidebar */}
                 <AnimatePresence initial={false}>

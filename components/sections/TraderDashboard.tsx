@@ -103,25 +103,25 @@ export default function TraderDashboard() {
             <div className="absolute bottom-[10%] right-[-5%] w-[400px] h-[400px] bg-[#ff2a5f]/10 rounded-full blur-[120px] pointer-events-none" />
 
             <div className="container max-w-7xl mx-auto relative z-10">
-                <div className="mb-16 text-center lg:text-left">
+                <div className="mb-10 text-center lg:text-left">
                     <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 glass-card text-white/50 text-[10px] uppercase font-mono tracking-widest mb-6">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 glass-card text-white/50 text-[10px] uppercase font-mono tracking-widest mb-4">
                             <Activity size={14} className="text-[#00ff87]" /> {t("dashboard.stats")}
                         </div>
-                        <h2 className="text-2xl md:text-8xl font-display font-black text-white tracking-tighter leading-none mb-4 md:mb-6">
+                        <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-black text-white tracking-tighter leading-none mb-4">
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/40">{t("dashboard.title")}</span> <br />
                             <span className="text-[#00ff87] italic drop-shadow-[0_0_20px_rgba(0,255,135,0.4)]">{t("dashboard.role")}.</span>
                         </h2>
-                        <p className="text-white/40 font-mono text-sm max-w-2xl mx-auto lg:mx-0">
+                        <p className="text-white/40 font-mono text-xs md:text-sm max-w-2xl mx-auto lg:mx-0">
                             {t("dashboard.desc")}
                         </p>
                     </motion.div>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div className="flex flex-col gap-8">
 
-                    {/* Live Tracking Column */}
-                    <div className="lg:col-span-4 space-y-6">
+                    {/* Live Tracking Row */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         {/* Token Card */}
                         {[
                             { name: 'BTC/USDT', data: btc, logo: 'https://cryptologos.cc/logos/bitcoin-btc-logo.svg?v=029' },
@@ -150,16 +150,16 @@ export default function TraderDashboard() {
                         ))}
                     </div>
 
-                    {/* Chart & Wallet Column */}
-                    <div className="lg:col-span-8 flex flex-col gap-8">
+                    {/* Chart & Wallet Row */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         {/* Interactive Wallet Balance */}
-                        <div className="p-8 md:p-12 glass-card border border-white/10 rounded-[2.5rem] relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                        <div className="p-6 md:p-8 glass-card border border-white/10 rounded-[2.5rem] relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col justify-center">
                             <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-radial from-white/5 to-transparent blur-2xl" />
-                            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
+                            <div className="flex flex-col flex-1 justify-center relative z-10">
                                 <div>
                                     <div className="flex items-center gap-3 mb-2">
-                                        <Wallet className="text-white/40" size={20} />
-                                        <span className="text-white/40 font-mono text-xs uppercase tracking-widest">
+                                        <Wallet className="text-white/40" size={16} />
+                                        <span className="text-white/40 font-mono text-[10px] uppercase tracking-widest">
                                             {t("dashboard.wallet")}
                                         </span>
                                     </div>
@@ -167,13 +167,13 @@ export default function TraderDashboard() {
                                         key={balance}
                                         initial={{ opacity: 0.8, y: -2 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        className="text-2xl md:text-8xl font-display font-black text-white tracking-tighter"
+                                        className="text-4xl md:text-5xl lg:text-6xl font-display font-black text-white tracking-tighter mt-4 mb-2"
                                         style={{ fontVariantNumeric: 'tabular-nums' }}
                                     >
                                         {balance}
                                     </motion.div>
-                                    <div className={`flex items-center gap-2 mt-4 font-mono ${profit.startsWith('+') ? 'text-[#00ff87]' : 'text-[#ff2a5f]'}`}>
-                                        <TrendingUp size={16} /> <span className="text-sm">{t("dashboard.pnl")}: {profit}</span>
+                                    <div className={`flex items-center gap-2 font-mono ${profit.startsWith('+') ? 'text-[#00ff87]' : 'text-[#ff2a5f]'}`}>
+                                        <TrendingUp size={14} /> <span className="text-xs">{t("dashboard.pnl")}: {profit}</span>
                                     </div>
                                 </div>
                             </div>
@@ -189,18 +189,19 @@ export default function TraderDashboard() {
                         </div>
                     </div>
 
-                    {/* New Token Grid 3D Row */}
-                    <div className="lg:col-span-12 mt-12">
-                        <div className="flex items-center gap-3 px-6 py-2 bg-white/5 border border-white/10 rounded-2xl w-fit mb-8">
-                            <Grid3X3 size={16} className="text-purple-400" />
-                            <span className="text-white/40 font-mono text-[10px] uppercase tracking-widest">{t("dashboard.wall")}</span>
-                        </div>
-                        <TokenGrid3D />
-                    </div>
-
-                    {/* End of Token Grid Row */}
-
                 </div>
+
+                {/* New Token Grid 3D Row */}
+                <div className="mt-8">
+                    <div className="flex items-center gap-3 px-6 py-2 bg-white/5 border border-white/10 rounded-2xl w-fit mb-8">
+                        <Grid3X3 size={16} className="text-purple-400" />
+                        <span className="text-white/40 font-mono text-[10px] uppercase tracking-widest">{t("dashboard.wall")}</span>
+                    </div>
+                    <TokenGrid3D />
+                </div>
+
+                {/* End of Token Grid Row */}
+
             </div>
         </section>
     );
