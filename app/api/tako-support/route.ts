@@ -24,7 +24,6 @@ export async function POST(req: Request) {
                 name,
                 email,
                 amount: Number(amount),
-                currency: currency || "IDR", // Forward the currency
                 paymentMethod,
                 message: message || "Support from portfolio"
             })
