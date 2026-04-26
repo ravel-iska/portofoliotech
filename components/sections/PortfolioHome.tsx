@@ -17,7 +17,7 @@ const ProfileSlide = nextDynamic(() => import("@/components/sections/ProfileSlid
 const Projects = nextDynamic(() => import("@/components/sections/Projects"), { ssr: false });
 const ProjectSlider = nextDynamic(() => import("@/components/sections/ProjectSlider"), { ssr: false });
 const HackerCV = nextDynamic(() => import("@/components/sections/HackerCV"), { ssr: false });
-const SkillTree3D = null; // DELETED
+const SkillTree3D = nextDynamic(() => import("@/components/sections/SkillTree3D"), { ssr: false });
 const TechFlowChart = nextDynamic(() => import("@/components/sections/TechFlowChart"), { ssr: false });
 const Web3Vault = nextDynamic(() => import("@/components/sections/Web3Vault"), { ssr: false });
 const SmartChat = nextDynamic(() => import("@/components/sections/SmartChat"), { ssr: false });
@@ -29,6 +29,7 @@ const MemoryGallery = nextDynamic(() => import("@/components/sections/MemoryGall
 const SponsorMarquee = nextDynamic(() => import("@/components/sections/SponsorMarquee"), { ssr: false });
 const WeatherWidget = nextDynamic(() => import("@/components/ui/WeatherWidget"), { ssr: false });
 const EarthLanding = nextDynamic(() => import("@/components/sections/EarthLanding"), { ssr: false });
+const NetworkTrafficMap = nextDynamic(() => import("@/components/ui/NetworkTrafficMap"), { ssr: false });
 import LazySection from "@/components/ui/LazySection";
 
 export default function PortfolioHome() {
@@ -62,16 +63,21 @@ export default function PortfolioHome() {
                     <LifeJourney />
                 </LazySection>
                 <IsometricTimeline />
+                <LazySection minHeight="400px">
+                    <SkillTree3D />
+                </LazySection>
                 <ProfileSlide />
                 <Projects setSelectedProject={setSelectedProject} />
                 <ProjectSlider selectedProject={selectedProject} setSelectedProject={setSelectedProject} />
                 <MemoryGallery />
 
                 {/* Web3 / Trading / Crypto Group */}
-                <div id="innovation">
+                <div id="innovation" className="relative overflow-hidden">
+                    <NetworkTrafficMap />
                     <PremiumCryptoShowcase />
                 </div>
-                <div id="hft">
+                <div id="hft" className="relative overflow-hidden">
+                    <NetworkTrafficMap />
                     <TechFlowChart />
                 </div>
                 <TraderDashboard />
