@@ -36,7 +36,7 @@ export default function IsometricTimeline({ onComplete }: { onComplete?: () => v
         if (systemBooting && bootLogs.length < logsSequence.length) {
             const timer = setTimeout(() => {
                 setBootLogs(prev => [...prev, logsSequence[prev.length]]);
-            }, prev => prev.length === logsSequence.length - 1 ? 800 : 400); // Wait longer for ACCESS GRANTED
+            }, bootLogs.length === logsSequence.length - 1 ? 800 : 400); // Wait longer before final ACCESS GRANTED
             return () => clearTimeout(timer);
         } else if (systemBooting && bootLogs.length === logsSequence.length) {
             // Once all logs are shown, unlock application!
