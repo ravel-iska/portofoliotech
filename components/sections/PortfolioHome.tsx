@@ -33,9 +33,9 @@ const NetworkTrafficMap = nextDynamic(() => import("@/components/ui/NetworkTraff
 import LazySection from "@/components/ui/LazySection";
 
 export default function PortfolioHome() {
+    const [flowState, setFlowState] = useState<'story' | 'earth' | 'unlocked'>('story');
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [isAdminVisible, setIsAdminVisible] = useState(false);
-    const [isUnlocked, setIsUnlocked] = useState(false);
 
     useEffect(() => {
         const handleHashChange = () => {
@@ -49,8 +49,19 @@ export default function PortfolioHome() {
     useGsapScroll();
 
     return (
-        <div className={`flex flex-col relative z-10 w-full bg-bg ${!isUnlocked ? "h-screen overflow-hidden" : "min-h-screen overflow-hidden"}`}>
-            {!isUnlocked && <EarthLanding onUnlock={() => setIsUnlocked(true)} />}
+        <div className={`flex flex-col relative z-10 w-full bg-bg ${flowState !== 'unlocked' ? "h-screen overflow-hidden" : "min-h-screen overflow-hidden"}`}>
+
+            {/* Phase 1: Scroll-driven Storytelling */}
+            {flowState === 'story' && (
+                <div className="fixed inset-0 z-[999999] bg-[#0a0a0e] text-white">
+                    <IsometricTimeline onComplete={() => setFlowState('earth')} />
+                </div>
+            )}
+
+            {/* Phase 2: Earth Landing (Planet Animation Node) */}
+            {flowState === 'earth' && (
+                <EarthLanding onUnlock={() => setFlowState('unlocked')} />
+            )}
 
             <MeshBackground />
             <Hero />
@@ -62,7 +73,6 @@ export default function PortfolioHome() {
                 <LazySection minHeight="300px">
                     <LifeJourney />
                 </LazySection>
-                <IsometricTimeline />
                 <LazySection minHeight="400px">
                     <SkillTree3D />
                 </LazySection>
