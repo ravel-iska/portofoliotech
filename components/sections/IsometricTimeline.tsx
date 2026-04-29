@@ -23,36 +23,36 @@ export default function IsometricTimeline({ onComplete }: { onComplete?: () => v
     const smoothScroll = useSpring(scrollYProgress, { stiffness: 60, damping: 40, restDelta: 0.001 });
 
     // Scene 1: Start VISIBLE!
-    const opacity1 = useTransform(smoothScroll, [0, 0.15, 0.2, 0.25], [1, 1, 1, 0]);
-    const scale1 = useTransform(smoothScroll, [0, 0.25], [1, 1.1]);
+    const opacity1 = useTransform(smoothScroll, [0, 0.1, 0.25, 0.35], [1, 1, 1, 0]);
+    const scale1 = useTransform(smoothScroll, [0, 0.35], [1, 1.1]);
 
     // Scene 2
-    const opacity2 = useTransform(smoothScroll, [0.25, 0.35, 0.45, 0.5], [0, 1, 1, 0]);
-    const scale2 = useTransform(smoothScroll, [0.25, 0.5], [0.9, 1.1]);
+    const opacity2 = useTransform(smoothScroll, [0.35, 0.45, 0.55, 0.65], [0, 1, 1, 0]);
+    const scale2 = useTransform(smoothScroll, [0.35, 0.65], [0.95, 1.1]);
 
     // Scene 3
-    const opacity3 = useTransform(smoothScroll, [0.5, 0.6, 1], [0, 1, 1]);
-    const scale3 = useTransform(smoothScroll, [0.5, 0.8], [0.9, 1]);
+    const opacity3 = useTransform(smoothScroll, [0.65, 0.75, 1], [0, 1, 1]);
+    const scale3 = useTransform(smoothScroll, [0.65, 0.9], [0.95, 1]);
 
     // Vertical translation for Scene 3 Text: Starts centered, then moves UP to make room for phone
-    const text3Y = useTransform(smoothScroll, [0.65, 0.85], ["0%", isMobile ? "-40%" : "-35%"]);
+    const text3Y = useTransform(smoothScroll, [0.75, 0.85], ["0%", isMobile ? "-42%" : "-38%"]);
 
     // Scroll Down Hint
     const scrollHintOpacity = useTransform(smoothScroll, [0, 0.05], [1, 0]);
 
     // EPIC Phone Animation: Starts completely off-screen at the bottom, rises up to center stage.
-    const phoneY = useTransform(smoothScroll, [0.65, 0.9], ["100vh", isMobile ? "20vh" : "15vh"]);
-    const phoneScale = useTransform(smoothScroll, [0.65, 0.9, 1], [0.8, 1, 1.05]);
-    const phoneOpacity = useTransform(smoothScroll, [0.65, 0.8], [0, 1]);
+    const phoneY = useTransform(smoothScroll, [0.75, 0.9], ["100vh", isMobile ? "15vh" : "12vh"]);
+    const phoneScale = useTransform(smoothScroll, [0.75, 0.9, 1], [0.8, 1, 1.02]);
+    const phoneOpacity = useTransform(smoothScroll, [0.75, 0.85], [0, 1]);
 
     // Slight 3D rotation resolving to flat
-    const phoneRotateX = useTransform(smoothScroll, [0.65, 0.95], [30, 0]);
+    const phoneRotateX = useTransform(smoothScroll, [0.75, 0.95], [25, 0]);
 
     // Button Fade In
-    const buttonOpacity = useTransform(smoothScroll, [0.85, 0.95], [0, 1]);
+    const buttonOpacity = useTransform(smoothScroll, [0.9, 0.98], [0, 1]);
 
     // Background gradient pulse based on scroll
-    const bgOpacity = useTransform(smoothScroll, [0.5, 0.9], [0, 1]);
+    const bgOpacity = useTransform(smoothScroll, [0.4, 0.8], [0, 1]);
 
     return (
         <section className="relative w-full bg-[#030305] font-sans pointer-events-auto selection:bg-cyan-500/30">
