@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 
 import { motion } from "framer-motion";
-import { Code2, MonitorPlay, Palette, TerminalSquare, LineChart, Database, ChevronLeft, ChevronRight } from "lucide-react";
+import { Blocks, Code2, MonitorPlay, Palette, TerminalSquare, Database, ChevronLeft, ChevronRight } from "lucide-react";
 
 const profileData = [
     {
@@ -25,10 +25,10 @@ const profileData = [
         highlight: "Analyst"
     },
     {
-        title: "Algorithmic Trading",
-        description: "Quantitative analysis and market execution strategies across Crypto and Forex markets.",
-        icon: <LineChart className="w-6 h-6 md:w-8 md:h-8 text-amber-400" />,
-        highlight: "Trader"
+        title: "Blockchain Architecture",
+        description: "Engineering secure Smart Contracts and high-performance protocols for Web3 networks.",
+        icon: <Blocks className="w-6 h-6 md:w-8 md:h-8 text-amber-400" />,
+        highlight: "Web3"
     },
     {
         title: "Interaction Design",

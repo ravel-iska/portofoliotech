@@ -70,7 +70,7 @@ export default function SmartChat() {
 
         // --- Skills ---
         if (/skill|keahlian|kemampuan|bisa apa|abilities|expertise/.test(q)) {
-            return "⚡ Keahlian Utama:\n\n• Frontend: React, Next.js, TypeScript, TailwindCSS\n• Backend: Node.js, Go, REST API, GraphQL\n• Data: Python, Pandas, SQL, Data Pipeline\n• Web3: Solidity, Smart Contracts, DeFi Protocols\n• Trading: Algorithmic Trading, Quantitative Analysis\n• DevOps: Docker, Vercel, CI/CD\n• Design: Figma, GSAP Animations, UI/UX";
+            return "⚡ Keahlian Utama:\n\n• Frontend: React, Next.js, TypeScript, TailwindCSS\n• Backend: Node.js, Go, REST API, GraphQL\n• Data: Python, Pandas, SQL, Data Pipeline\n• Web3: Solidity, Smart Contracts, DeFi Protocols\n• Systems: Enterprise Architecture, High Availability Server\n• DevOps: Docker, Vercel, CI/CD\n• Design: Figma, GSAP Animations, UI/UX";
         }
 
         // --- Tech Stack ---
@@ -100,12 +100,12 @@ export default function SmartChat() {
 
         // --- Experience ---
         if (/pengalaman|experience|karir|career|kerja|job|pekerjaan/.test(q)) {
-            return "💼 Riwayat Profesional:\n\nBagus telah terjun ke industri perangkat lunak, mengembangkan sistem berskala besar. Spesialisasi di bidang Fullstack Development, Data Analytics, dan Algorithmic Trading di pasar Crypto & Forex.";
+            return "💼 Riwayat Profesional:\n\nBagus telah terjun ke industri perangkat lunak, mengembangkan sistem berskala besar. Spesialisasi di bidang Fullstack Development, Data Analytics, dan Decentralized Finance (DeFi) Architecture.";
         }
 
         // --- Education ---
         if (/pendidikan|education|kuliah|sekolah|universitas|kampus|belajar/.test(q)) {
-            return "🎓 Pendidikan:\n\n• S1 Teknik Informatika — Konsentrasi Data Analisis\n• Bootcamp & Sertifikasi — Spesialisasi Web3 & AI\n• Self-learning — Algorithmic Trading, Quantitative Finance";
+            return "🎓 Pendidikan:\n\n• S1 Teknik Informatika — Konsentrasi Data Analisis\n• Bootcamp & Sertifikasi — Spesialisasi Web3 & AI\n• Self-learning — Smart Contract Optimization, Cryptography";
         }
 
         // --- CV / Resume ---
@@ -113,9 +113,9 @@ export default function SmartChat() {
             return "📄 CV tersedia untuk di-download! Scroll ke bagian terminal \"CV Extraction Protocol\" di bawah, atau klik tombol DOWNLOAD CV setelah animasi terminal selesai.";
         }
 
-        // --- Trading ---
-        if (/trading|trader|crypto|forex|bitcoin|btc|eth|binance|futures/.test(q)) {
-            return "📈 Trading Profile:\n\nBagus adalah Algorithmic Trader aktif di pasar Crypto Futures & Forex. Spesialisasi:\n• Quantitative Analysis & Signal Generation\n• Automated execution strategies\n• Risk management & portfolio optimization\n\nLihat dashboard trading di bagian \"Analisis Kuantitatif\"!";
+        // --- Blockchain / Crypto Analytics ---
+        if (/trading|trader|crypto|forex|bitcoin|btc|eth|binance|futures|defi/.test(q)) {
+            return "📈 DeFi & Crypto Infrastructure:\n\nBagus adalah spesialis dalam infrastruktur Web3 dan analitik harga on-chain. Spesialisasi:\n• Smart Contract Architecture\n• Data Pipeline untuk node cryptocurrency proxy\n• Risk management & Liquidity protocol optimization\n\nLihat visualisasi data network di bagian \"Arsitektur DeFi\"!";
         }
 
         // --- Web3 ---
