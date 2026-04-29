@@ -8,34 +8,39 @@ if (typeof window !== "undefined") {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-export const useGsapScroll = () => {
+export const useGsapScroll = (canInitialize: boolean = true) => {
     useEffect(() => {
-        const sections = document.querySelectorAll("section:not(#home)");
+        if (!canInitialize) return;
 
-        sections.forEach((section) => {
-            gsap.fromTo(section,
-                {
-                    opacity: 0,
-                    y: 30,
-                    // REMOVED filter:blur — it's extremely expensive on desktop too
-                },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.8,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: section,
-                        start: "top 90%",
-                        toggleActions: "play none none none",
+        // Add a slight delay to ensure the DOM is fully unrolled and rendered before calculating offsets
+        const timeoutId = setTimeout(() => {
+            const sections = document.querySelectorAll("section:not(#home)");
+
+            sections.forEach((section) => {
+                gsap.fromTo(section,
+                    {
+                        opacity: 0,
+                        y: 30,
+                    },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.8,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: section,
+                            start: "top 90%",
+                            toggleActions: "play none none none",
+                        }
                     }
-                }
-            );
-        });
+                );
+            });
+            ScrollTrigger.refresh();
+        }, 100);
 
         return () => {
+            clearTimeout(timeoutId);
             ScrollTrigger.getAll().forEach(t => t.kill());
         };
-    }, []);
+    }, [canInitialize]);
 };
-

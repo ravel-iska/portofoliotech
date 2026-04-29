@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import nextDynamic from "next/dynamic";
 import { useGsapScroll } from "@/hooks/useGsapScroll";
 import { projects, Project } from "@/data/projects";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const Hero = nextDynamic(() => import("@/components/sections/Hero"), { ssr: true });
 const About = nextDynamic(() => import("@/components/sections/About"), { ssr: true });
@@ -34,7 +33,8 @@ const NetworkTrafficMap = nextDynamic(() => import("@/components/ui/NetworkTraff
 import LazySection from "@/components/ui/LazySection";
 
 export default function PortfolioHome() {
-    const [flowState, setFlowState] = useState<'story' | 'earth' | 'unlocked'>('story');
+    // Correct Order: Earth Landing (Planet) -> Storytelling Mockup -> Unlocked (Main Portfolio)
+    const [flowState, setFlowState] = useState<'earth' | 'story' | 'unlocked'>('earth');
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [isAdminVisible, setIsAdminVisible] = useState(false);
 
@@ -47,72 +47,69 @@ export default function PortfolioHome() {
         return () => window.removeEventListener("hashchange", handleHashChange);
     }, []);
 
-    useEffect(() => {
-        if (flowState === 'unlocked') {
-            // Give the DOM a tiny amount of time to expand from min-h-screen
-            setTimeout(() => {
-                ScrollTrigger.refresh();
-            }, 100);
-        }
-    }, [flowState]);
-
-    useGsapScroll();
+    // Only apply GSAP animations to sections when unlocked and rendered!
+    useGsapScroll(flowState === 'unlocked');
 
     return (
-        <div className={`flex flex-col relative z-10 w-full bg-bg ${flowState !== 'unlocked' ? "h-screen overflow-hidden" : "min-h-screen overflow-hidden"}`}>
+        <div className={`flex flex-col relative w-full bg-bg min-h-screen overflow-hidden`}>
 
-            {/* Phase 1: Scroll-driven Storytelling */}
-            {flowState === 'story' && (
-                <div className="fixed inset-0 z-[999999] bg-[#0a0a0e] text-white">
-                    <IsometricTimeline onComplete={() => setFlowState('earth')} />
-                </div>
-            )}
-
-            {/* Phase 2: Earth Landing (Planet Animation Node) */}
+            {/* Phase 1: Earth Landing (Planet Animation Node) */}
             {flowState === 'earth' && (
-                <EarthLanding onUnlock={() => setFlowState('unlocked')} />
+                <EarthLanding onUnlock={() => setFlowState('story')} />
             )}
 
-            <MeshBackground />
-            <Hero />
-            <SponsorMarquee />
-            <InfiniteMarquee />
-
-            <div className="w-full relative z-10 bg-gradient-to-b from-transparent via-black/20 to-black/95">
-                <About />
-                <LazySection minHeight="300px">
-                    <LifeJourney />
-                </LazySection>
-                <LazySection minHeight="400px">
-                    <SkillTree3D />
-                </LazySection>
-                <ProfileSlide />
-                <Projects setSelectedProject={setSelectedProject} />
-                <ProjectSlider selectedProject={selectedProject} setSelectedProject={setSelectedProject} />
-                <MemoryGallery />
-
-                {/* Web3 / Trading / Crypto Group */}
-                <div id="innovation" className="relative overflow-hidden">
-                    <NetworkTrafficMap />
-                    <PremiumCryptoShowcase />
+            {/* Phase 2: Scroll-driven Storytelling */}
+            {flowState === 'story' && (
+                <div className="fixed inset-0 z-[999999] bg-[#050508] text-white">
+                    <IsometricTimeline onComplete={() => setFlowState('unlocked')} />
                 </div>
-                <div id="hft" className="relative overflow-hidden">
-                    <NetworkTrafficMap />
-                    <TechFlowChart />
+            )}
+
+            {/* Phase 3: The unlocked portfolio content */}
+            {flowState === 'unlocked' && (
+                <div className="relative w-full overflow-hidden min-h-screen">
+                    <MeshBackground />
+                    <Hero />
+                    <SponsorMarquee />
+                    <InfiniteMarquee />
+
+                    <div className="w-full relative z-10 bg-gradient-to-b from-transparent via-black/20 to-black/95">
+                        <About />
+                        <LazySection minHeight="300px">
+                            <LifeJourney />
+                        </LazySection>
+                        <LazySection minHeight="400px">
+                            <SkillTree3D />
+                        </LazySection>
+                        <ProfileSlide />
+                        <Projects setSelectedProject={setSelectedProject} />
+                        <ProjectSlider selectedProject={selectedProject} setSelectedProject={setSelectedProject} />
+                        <MemoryGallery />
+
+                        {/* Web3 / Trading / Crypto Group */}
+                        <div id="innovation" className="relative overflow-hidden">
+                            <NetworkTrafficMap />
+                            <PremiumCryptoShowcase />
+                        </div>
+                        <div id="hft" className="relative overflow-hidden">
+                            <NetworkTrafficMap />
+                            <TechFlowChart />
+                        </div>
+                        <TraderDashboard />
+                        <LazySection minHeight="300px">
+                            <Web3Vault />
+                        </LazySection>
+                        <HackerCV />
+                        <LazySection minHeight="400px">
+                            <SmartChat />
+                        </LazySection>
+                        <ContactSection />
+                        <Footer />
+                        <WelcomeRobot />
+                        <WeatherWidget />
+                    </div>
                 </div>
-                <TraderDashboard />
-                <LazySection minHeight="300px">
-                    <Web3Vault />
-                </LazySection>
-                <HackerCV />
-                <LazySection minHeight="400px">
-                    <SmartChat />
-                </LazySection>
-                <ContactSection />
-                <Footer />
-                <WelcomeRobot />
-                <WeatherWidget />
-            </div>
+            )}
         </div>
     );
 }
