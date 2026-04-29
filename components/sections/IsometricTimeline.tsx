@@ -19,7 +19,8 @@ export default function IsometricTimeline({ onComplete }: { onComplete?: () => v
         offset: ["start start", "end end"]
     });
 
-    const smoothScroll = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+    // Make the scroll significantly "heavier" and smoother
+    const smoothScroll = useSpring(scrollYProgress, { stiffness: 60, damping: 40, restDelta: 0.001 });
 
     // Scene 1: Start VISIBLE!
     const opacity1 = useTransform(smoothScroll, [0, 0.15, 0.2, 0.25], [1, 1, 1, 0]);
@@ -55,7 +56,7 @@ export default function IsometricTimeline({ onComplete }: { onComplete?: () => v
 
     return (
         <section className="relative w-full bg-[#030305] font-sans pointer-events-auto selection:bg-cyan-500/30">
-            <div ref={targetRef} className="relative w-full h-[400vh]">
+            <div ref={targetRef} className="relative w-full h-[800vh]">
                 <div className="sticky top-0 w-full h-screen overflow-hidden flex items-center justify-center">
 
                     {/* Dynamic Premium Background */}
