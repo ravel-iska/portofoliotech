@@ -45,7 +45,6 @@ export default function RootLayout({
         className={`${inter.variable} ${spaceGrotesk.variable} antialiased bg-bg text-text selection:bg-accent selection:text-bg`}
         suppressHydrationWarning
       >
-        <Script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.43/build/spline-viewer.js" strategy="lazyOnload" />
         <GlobalProvider>
           <LoadingAI />
           <RocketScroller />

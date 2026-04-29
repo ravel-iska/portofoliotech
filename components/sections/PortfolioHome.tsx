@@ -94,9 +94,6 @@ export default function PortfolioHome() {
                     <LazySection minHeight="300px">
                         <LifeJourney />
                     </LazySection>
-                    <LazySection minHeight="400px">
-                        <SkillTree3D />
-                    </LazySection>
                     <ProfileSlide />
                     <Projects setSelectedProject={setSelectedProject} />
                     <ProjectSlider selectedProject={selectedProject} setSelectedProject={setSelectedProject} />

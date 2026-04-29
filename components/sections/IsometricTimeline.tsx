@@ -148,13 +148,13 @@ export default function IsometricTimeline({ onComplete }: { onComplete?: () => v
                                 rotateX: { type: "spring", stiffness: 50, damping: 20 },
                                 scale: { type: "spring", stiffness: 50, damping: 20 }
                             }}
-                            className="absolute pointer-events-auto z-20 group cursor-pointer"
+                            className="absolute pointer-events-auto z-20 group cursor-pointer will-change-transform"
                             onClick={handleInitializeClick}
                         >
-                            <div className={`relative w-[280px] h-[580px] md:w-[350px] md:h-[720px] rounded-[3.5rem] p-3 md:p-4 bg-gradient-to-b border-[0.5px] border-white/20 shadow-[0_0_100px_rgba(6,182,212,0.15),_inset_0_0_20px_rgba(255,255,255,0.05)] backdrop-blur-2xl transition-all duration-700 ${systemBooting ? 'from-cyan-900/30 to-purple-900/10 scale-105 shadow-[0_0_150px_rgba(34,211,238,0.4)]' : 'from-white/10 to-white/5 hover:scale-105'}`}>
+                            <div className={`relative w-[85vw] max-w-[350px] h-[75vh] md:h-[720px] rounded-[2.5rem] md:rounded-[3.5rem] p-3 md:p-4 bg-gradient-to-b border-[0.5px] border-white/20 shadow-[0_0_100px_rgba(6,182,212,0.15),_inset_0_0_20px_rgba(255,255,255,0.05)] backdrop-blur-2xl transition-all duration-700 ${systemBooting ? 'from-cyan-900/30 to-purple-900/10 scale-[1.02] shadow-[0_0_150px_rgba(34,211,238,0.4)]' : 'from-white/10 to-white/5 hover:scale-105'}`}>
 
                                 {/* Inner Screen */}
-                                <div className="w-full h-full rounded-[2.8rem] bg-[#030305] overflow-hidden relative shadow-[inset_0_4px_20px_rgba(0,0,0,0.8)] border border-white/5">
+                                <div className="w-full h-full rounded-[2rem] md:rounded-[2.8rem] bg-[#030305] overflow-hidden relative shadow-[inset_0_4px_20px_rgba(0,0,0,0.8)] border border-white/5">
 
                                     {/* OS Status Bar */}
                                     <div className="absolute top-0 w-full h-8 flex justify-center items-center z-50 px-6 pt-2">

@@ -65,11 +65,11 @@ export default function Hero() {
                     <span className="block"><TextReveal text="Priambudi, S.Kom." delay={0.5} /></span>
                 </motion.h1>
 
-                <p className="text-center text-sm md:text-2xl text-blue-100/70 font-sans max-w-2xl md:max-w-3xl mb-10 md:mb-16 font-light tracking-wide leading-relaxed hero-fade-in opacity-0">
+                <p className="text-center text-sm md:text-2xl text-blue-100/70 font-sans max-w-2xl md:max-w-3xl mb-10 md:mb-16 font-light tracking-wide leading-relaxed hero-fade-in opacity-0 will-change-transform will-change-opacity">
                     <strong className="text-white font-medium">{t("hero.role")}</strong> {t("hero.desc")}
                 </p>
 
-                <div className="hero-fade-in opacity-0 flex flex-wrap justify-center items-center gap-4 w-full">
+                <div className="hero-fade-in opacity-0 flex flex-wrap justify-center items-center gap-4 w-full will-change-transform will-change-opacity">
                     <MagneticButton
                         onClick={handleExplore}
                         className="text-base md:text-lg px-8 md:px-10 py-4 md:py-5 cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-300 border border-white/20 bg-white/5"

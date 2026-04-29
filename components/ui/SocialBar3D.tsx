@@ -40,7 +40,7 @@ export default function SocialBar3D() {
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1.2, delay: 2, ease: "easeOut" }}
-            className="fixed right-6 top-1/2 -translate-y-1/2 z-[100] flex flex-col gap-3"
+            className="hidden md:flex fixed right-6 top-1/2 -translate-y-1/2 z-[100] flex-col gap-3"
         >
             {socials.map(({ svg, href, label, id }, i) => (
                 <motion.a

@@ -41,10 +41,11 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
             ref={lenisRef}
             autoRaf={false}
             options={{
-                lerp: 0.08,
+                lerp: 0.1,
                 duration: 1.5,
                 smoothWheel: true,
-                wheelMultiplier: 1.2
+                wheelMultiplier: 0.8,
+                syncTouch: true // Bypasses physics simulation on mobile to vastly improve Android/iOS framerates
             }}
         >
             {children as any}

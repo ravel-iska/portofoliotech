@@ -9,7 +9,7 @@ import { Layers, MousePointer2 } from "lucide-react";
 export default function SkillTree3D() {
     const { t } = useGlobal();
     const containerRef = useRef<HTMLDivElement>(null);
-    const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+    const isInView = useInView(containerRef, { margin: "200px" });
 
     return (
         <section ref={containerRef} className="relative min-h-[50vh] w-full bg-[#141825] flex flex-col items-center justify-center overflow-hidden border-t border-white/5 py-8">
@@ -57,7 +57,15 @@ export default function SkillTree3D() {
                 transition={{ duration: 1.2, ease: "easeOut" }}
                 className="w-full h-[400px] md:h-[450px] cursor-grab active:cursor-grabbing relative z-0 mt-4"
             >
-                <Canvas camera={{ position: [0, 0, 8], fov: 60 }}>
+                {/* 
+                  * PERFORMANCE FIX: frameloop="demand" when out of view 
+                  * Kills the heavy 60fps render cycle when user scrolls away 
+                  */}
+                <Canvas
+                    camera={{ position: [0, 0, 8], fov: 60 }}
+                    frameloop={isInView ? "always" : "demand"}
+                    dpr={[1, 1.5]}
+                >
                     <color attach="background" args={["#02050a"]} />
                     <fog attach="fog" args={["#02050a", 5, 20]} />
 
