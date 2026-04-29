@@ -49,14 +49,14 @@ export default function ProjectSlider({ selectedProject, setSelectedProject }: P
                             key={`${project.id}-${idx}`}
                             onClick={() => setSelectedProject(project)}
                             whileHover={{ y: -10, scale: 1.02 }}
-                            className="relative w-[200px] md:w-[450px] aspect-[4/5] shrink-0 rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden glass-card border border-white/5 cursor-pointer shadow-3xl group"
+                            className="relative w-[80vw] max-w-[320px] md:max-w-none md:w-[450px] aspect-[4/5] shrink-0 rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden glass-card border border-white/5 cursor-pointer shadow-3xl group"
                         >
                             <img
                                 src={project.image}
                                 alt={project.title}
                                 className="w-full h-full object-cover opacity-60 group-hover:opacity-90 transition-all duration-700 group-hover:scale-105"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent p-4 md:p-10 flex flex-col justify-end">
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent p-6 md:p-10 flex flex-col justify-end">
                                 <span className="text-accent font-mono text-[8px] md:text-[9px] tracking-widest uppercase mb-2 md:mb-4">{project.category}</span>
                                 <h3 className="text-base md:text-3xl font-display font-bold text-white tracking-tight leading-none">{t(`project.${project.id}.title`)}</h3>
                             </div>

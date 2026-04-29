@@ -9,37 +9,37 @@ const profileData = [
     {
         title: "Fullstack Architecture",
         description: "Designing scalable cloud-native microservices using Go, Node.js, and Docker.",
-        icon: <TerminalSquare size={32} className="text-accent" />,
+        icon: <TerminalSquare className="w-6 h-6 md:w-8 md:h-8 text-accent" />,
         highlight: "Backend"
     },
     {
         title: "Frontend Engineering",
         description: "Crafting hyper-optimized web interfaces with React, Next.js, and Turbopack.",
-        icon: <Code2 size={32} className="text-blue-400" />,
+        icon: <Code2 className="w-6 h-6 md:w-8 md:h-8 text-blue-400" />,
         highlight: "React"
     },
     {
         title: "Data Analytics",
         description: "Transforming complex datasets into actionable insights using Python and Data Pipelines.",
-        icon: <Database size={32} className="text-emerald-400" />,
+        icon: <Database className="w-6 h-6 md:w-8 md:h-8 text-emerald-400" />,
         highlight: "Analyst"
     },
     {
         title: "Algorithmic Trading",
         description: "Quantitative analysis and market execution strategies across Crypto and Forex markets.",
-        icon: <LineChart size={32} className="text-amber-400" />,
+        icon: <LineChart className="w-6 h-6 md:w-8 md:h-8 text-amber-400" />,
         highlight: "Trader"
     },
     {
         title: "Interaction Design",
         description: "Implementing complex GSAP & Anime.js animations for luxurious user experiences.",
-        icon: <Palette size={32} className="text-purple-400" />,
+        icon: <Palette className="w-6 h-6 md:w-8 md:h-8 text-purple-400" />,
         highlight: "UI/UX"
     },
     {
         title: "Mobile Development",
         description: "Building cross-platform native experiences using React Native.",
-        icon: <MonitorPlay size={32} className="text-teal-400" />,
+        icon: <MonitorPlay className="w-6 h-6 md:w-8 md:h-8 text-teal-400" />,
         highlight: "Native"
     }
 ];
@@ -97,7 +97,7 @@ export default function ProfileSlide() {
                             <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-50 pointer-events-none" />
 
                             <div className="relative z-10 pointer-events-none">
-                                <div className="w-16 h-16 rounded-2xl glass border border-white/20 flex items-center justify-center mb-8 shadow-xl group-hover:scale-110 transition-transform duration-500">
+                                <div className="w-12 h-12 md:w-16 md:h-16 rounded-2xl glass border border-white/20 flex items-center justify-center mb-6 md:mb-8 shadow-xl group-hover:scale-110 transition-transform duration-500">
                                     {data.icon}
                                 </div>
 

@@ -54,7 +54,7 @@ export default function WelcomeRobot() {
                     </motion.div>
 
                     {/* 3D Glass Robot / Avatar */}
-                    <div className="w-16 h-16 relative cursor-pointer group pointer-events-auto shrink-0"
+                    <div className="w-12 h-12 md:w-16 md:h-16 relative cursor-pointer group pointer-events-auto shrink-0"
                         style={{ perspective: "1000px" }}>
 
                         {/* The Floating 3D Cube Core */}

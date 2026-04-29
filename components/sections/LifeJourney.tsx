@@ -113,12 +113,12 @@ export default function LifeJourney() {
                                 }}
                                 whileHover={{ scale: 1.05, rotateY: 10 }}
                                 whileTap={{ scale: 0.95 }}
-                                className={`relative w-[200px] h-[200px] md:w-[280px] md:h-[280px] rounded-[2rem] md:rounded-[3rem] shadow-[0_0_20px_rgba(255,255,255,0.05)] bg-gradient-to-br from-white/[0.08] to-white/[0.02] border-2 border-white/20 flex items-center justify-center group overflow-hidden z-[100] cursor-pointer transition-all duration-300 ${selectedCard === node.id ? 'ring-2 md:ring-4 ring-blue-500/50 scale-105' : ''}`}
+                                className={`relative w-[65vw] max-w-[260px] aspect-square md:w-[280px] md:h-[280px] rounded-[2rem] md:rounded-[3rem] shadow-[0_0_20px_rgba(255,255,255,0.05)] bg-gradient-to-br from-white/[0.08] to-white/[0.02] border-2 border-white/20 flex items-center justify-center group overflow-hidden z-[100] cursor-pointer transition-all duration-300 ${selectedCard === node.id ? 'ring-2 md:ring-4 ring-blue-500/50 scale-105' : ''}`}
                             >
                                 {/* Inner Glass reflection */}
                                 <div className="absolute inset-4 rounded-[3.5rem] border border-white/[0.05] pointer-events-none" />
 
-                                <div className="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center opacity-90 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] group-hover:scale-110 group-hover:opacity-100 transition-all duration-500 text-white">
+                                <div className="w-8 h-8 md:w-14 md:h-14 flex items-center justify-center opacity-90 drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] group-hover:scale-110 group-hover:opacity-100 transition-all duration-500 text-white">
                                     <node.IconComponent className="w-full h-full" strokeWidth={1.5} />
                                 </div>
 

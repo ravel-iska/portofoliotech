@@ -10,7 +10,6 @@ const Hero = nextDynamic(() => import("@/components/sections/Hero"), { ssr: true
 const About = nextDynamic(() => import("@/components/sections/About"), { ssr: true });
 const InfiniteMarquee = nextDynamic(() => import("@/components/ui/InfiniteMarquee"), { ssr: true });
 const PremiumCryptoShowcase = nextDynamic(() => import("@/components/sections/PremiumCryptoShowcase"), { ssr: false });
-const QuantumArbitrageVisualizer = null; // DELETED
 const TraderDashboard = nextDynamic(() => import("@/components/sections/TraderDashboard"), { ssr: false });
 const LifeJourney = nextDynamic(() => import("@/components/sections/LifeJourney"), { ssr: false });
 const IsometricTimeline = nextDynamic(() => import("@/components/sections/IsometricTimeline"), { ssr: false });
@@ -18,7 +17,6 @@ const ProfileSlide = nextDynamic(() => import("@/components/sections/ProfileSlid
 const Projects = nextDynamic(() => import("@/components/sections/Projects"), { ssr: false });
 const ProjectSlider = nextDynamic(() => import("@/components/sections/ProjectSlider"), { ssr: false });
 const HackerCV = nextDynamic(() => import("@/components/sections/HackerCV"), { ssr: false });
-const SkillTree3D = nextDynamic(() => import("@/components/sections/SkillTree3D"), { ssr: false });
 const TechFlowChart = nextDynamic(() => import("@/components/sections/TechFlowChart"), { ssr: false });
 const Web3Vault = nextDynamic(() => import("@/components/sections/Web3Vault"), { ssr: false });
 const SmartChat = nextDynamic(() => import("@/components/sections/SmartChat"), { ssr: false });
