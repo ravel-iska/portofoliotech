@@ -4,7 +4,6 @@ import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 export default function IsometricTimeline({ onComplete }: { onComplete?: () => void }) {
-    const containerRef = useRef<HTMLDivElement>(null);
     const targetRef = useRef<HTMLDivElement>(null);
     const [isMobile, setIsMobile] = useState(false);
 
@@ -17,7 +16,6 @@ export default function IsometricTimeline({ onComplete }: { onComplete?: () => v
 
     const { scrollYProgress } = useScroll({
         target: targetRef,
-        container: containerRef,
         offset: ["start start", "end end"]
     });
 
@@ -51,7 +49,7 @@ export default function IsometricTimeline({ onComplete }: { onComplete?: () => v
     const textTranslateY = useTransform(smoothScroll, [0.6, 0.8], ["0%", isMobile ? "-30%" : "0%"]);
 
     return (
-        <section ref={containerRef} className="relative w-full h-screen overflow-y-auto overflow-x-hidden bg-[#050508] font-sans pointer-events-auto">
+        <section className="relative w-full bg-[#0a0a0e] font-sans pointer-events-auto">
             <div ref={targetRef} className="relative w-full h-[400vh]">
                 <div className="sticky top-0 w-full h-screen overflow-hidden flex items-center justify-center">
 

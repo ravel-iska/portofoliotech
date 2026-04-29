@@ -51,7 +51,7 @@ export default function PortfolioHome() {
     useGsapScroll(flowState === 'unlocked');
 
     return (
-        <div className={`flex flex-col relative w-full bg-bg min-h-screen overflow-hidden`}>
+        <div className={`flex flex-col relative w-full bg-bg min-h-screen overflow-x-hidden`}>
 
             {/* Phase 1: Earth Landing (Planet Animation Node) */}
             {flowState === 'earth' && (
@@ -60,14 +60,14 @@ export default function PortfolioHome() {
 
             {/* Phase 2: Scroll-driven Storytelling */}
             {flowState === 'story' && (
-                <div className="fixed inset-0 z-[999999] bg-[#050508] text-white">
+                <div className="w-full bg-[#050508] text-white">
                     <IsometricTimeline onComplete={() => setFlowState('unlocked')} />
                 </div>
             )}
 
             {/* Phase 3: The unlocked portfolio content */}
             {flowState === 'unlocked' && (
-                <div className="relative w-full overflow-hidden min-h-screen">
+                <div className="relative w-full overflow-x-hidden min-h-screen">
                     <MeshBackground />
                     <Hero />
                     <SponsorMarquee />
