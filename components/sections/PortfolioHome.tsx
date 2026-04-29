@@ -39,8 +39,10 @@ export default function PortfolioHome() {
     const [flowState, setFlowState] = useState<'story' | 'unlocked'>('story');
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [isAdminVisible, setIsAdminVisible] = useState(false);
+    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
+        setMounted(true);
         const handleHashChange = () => {
             setIsAdminVisible(window.location.hash === "#admin");
         };
@@ -73,8 +75,8 @@ export default function PortfolioHome() {
         <div className={`flex flex-col relative w-full bg-bg min-h-screen`}>
 
             {/* Phase 1: Scroll-driven Storytelling (Isolated via Portal) */}
-            {flowState === 'story' && typeof document !== 'undefined' && createPortal(
-                <div className="fixed inset-0 z-[999999] bg-[#050508] text-white">
+            {mounted && flowState === 'story' && typeof document !== 'undefined' && createPortal(
+                <div className="fixed inset-0 z-[999999] bg-[#030305] text-white overflow-y-auto overflow-x-hidden scroll-smooth">
                     <IsometricTimeline onComplete={() => setFlowState('unlocked')} />
                 </div>,
                 document.body
