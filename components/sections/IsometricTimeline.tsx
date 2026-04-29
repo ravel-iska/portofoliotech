@@ -1,24 +1,58 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function IsometricTimeline({ onComplete }: { onComplete?: () => void }) {
     const [step, setStep] = useState(0);
+    const [systemBooting, setSystemBooting] = useState(false);
+    const [bootLogs, setBootLogs] = useState<string[]>([]);
 
-    // Auto-advance sequence: 0 -> 1 -> 2 -> 3 (Phone + Button Reveal)
+    const logsSequence = [
+        "SYSTEM::INITIALIZING...",
+        "DATABASE::CONNECTION_ESTABLISHED [PostgreSQL]",
+        "SECURITY::ENCRYPTION_ACTIVE (Aes-256)",
+        "NETWORK::QUANTUM_ROUTING_NOMINAL",
+        "STATUS::ALL_SYSTEMS_GREEN",
+        "[ ACCESS GRANTED ]"
+    ];
+
+    // Auto-advance sequence: 0 -> 1 -> 2 -> 3 (Phone Reveal)
     useEffect(() => {
         if (step === 0) {
-            const timer = setTimeout(() => setStep(1), 2500); // Wait 2.5s then go to step 1
+            const timer = setTimeout(() => setStep(1), 2500);
             return () => clearTimeout(timer);
         } else if (step === 1) {
-            const timer = setTimeout(() => setStep(2), 2500); // Wait 2.5s then go to step 2
+            const timer = setTimeout(() => setStep(2), 2500);
             return () => clearTimeout(timer);
         } else if (step === 2) {
-            const timer = setTimeout(() => setStep(3), 2500); // Wait 2.5s then go to step 3
+            const timer = setTimeout(() => setStep(3), 2500);
             return () => clearTimeout(timer);
         }
     }, [step]);
+
+    // Handle interactive terminal booting sequence
+    useEffect(() => {
+        if (systemBooting && bootLogs.length < logsSequence.length) {
+            const timer = setTimeout(() => {
+                setBootLogs(prev => [...prev, logsSequence[prev.length]]);
+            }, prev => prev.length === logsSequence.length - 1 ? 800 : 400); // Wait longer for ACCESS GRANTED
+            return () => clearTimeout(timer);
+        } else if (systemBooting && bootLogs.length === logsSequence.length) {
+            // Once all logs are shown, unlock application!
+            const finalTimer = setTimeout(() => {
+                if (onComplete) onComplete();
+            }, 1500);
+            return () => clearTimeout(finalTimer);
+        }
+    }, [systemBooting, bootLogs]);
+
+    const handleInitializeClick = () => {
+        if (!systemBooting) {
+            setSystemBooting(true);
+            setBootLogs([]);
+        }
+    };
 
     return (
         <section className="relative w-full h-screen bg-[#030305] font-sans overflow-hidden flex flex-col items-center justify-center selection:bg-cyan-500/30">
@@ -37,7 +71,7 @@ export default function IsometricTimeline({ onComplete }: { onComplete?: () => v
             <div className="relative z-10 w-full h-full flex flex-col items-center justify-center">
 
                 {/* AUTO-PLAY TEXT SEQUENCE */}
-                <div className={`absolute flex flex-col items-center justify-center text-center px-4 w-full transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 3 ? '-translate-y-[35vh] md:-translate-y-[30vh]' : 'translate-y-0'}`}>
+                <div className={`absolute flex flex-col items-center justify-center text-center px-4 w-full transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 3 ? '-translate-y-[28vh] md:-translate-y-[32vh]' : 'translate-y-0'}`}>
                     <AnimatePresence mode="wait">
                         {step === 0 && (
                             <motion.div
@@ -78,26 +112,23 @@ export default function IsometricTimeline({ onComplete }: { onComplete?: () => v
                                 initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
                                 animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                                 transition={{ duration: 1, ease: "easeOut" }}
-                                className="flex flex-col items-center"
+                                className="flex flex-col items-center z-50 pointer-events-none"
                             >
-                                <h2 className="text-3xl md:text-6xl lg:text-8xl font-display font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40 tracking-tighter mb-8 text-balance leading-tight drop-shadow-2xl">
+                                <h2 className="text-3xl md:text-6xl lg:text-8xl font-display font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40 tracking-tighter mb-4 text-balance leading-tight drop-shadow-2xl">
                                     The Future,<br />
                                     In Your Hands.
                                 </h2>
-
+                                {/* Replaced External Button with Instruction Text */}
                                 <AnimatePresence>
-                                    {step >= 3 && (
-                                        <motion.button
-                                            initial={{ opacity: 0, scale: 0.9 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            transition={{ duration: 0.5, delay: 0.3 }}
-                                            onClick={() => onComplete && onComplete()}
-                                            whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,1)", color: "#000" }}
-                                            whileTap={{ scale: 0.95 }}
-                                            className="px-6 py-3 md:px-8 md:py-4 bg-white/10 border border-white/20 rounded-full text-white font-semibold tracking-wide hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] transition-all backdrop-blur-xl cursor-pointer pointer-events-auto"
+                                    {step >= 3 && !systemBooting && (
+                                        <motion.p
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            className="text-cyan-400/80 font-mono text-sm tracking-widest animate-pulse mt-2"
                                         >
-                                            Lanjutkan Ke Porto
-                                        </motion.button>
+                                            [TAP DEVICE TO INITIALIZE]
+                                        </motion.p>
                                     )}
                                 </AnimatePresence>
                             </motion.div>
@@ -105,81 +136,109 @@ export default function IsometricTimeline({ onComplete }: { onComplete?: () => v
                     </AnimatePresence>
                 </div>
 
-                {/* EPIC CENTERED PHONE MOCKUP */}
+                {/* EPIC CENTERED PHONE MOCKUP WITH CONTINUOUS LEVITATION */}
                 <AnimatePresence>
                     {step >= 3 && (
                         <motion.div
                             initial={{ y: "100vh", opacity: 0, rotateX: 45, scale: 0.8 }}
-                            animate={{ y: "15vh", opacity: 1, rotateX: 0, scale: 1 }}
-                            transition={{ type: "spring", stiffness: 50, damping: 20, duration: 2 }}
-                            className="absolute pointer-events-auto z-20 group"
+                            animate={{ y: ["15vh", "12vh", "15vh"], opacity: 1, rotateX: 0, scale: 1 }}
+                            transition={{
+                                y: { repeat: Infinity, duration: 4, ease: "easeInOut" },
+                                opacity: { duration: 1 },
+                                rotateX: { type: "spring", stiffness: 50, damping: 20 },
+                                scale: { type: "spring", stiffness: 50, damping: 20 }
+                            }}
+                            className="absolute pointer-events-auto z-20 group cursor-pointer"
+                            onClick={handleInitializeClick}
                         >
-                            <div className="relative w-[280px] h-[580px] md:w-[350px] md:h-[720px] rounded-[3.5rem] p-3 md:p-4 bg-gradient-to-b from-white/10 to-white/5 border-[0.5px] border-white/20 shadow-[0_0_100px_rgba(6,182,212,0.15),_inset_0_0_20px_rgba(255,255,255,0.05)] backdrop-blur-2xl">
+                            <div className={`relative w-[280px] h-[580px] md:w-[350px] md:h-[720px] rounded-[3.5rem] p-3 md:p-4 bg-gradient-to-b border-[0.5px] border-white/20 shadow-[0_0_100px_rgba(6,182,212,0.15),_inset_0_0_20px_rgba(255,255,255,0.05)] backdrop-blur-2xl transition-all duration-700 ${systemBooting ? 'from-cyan-900/30 to-purple-900/10 scale-105 shadow-[0_0_150px_rgba(34,211,238,0.4)]' : 'from-white/10 to-white/5 hover:scale-105'}`}>
 
                                 {/* Inner Screen */}
-                                <div className="w-full h-full rounded-[2.8rem] bg-black overflow-hidden relative shadow-[inset_0_4px_20px_rgba(0,0,0,0.5)]">
+                                <div className="w-full h-full rounded-[2.8rem] bg-[#030305] overflow-hidden relative shadow-[inset_0_4px_20px_rgba(0,0,0,0.8)] border border-white/5">
 
                                     {/* OS Status Bar */}
                                     <div className="absolute top-0 w-full h-8 flex justify-center items-center z-50 px-6 pt-2">
-                                        <div className="w-32 h-7 bg-black rounded-full shadow-md" /> {/* Dynamic Island replica */}
+                                        <div className="w-24 h-6 bg-black rounded-full shadow-md" />
                                     </div>
 
-                                    {/* Ultra Premium Screen Content */}
-                                    <div className="absolute inset-0 bg-[#030305] flex flex-col">
+                                    {/* Screen States */}
+                                    <AnimatePresence mode="wait">
+                                        {!systemBooting ? (
+                                            /* DEFAULT IDLE STATE (Glass Panels) */
+                                            <motion.div
+                                                key="idle-state"
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                exit={{ opacity: 0, scale: 1.2, filter: "blur(10px)" }}
+                                                className="absolute inset-0 flex flex-col"
+                                            >
+                                                {/* Ambient Background Signals */}
+                                                <div className="absolute inset-0 bg-gradient-to-b from-cyan-900/20 to-purple-900/20" />
 
-                                        {/* Abstract UI Map */}
-                                        <div className="absolute inset-0 z-0">
-                                            <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-cyan-900/40 to-transparent" />
-                                            <div className="absolute bottom-0 right-0 w-full h-1/2 bg-gradient-to-t from-purple-900/30 to-transparent" />
-
-                                            {/* Glowing Core */}
-                                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 border-[0.5px] border-cyan-500/20 rounded-full flex items-center justify-center">
-                                                <div className="w-32 h-32 border-[0.5px] border-purple-500/30 rounded-full flex items-center justify-center">
+                                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center flex-col gap-6">
                                                     <motion.div
-                                                        animate={{ rotate: 360 }}
-                                                        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                                                        className="w-full h-full rounded-full border-t border-cyan-400 opacity-50"
+                                                        animate={{ rotate: 360, scale: [1, 1.1, 1] }}
+                                                        transition={{ rotate: { duration: 10, repeat: Infinity, ease: "linear" }, scale: { duration: 2, repeat: Infinity, ease: "easeInOut" } }}
+                                                        className="w-24 h-24 rounded-full border-t-2 border-cyan-400 flex items-center justify-center relative shadow-[0_0_30px_#22d3ee]"
+                                                    >
+                                                        <div className="w-16 h-16 bg-cyan-500/20 rounded-full blur-md" />
+                                                        <div className="absolute w-2 h-2 bg-white rounded-full" />
+                                                    </motion.div>
+                                                    <div className="px-6 py-2 rounded-full border border-cyan-500/50 bg-cyan-500/10 text-cyan-300 font-mono text-xs tracking-widest backdrop-blur-md">
+                                                        SYSTEM STANDBY
+                                                    </div>
+                                                </div>
+
+                                                <div className="relative z-10 flex-1 flex flex-col justify-end p-6 gap-4 pb-12 opacity-60">
+                                                    <div className="w-full h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center px-4 overflow-hidden relative">
+                                                        <motion.div
+                                                            animate={{ x: ["-100%", "200%"] }}
+                                                            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                                                            className="absolute top-0 bottom-0 w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12"
+                                                        />
+                                                    </div>
+                                                    <div className="w-3/4 h-16 rounded-2xl bg-white/5 border border-white/10 ml-auto flex items-center px-4" />
+                                                </div>
+                                            </motion.div>
+                                        ) : (
+                                            /* ACTIVATE TERMINAL BOOT SEQUENCE */
+                                            <motion.div
+                                                key="boot-state"
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                className="absolute inset-0 bg-[#000000] p-6 pt-16 font-mono text-[10px] md:text-sm text-cyan-500 flex flex-col gap-2"
+                                            >
+                                                {/* Matrix scanline effect purely CSS driven */}
+                                                <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] z-50 pointer-events-none opacity-50" />
+
+                                                <div className="flex items-center gap-2 mb-4 text-white">
+                                                    <div className="w-2 h-4 bg-cyan-500 animate-pulse" />
+                                                    <span>TERMINAL_ROOT_ACCESS</span>
+                                                </div>
+
+                                                {bootLogs.map((log, i) => (
+                                                    <motion.div
+                                                        key={`log-${i}`}
+                                                        initial={{ opacity: 0, x: -10 }}
+                                                        animate={{ opacity: 1, x: 0 }}
+                                                        className={`font-semibold tracking-wider flex gap-2 ${log.includes("GRANTED") ? "text-green-400 text-lg mt-4" : ""}`}
+                                                    >
+                                                        <span className="opacity-50">{`0x0${i + 1}A`}</span>
+                                                        <span>{log}</span>
+                                                    </motion.div>
+                                                ))}
+
+                                                {/* Blinking Cursor if waiting */}
+                                                {bootLogs.length < logsSequence.length && (
+                                                    <motion.div
+                                                        animate={{ opacity: [1, 0, 1] }}
+                                                        transition={{ duration: 0.8, repeat: Infinity }}
+                                                        className="w-3 h-4 bg-cyan-500 mt-2"
                                                     />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {/* Glass Panels */}
-                                        <div className="relative z-10 flex-1 flex flex-col justify-end p-6 gap-4 pb-12">
-
-                                            <motion.div
-                                                initial={{ x: -20, opacity: 0 }}
-                                                animate={{ x: 0, opacity: 1 }}
-                                                transition={{ delay: 0.8 }} // delayed until phone is visible
-                                                className="w-3/4 p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md"
-                                            >
-                                                <div className="w-8 h-8 rounded-full bg-cyan-500/20 mb-3 flex items-center justify-center">
-                                                    <div className="w-3 h-3 bg-cyan-400 rounded-full shadow-[0_0_10px_#22d3ee]" />
-                                                </div>
-                                                <div className="h-2 w-full bg-white/10 rounded-full mb-2">
-                                                    <div className="h-full w-2/3 bg-cyan-400 rounded-full" />
-                                                </div>
-                                                <div className="h-2 w-1/2 bg-white/10 rounded-full" />
+                                                )}
                                             </motion.div>
-
-                                            <motion.div
-                                                initial={{ x: 20, opacity: 0 }}
-                                                animate={{ x: 0, opacity: 1 }}
-                                                transition={{ delay: 1 }}
-                                                className="w-5/6 self-end p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md"
-                                            >
-                                                <div className="w-8 h-8 rounded-full bg-purple-500/20 mb-3 flex items-center justify-center">
-                                                    <div className="w-3 h-3 bg-purple-400 rounded-full shadow-[0_0_10px_#c084fc]" />
-                                                </div>
-                                                <div className="h-2 w-full bg-white/10 rounded-full mb-2">
-                                                    <div className="h-full w-full bg-purple-400 rounded-full" />
-                                                </div>
-                                                <div className="h-2 w-3/4 bg-white/10 rounded-full" />
-                                            </motion.div>
-
-                                        </div>
-                                    </div>
-
+                                        )}
+                                    </AnimatePresence>
                                 </div>
                             </div>
                         </motion.div>
