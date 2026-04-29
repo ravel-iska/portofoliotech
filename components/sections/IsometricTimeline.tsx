@@ -23,21 +23,24 @@ export default function IsometricTimeline({ onComplete }: { onComplete?: () => v
 
     const smoothScroll = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
-    // Scene 1
-    const opacity1 = useTransform(smoothScroll, [0, 0.15, 0.25, 0.3], [0, 1, 1, 0]);
-    const y1 = useTransform(smoothScroll, [0, 0.15, 0.25, 0.3], [50, 0, 0, -50]);
+    // Scene 1: Start VISIBLE!
+    const opacity1 = useTransform(smoothScroll, [0, 0.15, 0.25, 0.35], [1, 1, 1, 0]);
+    const y1 = useTransform(smoothScroll, [0, 0.15, 0.25, 0.35], [0, 0, -50, -100]);
 
     // Scene 2
-    const opacity2 = useTransform(smoothScroll, [0.3, 0.45, 0.55, 0.6], [0, 1, 1, 0]);
-    const y2 = useTransform(smoothScroll, [0.3, 0.45, 0.55, 0.6], [50, 0, 0, -50]);
+    const opacity2 = useTransform(smoothScroll, [0.3, 0.45, 0.55, 0.65], [0, 1, 1, 0]);
+    const y2 = useTransform(smoothScroll, [0.3, 0.45, 0.55, 0.65], [50, 0, 0, -50]);
 
     // Scene 3
     const opacity3 = useTransform(smoothScroll, [0.6, 0.75, 1], [0, 1, 1]);
     const y3 = useTransform(smoothScroll, [0.6, 0.75, 1], [50, 0, 0]);
 
+    // Scroll Down Hint
+    const scrollHintOpacity = useTransform(smoothScroll, [0, 0.05], [1, 0]);
+
     // Phone Animation
     const phoneScale = useTransform(smoothScroll, [0.4, 0.8], [isMobile ? 0.6 : 0.8, isMobile ? 0.85 : 1]);
-    const phoneY = useTransform(smoothScroll, [0.4, 0.8], [isMobile ? 100 : 200, 0]);
+    const phoneY = useTransform(smoothScroll, [0.4, 0.8], [isMobile ? 200 : 300, 0]);
     const phoneOpacity = useTransform(smoothScroll, [0.4, 0.6], [0, 1]);
 
     // 3D reveal rotate effect
@@ -48,20 +51,29 @@ export default function IsometricTimeline({ onComplete }: { onComplete?: () => v
     const textTranslateY = useTransform(smoothScroll, [0.6, 0.8], ["0%", isMobile ? "-30%" : "0%"]);
 
     return (
-        <section ref={containerRef} className="relative w-full h-screen overflow-y-auto bg-[#0a0a0e] font-sans pointer-events-auto">
+        <section ref={containerRef} className="relative w-full h-screen overflow-y-auto overflow-x-hidden bg-[#050508] font-sans pointer-events-auto">
             <div ref={targetRef} className="relative w-full h-[400vh]">
                 <div className="sticky top-0 w-full h-screen overflow-hidden flex items-center justify-center">
 
                     <motion.div
                         className="absolute inset-0 opacity-20 pointer-events-none z-0"
                         style={{
-                            opacity: useTransform(smoothScroll, [0.5, 0.8], [0.05, 0.2]),
+                            opacity: useTransform(smoothScroll, [0, 0.8], [0.05, 0.2]),
                             backgroundImage: `linear-gradient(rgba(56, 189, 248, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(56, 189, 248, 0.1) 1px, transparent 1px)`,
                             backgroundSize: '80px 80px',
                             transform: 'perspective(1000px) rotateX(45deg)',
                             transformOrigin: 'top'
                         }}
                     />
+
+                    {/* Infinite Scroll Hint */}
+                    <motion.div
+                        style={{ opacity: scrollHintOpacity }}
+                        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none z-50 animate-bounce"
+                    >
+                        <span className="text-white/40 text-xs tracking-widest font-mono uppercase">Scroll to begin</span>
+                        <div className="w-[1px] h-8 bg-gradient-to-b from-white/40 to-transparent" />
+                    </motion.div>
 
                     <div className="relative z-10 w-full max-w-7xl px-6 mx-auto flex flex-col md:flex-row items-center justify-center h-full">
 
@@ -75,7 +87,7 @@ export default function IsometricTimeline({ onComplete }: { onComplete?: () => v
                                 <h2 className="text-3xl md:text-6xl font-display font-black text-white tracking-tighter mb-4 px-4 text-balance shadow-black/50 drop-shadow-lg">
                                     The future isn't something we wait for...
                                 </h2>
-                                <p className="text-orange-400 font-mono tracking-widest text-xs md:text-sm uppercase">Phase One</p>
+                                <p className="text-orange-400 font-mono tracking-widest text-xs md:text-sm uppercase shadow-black/80 drop-shadow-md">Phase One</p>
                             </motion.div>
 
                             <motion.div
@@ -86,7 +98,7 @@ export default function IsometricTimeline({ onComplete }: { onComplete?: () => v
                                     It is something we build <br className="hidden md:block" />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-rose-500">today.</span>
                                 </h2>
-                                <p className="text-rose-400 font-mono tracking-widest text-xs md:text-sm uppercase">Phase Two</p>
+                                <p className="text-rose-400 font-mono tracking-widest text-xs md:text-sm uppercase shadow-black/80 drop-shadow-md">Phase Two</p>
                             </motion.div>
 
                             <motion.div
