@@ -122,7 +122,7 @@ export default function IsometricTimeline({ onComplete }: { onComplete?: () => v
                                     whileTap={{ scale: 0.95 }}
                                     className="px-6 py-3 md:px-8 md:py-4 bg-white/5 border border-white/10 rounded-full text-white font-medium hover:bg-white/10 hover:border-cyan-500/50 transition-all backdrop-blur-xl hover:shadow-[0_0_20px_rgba(6,182,212,0.3)] cursor-pointer"
                                 >
-                                    Initiate Sequence
+                                    Lanjutkan Ke Porto
                                 </motion.button>
                             </motion.div>
                         </div>

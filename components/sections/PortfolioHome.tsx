@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import nextDynamic from "next/dynamic";
 import { useGsapScroll } from "@/hooks/useGsapScroll";
 import { projects, Project } from "@/data/projects";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const Hero = nextDynamic(() => import("@/components/sections/Hero"), { ssr: true });
 const About = nextDynamic(() => import("@/components/sections/About"), { ssr: true });
@@ -28,13 +29,13 @@ const MeshBackground = nextDynamic(() => import("@/components/ui/MeshBackground"
 const MemoryGallery = nextDynamic(() => import("@/components/sections/MemoryGallery"), { ssr: false });
 const SponsorMarquee = nextDynamic(() => import("@/components/sections/SponsorMarquee"), { ssr: false });
 const WeatherWidget = nextDynamic(() => import("@/components/ui/WeatherWidget"), { ssr: false });
-const EarthLanding = nextDynamic(() => import("@/components/sections/EarthLanding"), { ssr: false });
 const NetworkTrafficMap = nextDynamic(() => import("@/components/ui/NetworkTrafficMap"), { ssr: false });
 import LazySection from "@/components/ui/LazySection";
 
 export default function PortfolioHome() {
-    // Correct Order: Earth Landing (Planet) -> Storytelling Mockup -> Unlocked (Main Portfolio)
-    const [flowState, setFlowState] = useState<'earth' | 'story' | 'unlocked'>('earth');
+    // New Order: Storytelling Mockup -> Unlocked (Main Portfolio)
+    // Dropping Earth Landing
+    const [flowState, setFlowState] = useState<'story' | 'unlocked'>('story');
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const [isAdminVisible, setIsAdminVisible] = useState(false);
 
@@ -47,25 +48,29 @@ export default function PortfolioHome() {
         return () => window.removeEventListener("hashchange", handleHashChange);
     }, []);
 
+    useEffect(() => {
+        if (flowState === 'unlocked') {
+            // Give the DOM a tiny amount of time to expand from min-h-screen
+            setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 100);
+        }
+    }, [flowState]);
+
     // Only apply GSAP animations to sections when unlocked and rendered!
     useGsapScroll(flowState === 'unlocked');
 
     return (
         <div className={`flex flex-col relative w-full bg-bg min-h-screen overflow-x-hidden`}>
 
-            {/* Phase 1: Earth Landing (Planet Animation Node) */}
-            {flowState === 'earth' && (
-                <EarthLanding onUnlock={() => setFlowState('story')} />
-            )}
-
-            {/* Phase 2: Scroll-driven Storytelling */}
+            {/* Phase 1: Scroll-driven Storytelling */}
             {flowState === 'story' && (
                 <div className="w-full bg-[#050508] text-white">
-                    <IsometricTimeline onComplete={() => setFlowState('unlocked')} />
+                    <IsometricTimeline onComplete={() => { window.scrollTo(0, 0); setFlowState('unlocked'); }} />
                 </div>
             )}
 
-            {/* Phase 3: The unlocked portfolio content */}
+            {/* Phase 2: The unlocked portfolio content */}
             {flowState === 'unlocked' && (
                 <div className="relative w-full overflow-x-hidden min-h-screen">
                     <MeshBackground />
