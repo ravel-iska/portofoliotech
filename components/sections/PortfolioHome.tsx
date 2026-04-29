@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import nextDynamic from "next/dynamic";
 import { useGsapScroll } from "@/hooks/useGsapScroll";
 import { projects, Project } from "@/data/projects";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const Hero = nextDynamic(() => import("@/components/sections/Hero"), { ssr: true });
 const About = nextDynamic(() => import("@/components/sections/About"), { ssr: true });
@@ -45,6 +46,15 @@ export default function PortfolioHome() {
         handleHashChange();
         return () => window.removeEventListener("hashchange", handleHashChange);
     }, []);
+
+    useEffect(() => {
+        if (flowState === 'unlocked') {
+            // Give the DOM a tiny amount of time to expand from min-h-screen
+            setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 100);
+        }
+    }, [flowState]);
 
     useGsapScroll();
 
