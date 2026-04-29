@@ -1,146 +1,120 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function IsometricTimeline({ onComplete }: { onComplete?: () => void }) {
-    const targetRef = useRef<HTMLDivElement>(null);
-    const [isMobile, setIsMobile] = useState(false);
+    const [step, setStep] = useState(0);
 
+    // Auto-advance sequence: 0 -> 1 -> 2 -> 3 (Phone + Button Reveal)
     useEffect(() => {
-        const handleResize = () => setIsMobile(window.innerWidth < 768);
-        handleResize();
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
-    const { scrollYProgress } = useScroll({
-        target: targetRef,
-        offset: ["start start", "end end"]
-    });
-
-    // Make the scroll significantly "heavier" and smoother
-    const smoothScroll = useSpring(scrollYProgress, { stiffness: 60, damping: 40, restDelta: 0.001 });
-
-    // Scene 1: Start VISIBLE!
-    const opacity1 = useTransform(smoothScroll, [0, 0.1, 0.25, 0.35], [1, 1, 1, 0]);
-    const scale1 = useTransform(smoothScroll, [0, 0.35], [1, 1.1]);
-
-    // Scene 2
-    const opacity2 = useTransform(smoothScroll, [0.35, 0.45, 0.55, 0.65], [0, 1, 1, 0]);
-    const scale2 = useTransform(smoothScroll, [0.35, 0.65], [0.95, 1.1]);
-
-    // Scene 3
-    const opacity3 = useTransform(smoothScroll, [0.65, 0.75, 1], [0, 1, 1]);
-    const scale3 = useTransform(smoothScroll, [0.65, 0.9], [0.95, 1]);
-
-    // Vertical translation for Scene 3 Text: Starts centered, then moves UP to make room for phone
-    const text3Y = useTransform(smoothScroll, [0.75, 0.85], ["0%", isMobile ? "-42%" : "-38%"]);
-
-    // Scroll Down Hint
-    const scrollHintOpacity = useTransform(smoothScroll, [0, 0.05], [1, 0]);
-
-    // EPIC Phone Animation: Starts completely off-screen at the bottom, rises up to center stage.
-    const phoneY = useTransform(smoothScroll, [0.75, 0.9], ["100vh", isMobile ? "15vh" : "12vh"]);
-    const phoneScale = useTransform(smoothScroll, [0.75, 0.9, 1], [0.8, 1, 1.02]);
-    const phoneOpacity = useTransform(smoothScroll, [0.75, 0.85], [0, 1]);
-
-    // Slight 3D rotation resolving to flat
-    const phoneRotateX = useTransform(smoothScroll, [0.75, 0.95], [25, 0]);
-
-    // Button Fade In
-    const buttonOpacity = useTransform(smoothScroll, [0.9, 0.98], [0, 1]);
-
-    // Background gradient pulse based on scroll
-    const bgOpacity = useTransform(smoothScroll, [0.4, 0.8], [0, 1]);
+        if (step === 0) {
+            const timer = setTimeout(() => setStep(1), 2500); // Wait 2.5s then go to step 1
+            return () => clearTimeout(timer);
+        } else if (step === 1) {
+            const timer = setTimeout(() => setStep(2), 2500); // Wait 2.5s then go to step 2
+            return () => clearTimeout(timer);
+        } else if (step === 2) {
+            const timer = setTimeout(() => setStep(3), 2500); // Wait 2.5s then go to step 3
+            return () => clearTimeout(timer);
+        }
+    }, [step]);
 
     return (
-        <section className="relative w-full bg-[#030305] font-sans pointer-events-auto selection:bg-cyan-500/30">
-            <div ref={targetRef} className="relative w-full h-[800vh]">
-                <div className="sticky top-0 w-full h-screen overflow-hidden flex items-center justify-center">
+        <section className="relative w-full h-screen bg-[#030305] font-sans overflow-hidden flex flex-col items-center justify-center selection:bg-cyan-500/30">
 
-                    {/* Dynamic Premium Background */}
-                    <motion.div
-                        style={{ opacity: bgOpacity }}
-                        className="absolute inset-0 pointer-events-none z-0"
-                    >
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] md:w-[800px] md:h-[800px] bg-gradient-radial from-cyan-900/20 via-purple-900/10 to-transparent blur-3xl opacity-50" />
-                        <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-cyan-500/5 to-transparent" />
-                    </motion.div>
+            {/* Dynamic Premium Background */}
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 2 }}
+                className="absolute inset-0 pointer-events-none z-0"
+            >
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] md:w-[800px] md:h-[800px] bg-gradient-radial from-cyan-900/20 via-purple-900/10 to-transparent blur-3xl opacity-50 animate-pulse" />
+                <div className="absolute bottom-0 w-full h-1/2 bg-gradient-to-t from-cyan-500/5 to-transparent" />
+            </motion.div>
 
-                    {/* Infinite Scroll Hint */}
-                    <motion.div
-                        style={{ opacity: scrollHintOpacity }}
-                        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none z-50 animate-pulse"
-                    >
-                        <span className="text-white/40 text-[10px] tracking-[0.3em] font-mono uppercase">Scroll Down</span>
-                        <div className="w-[1px] h-12 bg-gradient-to-b from-white/40 to-transparent" />
-                    </motion.div>
+            <div className="relative z-10 w-full h-full flex flex-col items-center justify-center">
 
-                    <div className="relative z-10 w-full px-6 flex flex-col items-center justify-center h-full">
-
-                        {/* SEQUENTIAL CENTERED TEXTS */}
-                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-
+                {/* AUTO-PLAY TEXT SEQUENCE */}
+                <div className={`absolute flex flex-col items-center justify-center text-center px-4 w-full transition-transform duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${step >= 3 ? '-translate-y-[35vh] md:-translate-y-[30vh]' : 'translate-y-0'}`}>
+                    <AnimatePresence mode="wait">
+                        {step === 0 && (
                             <motion.div
-                                style={{ opacity: opacity1, scale: scale1 }}
-                                className="absolute flex flex-col items-center text-center px-4 w-full"
+                                key="text-1"
+                                initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+                                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                                exit={{ opacity: 0, y: -20, filter: "blur(10px)" }}
+                                transition={{ duration: 0.8, ease: "easeInOut" }}
+                                className="flex flex-col items-center"
                             >
                                 <p className="text-cyan-400 font-mono tracking-[0.2em] text-xs md:text-sm uppercase mb-4 opacity-70">Initiating Sequence</p>
-                                <h2 className="text-4xl md:text-7xl font-display font-black text-white tracking-tighter text-balance">
+                                <h2 className="text-3xl md:text-5xl lg:text-7xl font-display font-black text-white tracking-tighter text-balance">
                                     The future isn't<br /> something we wait for.
                                 </h2>
                             </motion.div>
+                        )}
 
+                        {step === 1 && (
                             <motion.div
-                                style={{ opacity: opacity2, scale: scale2 }}
-                                className="absolute flex flex-col items-center text-center px-4 w-full"
+                                key="text-2"
+                                initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+                                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                                exit={{ opacity: 0, y: -20, filter: "blur(10px)" }}
+                                transition={{ duration: 0.8, ease: "easeInOut" }}
+                                className="flex flex-col items-center"
                             >
                                 <p className="text-purple-400 font-mono tracking-[0.2em] text-xs md:text-sm uppercase mb-4 opacity-70">Paradigm Shift</p>
-                                <h2 className="text-4xl md:text-7xl font-display font-black text-white tracking-tighter text-balance">
+                                <h2 className="text-3xl md:text-5xl lg:text-7xl font-display font-black text-white tracking-tighter text-balance">
                                     It is something we<br />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-rose-500">build today.</span>
                                 </h2>
                             </motion.div>
+                        )}
 
+                        {step >= 2 && (
                             <motion.div
-                                style={{
-                                    opacity: opacity3,
-                                    scale: scale3,
-                                    y: text3Y
-                                }}
-                                className="absolute flex flex-col items-center text-center px-4 w-full pointer-events-auto"
+                                key="text-3"
+                                initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+                                animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                                transition={{ duration: 1, ease: "easeOut" }}
+                                className="flex flex-col items-center"
                             >
-                                <h2 className="text-5xl md:text-8xl font-display font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40 tracking-tighter mb-6 text-balance leading-tight drop-shadow-2xl">
+                                <h2 className="text-3xl md:text-6xl lg:text-8xl font-display font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-white/40 tracking-tighter mb-8 text-balance leading-tight drop-shadow-2xl">
                                     The Future,<br />
                                     In Your Hands.
                                 </h2>
 
-                                <motion.button
-                                    style={{ opacity: buttonOpacity }}
-                                    onClick={() => onComplete && onComplete()}
-                                    whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,1)", color: "#000" }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="px-8 py-4 bg-white/10 border border-white/20 rounded-full text-white font-semibold tracking-wide hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] transition-all backdrop-blur-xl cursor-pointer"
-                                >
-                                    Lanjutkan Ke Porto
-                                </motion.button>
+                                <AnimatePresence>
+                                    {step >= 3 && (
+                                        <motion.button
+                                            initial={{ opacity: 0, scale: 0.9 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ duration: 0.5, delay: 0.3 }}
+                                            onClick={() => onComplete && onComplete()}
+                                            whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,1)", color: "#000" }}
+                                            whileTap={{ scale: 0.95 }}
+                                            className="px-6 py-3 md:px-8 md:py-4 bg-white/10 border border-white/20 rounded-full text-white font-semibold tracking-wide hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] transition-all backdrop-blur-xl cursor-pointer pointer-events-auto"
+                                        >
+                                            Lanjutkan Ke Porto
+                                        </motion.button>
+                                    )}
+                                </AnimatePresence>
                             </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
 
-                        </div>
-
-                        {/* EPIC CENTERED PHONE MOCKUP */}
+                {/* EPIC CENTERED PHONE MOCKUP */}
+                <AnimatePresence>
+                    {step >= 3 && (
                         <motion.div
-                            style={{
-                                y: phoneY,
-                                scale: phoneScale,
-                                opacity: phoneOpacity,
-                                rotateX: phoneRotateX,
-                                transformPerspective: 1500
-                            }}
+                            initial={{ y: "100vh", opacity: 0, rotateX: 45, scale: 0.8 }}
+                            animate={{ y: "15vh", opacity: 1, rotateX: 0, scale: 1 }}
+                            transition={{ type: "spring", stiffness: 50, damping: 20, duration: 2 }}
                             className="absolute pointer-events-auto z-20 group"
                         >
-                            <div className="relative w-[300px] h-[620px] md:w-[380px] md:h-[780px] rounded-[3.5rem] p-3 md:p-4 bg-gradient-to-b from-white/10 to-white/5 border-[0.5px] border-white/20 shadow-[0_0_100px_rgba(6,182,212,0.15),_inset_0_0_20px_rgba(255,255,255,0.05)] backdrop-blur-2xl">
+                            <div className="relative w-[280px] h-[580px] md:w-[350px] md:h-[720px] rounded-[3.5rem] p-3 md:p-4 bg-gradient-to-b from-white/10 to-white/5 border-[0.5px] border-white/20 shadow-[0_0_100px_rgba(6,182,212,0.15),_inset_0_0_20px_rgba(255,255,255,0.05)] backdrop-blur-2xl">
 
                                 {/* Inner Screen */}
                                 <div className="w-full h-full rounded-[2.8rem] bg-black overflow-hidden relative shadow-[inset_0_4px_20px_rgba(0,0,0,0.5)]">
@@ -175,8 +149,8 @@ export default function IsometricTimeline({ onComplete }: { onComplete?: () => v
 
                                             <motion.div
                                                 initial={{ x: -20, opacity: 0 }}
-                                                whileInView={{ x: 0, opacity: 1 }}
-                                                transition={{ delay: 0.2 }}
+                                                animate={{ x: 0, opacity: 1 }}
+                                                transition={{ delay: 0.8 }} // delayed until phone is visible
                                                 className="w-3/4 p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md"
                                             >
                                                 <div className="w-8 h-8 rounded-full bg-cyan-500/20 mb-3 flex items-center justify-center">
@@ -190,8 +164,8 @@ export default function IsometricTimeline({ onComplete }: { onComplete?: () => v
 
                                             <motion.div
                                                 initial={{ x: 20, opacity: 0 }}
-                                                whileInView={{ x: 0, opacity: 1 }}
-                                                transition={{ delay: 0.4 }}
+                                                animate={{ x: 0, opacity: 1 }}
+                                                transition={{ delay: 1 }}
                                                 className="w-5/6 self-end p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md"
                                             >
                                                 <div className="w-8 h-8 rounded-full bg-purple-500/20 mb-3 flex items-center justify-center">
@@ -209,9 +183,9 @@ export default function IsometricTimeline({ onComplete }: { onComplete?: () => v
                                 </div>
                             </div>
                         </motion.div>
+                    )}
+                </AnimatePresence>
 
-                    </div>
-                </div>
             </div>
         </section>
     );
