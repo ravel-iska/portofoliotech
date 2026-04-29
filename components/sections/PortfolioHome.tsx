@@ -61,7 +61,7 @@ export default function PortfolioHome() {
     useGsapScroll(flowState === 'unlocked');
 
     return (
-        <div className={`flex flex-col relative w-full bg-bg min-h-screen overflow-x-hidden`}>
+        <div className={`flex flex-col relative w-full bg-bg min-h-screen ${flowState === 'unlocked' ? 'overflow-x-hidden' : ''}`}>
 
             {/* Phase 1: Scroll-driven Storytelling */}
             {flowState === 'story' && (
