@@ -31,6 +31,7 @@ const SponsorMarquee = nextDynamic(() => import("@/components/sections/SponsorMa
 const WeatherWidget = nextDynamic(() => import("@/components/ui/WeatherWidget"), { ssr: false });
 const NetworkTrafficMap = nextDynamic(() => import("@/components/ui/NetworkTrafficMap"), { ssr: false });
 import LazySection from "@/components/ui/LazySection";
+import { createPortal } from "react-dom";
 
 export default function PortfolioHome() {
     // New Order: Storytelling Mockup -> Unlocked (Main Portfolio)
@@ -49,72 +50,79 @@ export default function PortfolioHome() {
     }, []);
 
     useEffect(() => {
-        if (flowState === 'unlocked') {
-            // Give the DOM a tiny amount of time to expand from min-h-screen
-            setTimeout(() => {
-                ScrollTrigger.refresh();
-            }, 100);
+        if (typeof document !== 'undefined') {
+            if (flowState === 'story') {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+                // Need a tiny delay for GSAP to adapt to the restored scroll layout
+                setTimeout(() => {
+                    ScrollTrigger.refresh();
+                }, 100);
+            }
         }
+        return () => {
+            if (typeof document !== 'undefined') document.body.style.overflow = '';
+        };
     }, [flowState]);
 
-    // Only apply GSAP animations to sections when unlocked and rendered!
-    useGsapScroll(flowState === 'unlocked');
+    // Apply GSAP animations natively right from the start!
+    useGsapScroll(true);
 
     return (
-        <div className={`flex flex-col relative w-full bg-bg min-h-screen ${flowState === 'unlocked' ? 'overflow-x-hidden' : ''}`}>
+        <div className={`flex flex-col relative w-full bg-bg min-h-screen`}>
 
-            {/* Phase 1: Scroll-driven Storytelling */}
-            {flowState === 'story' && (
-                <div className="w-full bg-[#050508] text-white">
-                    <IsometricTimeline onComplete={() => { window.scrollTo(0, 0); setFlowState('unlocked'); }} />
-                </div>
+            {/* Phase 1: Scroll-driven Storytelling (Isolated via Portal) */}
+            {flowState === 'story' && typeof document !== 'undefined' && createPortal(
+                <div className="fixed inset-0 z-[999999] bg-[#050508] text-white">
+                    <IsometricTimeline onComplete={() => setFlowState('unlocked')} />
+                </div>,
+                document.body
             )}
 
-            {/* Phase 2: The unlocked portfolio content */}
-            {flowState === 'unlocked' && (
-                <div className="relative w-full overflow-x-hidden min-h-screen">
-                    <MeshBackground />
-                    <Hero />
-                    <SponsorMarquee />
-                    <InfiniteMarquee />
+            {/* The main portfolio content is always rendered so GSAP builds the DOM layout natively */}
+            <div className={`relative w-full overflow-x-hidden min-h-screen ${flowState === 'story' ? 'opacity-0 pointer-events-none' : 'opacity-100 transition-opacity duration-1000'}`}>
+                <MeshBackground />
+                <Hero />
+                <SponsorMarquee />
+                <InfiniteMarquee />
 
-                    <div className="w-full relative z-10 bg-gradient-to-b from-transparent via-black/20 to-black/95">
-                        <About />
-                        <LazySection minHeight="300px">
-                            <LifeJourney />
-                        </LazySection>
-                        <LazySection minHeight="400px">
-                            <SkillTree3D />
-                        </LazySection>
-                        <ProfileSlide />
-                        <Projects setSelectedProject={setSelectedProject} />
-                        <ProjectSlider selectedProject={selectedProject} setSelectedProject={setSelectedProject} />
-                        <MemoryGallery />
+                <div className="w-full relative z-10 bg-gradient-to-b from-transparent via-black/20 to-black/95">
+                    <About />
+                    <LazySection minHeight="300px">
+                        <LifeJourney />
+                    </LazySection>
+                    <LazySection minHeight="400px">
+                        <SkillTree3D />
+                    </LazySection>
+                    <ProfileSlide />
+                    <Projects setSelectedProject={setSelectedProject} />
+                    <ProjectSlider selectedProject={selectedProject} setSelectedProject={setSelectedProject} />
+                    <MemoryGallery />
 
-                        {/* Web3 / Trading / Crypto Group */}
-                        <div id="innovation" className="relative overflow-hidden">
-                            <NetworkTrafficMap />
-                            <PremiumCryptoShowcase />
-                        </div>
-                        <div id="hft" className="relative overflow-hidden">
-                            <NetworkTrafficMap />
-                            <TechFlowChart />
-                        </div>
-                        <TraderDashboard />
-                        <LazySection minHeight="300px">
-                            <Web3Vault />
-                        </LazySection>
-                        <HackerCV />
-                        <LazySection minHeight="400px">
-                            <SmartChat />
-                        </LazySection>
-                        <ContactSection />
-                        <Footer />
-                        <WelcomeRobot />
-                        <WeatherWidget />
+                    {/* Web3 / Trading / Crypto Group */}
+                    <div id="innovation" className="relative overflow-hidden">
+                        <NetworkTrafficMap />
+                        <PremiumCryptoShowcase />
                     </div>
+                    <div id="hft" className="relative overflow-hidden">
+                        <NetworkTrafficMap />
+                        <TechFlowChart />
+                    </div>
+                    <TraderDashboard />
+                    <LazySection minHeight="300px">
+                        <Web3Vault />
+                    </LazySection>
+                    <HackerCV />
+                    <LazySection minHeight="400px">
+                        <SmartChat />
+                    </LazySection>
+                    <ContactSection />
+                    <Footer />
+                    <WelcomeRobot />
+                    <WeatherWidget />
                 </div>
-            )}
+            </div>
         </div>
     );
 }
