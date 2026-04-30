@@ -43,18 +43,7 @@ export const projects: Project[] = [
     featured: true,
     year: 2024,
   },
-  {
-    id: "project-3",
-    title: "Tugas Skripsi Bagus (TSB)",
-    description: "Layanan IT Solutions, konsultasi desain sistem akademik revolusioner, dan pengembangan arsitektur aplikasi Fullstack tingkat akhir yang premium.",
-    image: "/projects/project-4.webp",
-    tags: ["Consulting", "Architecture", "Fullstack", "Academic"],
-    category: "web",
-    github: null,
-    live: "https://www.tugasskripsibagus.my.id/",
-    featured: true,
-    year: 2023,
-  },
+
   {
     id: "project-4",
     title: "Aura Design System",
