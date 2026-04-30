@@ -133,7 +133,7 @@ function ProjectCard({ project, className = "", onClick }: { project: Project, c
 
             <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-6 p-4 glass-card border border-white/10 rounded-xl bg-black/40 backdrop-blur-xl transition-all duration-500 translate-y-4 group-hover:translate-y-0 shadow-2xl">
                 <span className="text-[10px] font-mono text-accent uppercase tracking-[0.5em] mb-2 block">{project.category}</span>
-                <h3 className="text-sm md:text-xl font-display font-bold text-white mb-2 leading-tight uppercase tracking-tighter group-hover:text-glow transition-all line-clamp-1">{t(`project.${project.id}.title`)}</h3>
+                <h3 className="text-sm md:text-xl font-display font-bold text-white mb-2 leading-tight uppercase tracking-tighter group-hover:text-glow transition-all line-clamp-1">{project.title}</h3>
 
                 <div className="flex items-center justify-between pt-3 border-t border-white/5">
                     <div className="flex gap-2">

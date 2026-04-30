@@ -58,7 +58,7 @@ export default function ProjectSlider({ selectedProject, setSelectedProject }: P
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent p-6 md:p-10 flex flex-col justify-end">
                                 <span className="text-accent font-mono text-[8px] md:text-[9px] tracking-widest uppercase mb-2 md:mb-4">{project.category}</span>
-                                <h3 className="text-base md:text-3xl font-display font-bold text-white tracking-tight leading-none">{t(`project.${project.id}.title`)}</h3>
+                                <h3 className="text-base md:text-3xl font-display font-bold text-white tracking-tight leading-none">{project.title}</h3>
                             </div>
                         </motion.div>
                     ))}
@@ -149,10 +149,10 @@ export default function ProjectSlider({ selectedProject, setSelectedProject }: P
                                                             Project Identifier // 0x48{selectedProject.id.split('-')[1] || 'C'}
                                                         </div>
                                                         <h2 className="text-2xl md:text-7xl lg:text-9xl font-display font-black text-white mb-4 md:mb-10 tracking-tighter leading-[0.85] uppercase italic drop-shadow-lg">
-                                                            {t(`project.${selectedProject.id}.title`)}
+                                                            {selectedProject.title}
                                                         </h2>
                                                         <p className="text-white/60 text-sm md:text-2xl font-light leading-relaxed mb-6 md:mb-12 max-w-2xl">
-                                                            {t(`project.${selectedProject.id}.desc`)}
+                                                            {selectedProject.description}
                                                         </p>
                                                         <div className="flex flex-wrap gap-3 mb-16">
                                                             {selectedProject.tags.map(tag => (
